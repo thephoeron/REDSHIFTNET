@@ -44,9 +44,9 @@ For best performance, use the ``make.lisp`` script in the project directory to c
 
     $ CC=gcc sbcl --script make.lisp
 
-You can then run your app simply by calling:
+You can then run your app simply by calling (for example):
 
-    $ ./my-new-app --port=8080
+    $ ./my-new-app --www-port=8080 --ssl-port=8090
 
 Your web-app runs as a background process, all output being logged in the files specified in your app's config.lisp file.  It can be added to your crontab so that if it crashes or the server is restarted, it will be restarted automatically.
 
