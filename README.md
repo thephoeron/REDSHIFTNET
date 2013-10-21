@@ -17,6 +17,7 @@ Features
 * Three-tiered notification system for alerting users through inline messages, ajax popups, and email
 * Easy integration of shell commands to leverage the full power of linux in your web-apps
 * JSON and XML serialization of data
+* Template-based document generation in multiple export formats
 
 Upcoming Features
 -----------------
@@ -58,6 +59,7 @@ REDSHIFTNET was designed to replace the AMP of the LAMP stack, and with shared-h
 * SBCL 1.1.7+
 * PostgreSQL 9.1+
 * Quicklisp
+* Pandoc
 
 Lisp libraries available through Quicklisp:
 
