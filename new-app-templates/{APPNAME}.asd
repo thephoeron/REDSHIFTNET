@@ -1,0 +1,22 @@
+;;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: {APPNAME}; Base: 10 -*- file: {APPNAME}.asd
+
+(defpackage #:{APPNAME}-asd
+  (:use :cl :asdf))
+
+(in-package :{APPNAME}-asd)
+
+(defsystem {APPNAME}
+    :name "{APPNAME}"
+    :version "0.0.1"
+    :maintainer ""
+    :author ""
+    :licence ""
+    :description "{APPNAME}"
+    :depends-on (:redshiftnet)
+    :components ((:file "config")
+                 (:file "styles")
+                 (:file "scripts")
+                 (:file "db")
+                 (:file "templates")
+                 (:file "requests")))
+
