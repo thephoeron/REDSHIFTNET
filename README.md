@@ -77,6 +77,7 @@ Lisp libraries available through Quicklisp:
 * Ironclad
 * CL-SMTP
 * SB-DAEMON
+* SWANK
 * CLON: The Command-Line Options Nuker
 * CL-FAD
 
