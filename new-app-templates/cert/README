@@ -1,6 +1,3 @@
-/{APPNAME}/cert/
-================
-
 Create/place your ssl key(s) and certificate(s) in this folder, in PEM format.
 
 Name them obviously and ensure they are referenced correctly in ../config.lisp

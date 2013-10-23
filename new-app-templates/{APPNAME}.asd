@@ -8,15 +8,17 @@
 (defsystem {APPNAME}
     :name "{APPNAME}"
     :version "0.0.1"
-    :maintainer ""
-    :author ""
-    :licence ""
+    :maintainer "Maintainer Name <email@example.org>"
+    :author "Name <email@example.org>"
+    :licence "MIT"
     :description "{APPNAME}"
     :depends-on (:redshiftnet)
     :components ((:file "config")
                  (:file "styles")
                  (:file "scripts")
                  (:file "db")
+                 (:file "forms")
                  (:file "templates")
                  (:file "requests")))
 
+;; EOF

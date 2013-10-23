@@ -142,6 +142,28 @@ application."
         new-project-src-dir)
       *app-name-placeholder*
       (attributize-name name))
+    ; copy db.lisp
+    (copy-file-replace
+      (merge-pathnames
+        (make-pathname :directory '(:relative "new-app-templates")
+                       :name "db" :type "lisp")
+        (asdf-system-directory :redshiftnet))
+      (merge-pathnames
+        (make-pathname :name "db" :type "lisp")
+        new-project-src-dir)
+      *app-name-placeholder*
+      (attributize-name name))
+    ; copy forms.lisp
+    (copy-file-replace
+      (merge-pathnames
+        (make-pathname :directory '(:relative "new-app-templates")
+                       :name "forms" :type "lisp")
+        (asdf-system-directory :redshiftnet))
+      (merge-pathnames
+        (make-pathname :name "forms" :type "lisp")
+        new-project-src-dir)
+      *app-name-placeholder*
+      (attributize-name name))
     ; copy make.lisp
     (copy-file-replace
       (merge-pathnames
