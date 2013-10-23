@@ -44,6 +44,7 @@
 				 (:file "vhost")
 				 (:file "config")
 				 (:file "utils")
+				 (:file "db-utils")
 				 (:file "web")
 				 (:module "forms"
 				  :serial t
