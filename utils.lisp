@@ -34,8 +34,8 @@ is replaced with replacement."
         (docutils:write-html hunchentoot::*standard-output* (docutils:read-rst the-file))))
 
 ;; DEFREQUEST MACRO
-(defmacro defrequest ((&key name vhost) &body body)
-  "DEFREQUEST wrapper macro. Defines a dispatcher and handler function for serving VHOST web requests. URL generated from function name, with vhost code stripped off the front."
+(defmacro defrequest (name (&key vhost) &body body)
+  "DEFREQUEST wrapper macro. Defines a dispatcher and handler function for serving VHOST web requests. URL generated from function name, with three-letter vhost code (i.e., web-, ssl-, can-, usa-, int-, etc.) stripped off the front."
   `(progn
      (defun ,name ()
        ,@body)
