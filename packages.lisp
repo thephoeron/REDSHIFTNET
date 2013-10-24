@@ -46,13 +46,13 @@
              #:create-new-user #:create-new-realms #:create-new-group
              ;; REDSHIFTNET Forms
              #:rsn-form #:rsn-form-field 
-	   		 #:hidden #:text #:textarea #:password #:file
-       		 #:checkbox #:select #:radio-set #:checkbox-set #:multi-select
- 	 	     #:*public-key* #:*private-key* #:recaptcha
-	   		 #:validate #:show #:post-value #:show-rsn-form #:define-rsn-form
-	   		 #:longer-than? #:shorter-than? #:matches? #:mismatches?
-       		 #:file-type? #:file-smaller-than?
-          	 #:not-blank? #:same-as?
+             #:hidden #:text #:textarea #:password #:file
+             #:checkbox #:select #:radio-set #:checkbox-set #:multi-select
+             #:*public-key* #:*private-key* #:recaptcha
+             #:validate #:show #:post-value #:show-rsn-form #:define-rsn-form
+             #:longer-than? #:shorter-than? #:matches? #:mismatches?
+             #:file-type? #:file-smaller-than?
+             #:not-blank? #:same-as?
              #:picked-more-than? #:picked-fewer-than? #:picked-exactly?
              ))
 
