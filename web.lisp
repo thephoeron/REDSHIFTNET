@@ -58,9 +58,9 @@
     (with-html-output-to-string (s)
         (:html 
             (:head 
-                (:title "//thephoeron.com/")
-                (:link :rel "stylesheet" :href "/thephoeron-splash.css" :type "text/css" :media "screen")
-                (:script :type "text/javascript" :src "/js/redbinarymatrix.js"))
+                (:title "REDSHIFTNET")
+                (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
+                (:script :type "text/javascript" :src "/redshiftnet.js"))
             (:body :onLoad "init();"
                 (:canvas :id "theMatrix"
                     (:p "This site requires an HTML5, CSS3, and JavaScript compatible browser."))
@@ -69,15 +69,15 @@
                         (:tr
                             (:td :align "center" :valign "middle"
                                 (:a :href "/index" :target "_top"
-                                    (:img :src "/img/thephoeron-logo.png" :border "0" :width "420" :height "420"))))))
+                                    (:img :src "/static/img/rsn-logo.png" :border "0" :width "420" :height "420"))))))
                 (:div :id "copyright"
                     (:p :align "center"
-                        "Copyright &copy; 2004 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved." :br
+                        "Copyright &copy; 2012 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved." :br
                         "Powered by "
-                        (:a :href "http://www.webfaction.com/services/hosting?affiliate=thephoeron" :target "_blank" "WebFaction") " "
+                        (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" "WebFaction") " "
                         "(Smarter Web Hosting), "
                         (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
-                        "and " (:a :href "http://weitz.de/hunchentoot/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))))))
+                        "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))))))
 
 ;; Standard app-page template...
 (defmacro app-page ((&key title) &body body)

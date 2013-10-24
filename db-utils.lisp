@@ -5,6 +5,11 @@
 
 (in-package :redshiftnet)
 
+;; Utilities for working with alists returned from postmodern
+(defun get-alist-value (result key)
+  "Return the value from the result for the given key on a list of alists."
+  (cdr (assoc key result :test #'string-equal)))
+
 ;; Postmodern Utility Functions originally from: https://sites.google.com/site/sabraonthehill/postmodern-examples/exploring-a-database
 
 (defun normalize-for-sql (string)
@@ -78,7 +83,7 @@ sequences, and views."
 
 (defun list-database-tables (&optional (schema-name "public"))
   "Returns a list of the tables in the schema in the currently connected database. The list is in string form."
-  (flatten (query
+  (lol:flatten (query
             (:order-by
              (:select 'table-name
                       :from 'information-schema.tables
