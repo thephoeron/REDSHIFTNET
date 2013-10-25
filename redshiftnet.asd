@@ -85,9 +85,9 @@
 ;;;; helper function that hides away the unnecessary arguments to
 ;;;; (asdf:operate)
 
-(defun make-app (name &optional target)
+(defun make-app (name &optional (target "~/quicklisp/local-projects/"))
   "Creates a new REDSHIFTNET app named <name> into directory <target> 
-   based on the new-app-template."
+   based on the new-app-template.  <target> defaults to ~/quicklisp/local-projects/"
   (asdf:operate 'make-app-op :redshiftnet :name name :target target))
 
 ;; EOF
