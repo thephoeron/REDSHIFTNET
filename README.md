@@ -6,26 +6,31 @@ Common Lisp Web Application Framework for enterprise data-driven apps that requi
 Features
 --------
 
-* Bootstrap 3.0.0 and D3 built-in, for rapid cross-platform data-driven interface development
+* One-line app creation, automatically added to quicklisp
+* Compile web-apps as binaries and run as daemons, with built-in swank server
+* jQuery, Bootstrap 3.0.0 and D3 included for rapid cross-platform data-driven interface development
 * VHOST support for HTTP and HTTPS, to deploy web-apps across multiple top-level and sub- domains
 * Improved session handling over Hunchentoot, with database-tracked session info
-* Secured page macro with session validation and user authentication
+* Secured pages with user authentication, session validation, and forced re-login on session expiry
 * Full PostgreSQL integration
 * Ironclad powered PBKDF2-SHA256 password hashing
 * CL-ISAAC powered random session token generation
-* Convenience macros for defining validated forms
+* Form-generation with integrated validation
 * Three-tiered notification system for alerting users through inline messages, ajax popups, and email
 * Easy integration of shell commands to leverage the full power of linux in your web-apps
 * JSON and XML serialization of data
 * Template-based document generation in multiple export formats
 
+
 Upcoming Features
 -----------------
 
 * Separate Admin and End-user front ends
-* Live-updating graphs and widgets
+* Front-end source code editing, database and server management
+* Userspaces separated into realms, in addition to groups
+* Ready-to-use live-updating graphs and widgets
 * Calendars and scheduling tools
-* Front-end source code editing and database-management
+
 
 Installation and Use
 --------------------
