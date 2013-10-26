@@ -22,23 +22,7 @@
                  :transition "all .2s linear"))
             (("> .navbar .brand:hover")
                 (:text-decoration "none"
-                 :text-shadow "0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4)")))
-        ((".tweet")
-            (:margin "4px 0"
-             :padding "8px"
-             :border-radius "8px")
-            (("img")
-                (:float "left"
-                 :margin "0 8px 4px 0"))
-            ((".text")
-                (:margin "0"))
-            ((".time a")
-                (:font-size "80%"
-                 :color "#888"
-                 :white-space "nowrap"
-                 :text-decoration "none"))
-            ((".time a:hover")
-                (:text-decoration "underline")))))
+                 :text-shadow "0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4)")))))
 
 ;; REDSHIFTNET Master jQuery functions
 (define-easy-handler (redshiftnet-js :uri "/redshiftnet.js") ()

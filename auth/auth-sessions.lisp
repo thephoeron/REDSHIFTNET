@@ -13,12 +13,12 @@
 
 ;; validate user and password. they must be active as well
 (defun validate-credentials (username password)
-	(handler-case
-		(let ((stored-pass (public-user-password username))
-			  (testing-pass (babel:string-to-octets password)))
-			(and (public-user-is-active username)
-				 (ironclad:pbkdf2-check-password testing-pass stored-pass)))
-		(error () (push-error-msg "There was an error in validating your credentials."))))
+  (handler-case
+    (let ((stored-pass (public-user-password username))
+        (testing-pass (babel:string-to-octets password)))
+      (and (public-user-is-active username)
+         (ironclad:pbkdf2-check-password testing-pass stored-pass)))
+    (error () (push-error-msg "There was an error in validating your credentials."))))
 
 ;; UPDATE PASSWORD IN USER DAO
 ;; Confirm old-password is correct, new passwords match
@@ -27,7 +27,7 @@
     (when (and (eql new-pass new-pass-again)
                (validate-credentials username password))
         (let ((the-user (postmodern:get-dao 'public-user username))
-        	  (the-pass (hardened-password password)))
+            (the-pass (hardened-password password)))
             (setf (public-user-password username) the-pass)
             (update-dao the-user))))
 
@@ -40,27 +40,27 @@
 (defun validate-session (token)
     ;(handler-case
     (let* ((the-sesh (postmodern:get-dao 'public-session token))
-    	   (remote-addr (public-session-remote-addr token))
-    	   (user-agent (public-session-user-agent token))
-    	   (exp-date (local-time:parse-timestring (public-session-exp-date token)))
-    	   (username (public-session-user-id token))
+           (remote-addr (public-session-remote-addr token))
+           (user-agent (public-session-user-agent token))
+           (exp-date (local-time:parse-timestring (public-session-exp-date token)))
+           (username (public-session-user-id token))
            (the-user (postmodern:get-dao 'public-user username)))
-    	(handler-case
-            (if (and ;(the-user) ; make sure the user exists
-                     (public-user-is-active username) ; make sure the user is active
-                     ;(string= token (public-session-id the-sesh)) ; is this really necessary?
-                     (string= remote-addr (hunchentoot:real-remote-addr)) ; make sure the real-remote-addr matches
-                     (string= user-agent (hunchentoot:user-agent)) ; make sure the user agent matches
-                     (local-time:timestamp<= (local-time:now) exp-date)) ; make sure the session is still valid
-                t
-                nil)
-        	(error () (push-error-msg "Your session could not be validated.  Please sign in again.")))))
+      (handler-case
+        (if (and ;(the-user) ; make sure the user exists
+                 (public-user-is-active username) ; make sure the user is active
+                 ;(string= token (public-session-id the-sesh)) ; is this really necessary?
+                 (string= remote-addr (hunchentoot:real-remote-addr)) ; make sure the real-remote-addr matches
+                 (string= user-agent (hunchentoot:user-agent)) ; make sure the user agent matches
+                 (local-time:timestamp<= (local-time:now) exp-date)) ; make sure the session is still valid
+            t
+            nil)
+        (error () (push-error-msg "Your session could not be validated.  Please sign in again.")))))
 
 ;; Create a new Session for the current user
 ;; must add update-session and create-or-update-session
 (defun create-new-session (user)
     (let ((the-token (generate-new-session-token)))
-    	(hunchentoot:start-session)
+      (hunchentoot:start-session)
         (setf (hunchentoot:session-value 'token) the-token)
         (postmodern:insert-dao (make-instance 'public-session :id the-token
                                                               :user-id user
@@ -71,20 +71,20 @@
 ;; Create a new user
 ;; must add update-user and create-or-update-user
 (defun create-new-user (username password firstname lastname email group)
-	(let ((the-pass (hardened-password password)))
-		(postmodern:insert-dao (make-instance 'public-user :username username
-														   :password the-pass
-														   :first-name firstname
-														   :last-name lastname
-														   :email email
-														   :group group
-														   :is-active t
-														   :last-modified (local-time:format-timestring nil (local-time:now))))))
+  (let ((the-pass (hardened-password password)))
+    (postmodern:insert-dao (make-instance 'public-user :username username
+                               :password the-pass
+                               :first-name firstname
+                               :last-name lastname
+                               :email email
+                               :group group
+                               :is-active t
+                               :last-modified (local-time:format-timestring nil (local-time:now))))))
 
 (defun create-new-realm (name)
-	(postmodern:insert-dao (make-instance 'public-realms :name name :last-modified (local-time:format-timestring nil (local-time:now)))))
+  (postmodern:insert-dao (make-instance 'public-realms :name name :last-modified (local-time:format-timestring nil (local-time:now)))))
 
 (defun create-new-group (name realm)
-	(postmodern:insert-dao (make-instance 'public-groups :name name :realm realm)))
+  (postmodern:insert-dao (make-instance 'public-groups :name name :realm realm)))
 
 ;; EOF
