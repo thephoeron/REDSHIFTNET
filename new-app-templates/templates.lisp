@@ -37,7 +37,7 @@
       (:header :id "header"
         (,@header))
       (:div :class "main"
-        (:aside :id "" (,@menu))
+        (:aside :id "sidebar" (,@menu))
         (:div :id "content" ,@body))
       (:footer :id "footer"
         (,@footer)))))

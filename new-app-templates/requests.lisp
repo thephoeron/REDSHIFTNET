@@ -10,13 +10,13 @@
 
 (defrequest www-index (:vhost *www-vhost*)
   ({APPNAME}-app-page ("{APPNAME} :: Welcome")
-  	(with-html-output-to-string (hunchentoot::*standard-output*)
+  	(cl-who:with-html-output (hunchentoot::*standard-output*)
   	  (:div :class "content"
   	  	(:h1 "Welcome to {APPNAME}, powered by REDSHIFTNET!")))))
 
 (defrequest ssl-index (:vhost *ssl-vhost*)
   ({APPNAME}-app-page ("{APPNAME} :: Welcome")
-  	(with-html-output-to-string (hunchentoot::*standard-output*)
+  	(cl-who:with-html-output (hunchentoot::*standard-output*)
   	  (:div :class "content"
   	  	(:h1 "Welcome to {APPNAME}, powered by REDSHIFTNET and SSL!")))))
 

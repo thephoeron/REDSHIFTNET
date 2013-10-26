@@ -43,14 +43,13 @@
 ;; REDSHIFTNET Master jQuery functions
 (define-easy-handler (redshiftnet-js :uri "/redshiftnet.js") ()
   (setf (content-type*) "text/javascript")
-  (ps
+  (ps:ps
     ((@ ($ document) ready)
         (lambda ()
             ((@ ($ "#ajax-link") click)
                 (lambda ()
                     ((@ ($ "#ajax-box") load) "/ajax-page")
                     (return false)))
-            ((@ ($ "#twitter") live-twitter) "thephoeron" (create :limit "5" :rate "30000" :mode "user_timeline"))
             (return false)))))
 
 ;;;; Default Splash Page
@@ -68,7 +67,7 @@
                     (:table :id "logo" :cellpadding "0" :cellspacing "0" :width "100%" :height "100%"
                         (:tr
                             (:td :align "center" :valign "middle"
-                                (:a :href "/index" :target "_top"
+                                (:a :href "/index/" :target "_top"
                                     (:img :src "/static/img/rsn-logo.png" :border "0" :width "420" :height "420"))))))
                 (:div :id "copyright"
                     (:p :align "center"
