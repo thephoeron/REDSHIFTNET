@@ -30,7 +30,7 @@
     (text :contents (format nil "~A: Command-Line Utility to run REDSHIFTNET powered web-app as a daemon." (string-upcase "{APPNAME}")))
   (group (:header "Web-app Config & Launch Options")
     (stropt :long-name "swank-port"
-            :default-value "4954"
+            :default-value "33010"
             :description "Port to run SWANK server for remote REPL access.  On shared hosts: make sure you reserve this port with a custom app, and secure the $#!% out of it.")
     ;; If you add additional VHOSTs to your web-app, you will need to add command-line arguments for them here
     (stropt :long-name "www-port" 
