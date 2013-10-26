@@ -20,10 +20,20 @@
            (ironclad:pbkdf2-check-password testing-pass stored-pass)))
     (error () (push-error-msg "There was an error in validating your credentials."))))
 
+;; validate new password
+(defun validate-new-password (new-pass new-pass-again)
+  (handler-case
+    (if (string= new-pass new-pass-again)
+        t
+        (progn
+          (push-error-msg "The passwords you entered don't match.")
+          nil))
+    (error () (push-error-msg "The new passwords you entered could not be validated."))))
+
 ;; UPDATE PASSWORD IN USER DAO
 ;; Confirm old-password is correct, new passwords match
 (defun update-password (username password new-pass new-pass-again)
-  (when (and (eql new-pass new-pass-again)
+  (when (and (validate-new-password new-pass new-pass-again)
              (validate-credentials username password))
     (let ((the-user (postmodern:get-dao 'public-user username))
           (the-pass (hardened-password new-pass)))
