@@ -6,10 +6,10 @@
 (in-package :cl-user)
 
 (defpackage redshiftnet-asd
-	(:use :cl :asdf)
-	(:export #:server-type #:server-version
-			 #:defrequest #:basic-app-page #:app-page
-			 #:*rsn-version*))
+  (:use :cl :asdf)
+  (:export #:server-type #:server-version
+           #:defrequest #:basic-app-page #:app-page
+           #:*rsn-version*))
 
 (in-package :redshiftnet-asd)
 
@@ -18,48 +18,51 @@
 (export '*rsn-version*)
 
 (defsystem redshiftnet
-	:version #.*rsn-version*
-	:author "\"the Phoeron\" Colin J.E. Lupton <sysop@thephoeron.com>"
-	:license "MIT"
-	:description "Common Lisp Web Application Framework for enterprise data-driven apps that require hardened security and high performance."
-	:serial t
-	:depends-on (:cl-isaac
-				 :let-over-lambda
-				 :uber-shell
-				 :cl-fad
-				 :cl-smtp
-				 :cl-who
-				 :css-lite
-				 :parenscript
-				 :yason
-				 :split-sequence
-				 :cl-ppcre
-				 :local-time
-				 :postmodern
-				 :submarine
-				 :ironclad
-				 :babel
-				 :hunchentoot)
-	:components ((:file "packages")
-				 (:file "vhost")
-				 (:file "config")
-				 (:file "utils")
-				 (:file "db-utils")
-				 (:file "web")
-				 (:module "forms"
-				  :serial t
-				  :components ((:file "forms-utils")
-				  			   (:file "forms-recaptcha")
-				  			   (:file "forms-macros")
-				  			   (:file "forms")))
-				 (:module "auth"
-				  :serial t
-				  :components ((:file "auth-db")
-				  			   (:file "auth-sessions")
-				  			   (:file "auth-realms")
-				  			   (:file "auth")))
-				 (:file "redshiftnet")
-				 (:file "make-new-app")))
+  :version #.*rsn-version*
+  :author "\"the Phoeron\" Colin J.E. Lupton <sysop@thephoeron.com>"
+  :license "MIT"
+  :description "Common Lisp Web Application Framework for enterprise data-driven apps that require hardened security and high performance."
+  :serial t
+  :depends-on (:cl-isaac
+               :let-over-lambda
+               :uber-shell
+               :cl-fad
+               :cl-smtp
+               :cl-who
+               :css-lite
+               :parenscript
+               :yason
+               :split-sequence
+               :cl-ppcre
+               :local-time
+               :postmodern
+               :submarine
+               :ironclad
+               :babel
+               :hunchentoot)
+  :components ((:file "packages")
+               (:file "vhost")
+               (:file "config")
+               (:file "utils")
+               (:file "db-utils")
+               (:file "web")
+               (:module "forms"
+                :serial t
+                :components ((:file "forms-utils")
+                             (:file "forms-recaptcha")
+                             (:file "forms-macros")
+                             (:file "forms")))
+               (:module "auth"
+                :serial t
+                :components ((:file "auth-db")
+                             (:file "auth-sessions")
+                             (:file "auth-realms")
+                             (:file "auth")))
+               (:module "admin"
+                :serial t
+                :components ((:file "admin")))
+               (:file "redshiftnet")
+               (:file "make-new-app")))
 
 ;;;; make-app-op operation
 (defclass make-app-op (operation)
@@ -75,9 +78,9 @@
   "Creates a new REDSHIFTNET application when (rsn:make-app 'name \"/path/to/target/\")
    is called."
   (let ((app-name (cadr (member :name (asdf::operation-original-initargs o))))
-	(app-target (cadr (member :target (asdf::operation-original-initargs o)))))
+        (app-target (cadr (member :target (asdf::operation-original-initargs o)))))
     (funcall (intern (symbol-name :make-application) (find-package :redshiftnet))
-	     app-name app-target)))
+             app-name app-target)))
 
 (defmethod operation-done-p ((o make-app-op) (c (eql (find-system :redshiftnet))))
   nil)
