@@ -22,12 +22,11 @@
 
 ;; UPDATE PASSWORD IN USER DAO
 ;; Confirm old-password is correct, new passwords match
-;; Needs a lot of work.... should this be a post request? naaa...
 (defun update-password (username password new-pass new-pass-again)
   (when (and (eql new-pass new-pass-again)
              (validate-credentials username password))
     (let ((the-user (postmodern:get-dao 'public-user username))
-          (the-pass (hardened-password password)))
+          (the-pass (hardened-password new-pass)))
       (setf (public-user-password username) the-pass)
       (update-dao the-user))))
 
