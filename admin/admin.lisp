@@ -5,6 +5,7 @@
 
 (in-package :redshiftnet)
 
+;; Admin header, footer, and menu template elements
 (defun admin-header (title)
   "Template block for admin site header."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
@@ -23,17 +24,20 @@
     )
   )
 
-(defun admin-login ()
-  "Login form for admin section."
-  (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+;; Admin Login page
 (defparameter admin-login-styles '("/static/css/admin/login.css"))
 (defparameter admin-login-scripts 
   '("/static/js/plugins/forms/uniform/jquery.uniform.min.js"
     "/static/js/plugins/forms/validation/jquery.validate.js"
     "/static/js/pages/login.js"))
 
+(defun admin-login ()
+  "Login form for admin section."
+  (cl-who:with-html-output (hunchentoot::*standard-output*)
+    )
+  )
+
+;; Admin page generator macros
 (defmacro %basic-admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil)) &body body)
   "Basic, no frills Admin page function, useful for error pages, system notifications, login pages, wrapping AJAX html content, etc."
   `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
@@ -88,6 +92,7 @@
       (:footer :id "footer"
         (,@footer)))))
 
+;; Admin auth page macro
 ;; admin pages return nil unless inside an ssl vhost defrequest
 (defmacro %admin-auth-page ((title login-page-fun) &body body)
   "Core auth-page template."
