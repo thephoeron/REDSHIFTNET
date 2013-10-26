@@ -36,8 +36,6 @@
     (let ((the-isaac-ctx (isaac:init-kernel-seed)))
         (format nil "~32,'0x" (isaac:rand-bits the-isaac-ctx 128))))
 
-(defvar hunchentoot:*session-secret* (generate-new-session-token))
-
 ;; Validate the passed session token and user attached to it
 (defun validate-session (token)
     ;(handler-case

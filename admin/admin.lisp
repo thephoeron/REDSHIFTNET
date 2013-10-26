@@ -35,11 +35,44 @@
     )
   )
 
-(defun %basic-admin-app-page ()
-  )
+(defmacro %basic-admin-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil)) &body body)
+  "Basic, no frills {APPNAME} page function, useful for error pages, system notifications, login pages, wrapping AJAX html content, etc."
+  `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
+    (:html :lang "en"
+      (:head
+        (:meta :http-equiv "Content-Type" :content "text/html;charset=utf-8")
+        (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
+        (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "/{APPNAME}.css" :type "text/css" :media "screen")
+        ,@(mapcar (lambda (file)
+                    `(:link :type "text/css" :rel "stylesheet" :media "screen"
+                            :href ,(format nil "~A" file)))
+                     styles)
+        (:title ,title)
+        "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
+      (:body
+        ,@body
+        (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
+        (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
+        (:script :type "text/javascript" :src "/redshiftnet.js")
+        (:script :type "text/javascript" :src "/{APPNAME}.js")
+        ,@(mapcar (lambda (file)
+                    `(:script :type "text/javascript"
+                              :src ,(format nil "~A" file)))
+                  scripts)))))
 
-(defun %admin-app-page ()
-  )
+(defmacro %admin-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil) header menu footer) &body body)
+  "Standard app page template."
+  `(%basic-{APPNAME}-app-page (:title ,title :styles ,@styles :scripts ,@scripts)
+    (cl-who:with-html-output (hunchentoot::*standard-output*)
+      (:header :id "header"
+        (,@header ,title))
+      (:div :class "main"
+        (:aside :id "sidebar" (,@menu))
+        (:div :id "content" ,@body))
+      (:footer :id "footer"
+        (,@footer)))))
 
 ;; admin pages return nil unless inside an ssl vhost defrequest
 (defmacro %admin-auth-page ((title login-page-fun) &body body)
@@ -59,7 +92,7 @@
                 (progn (hunchentoot:start-session)
                        (%basic-admin-app-page (:title "Login")
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
-                         (,@login-page-fun)))))
+                           (,@login-page-fun)))))
                (t (hunchentoot:redirect "/403/")))
          ;; else
          (let* ((token (hunchentoot:session-value 'token))
@@ -78,12 +111,10 @@
 (defmacro admin-page ((title login-page-fun) &body body)
   "Admin site page generator macro."
   `(%admin-auth-page ,name (uri title ,@login-page-fun)
-     (%admin-app-page ()
-      (admin-header title)
-      (admin-menu)
+     (%admin-app-page (:title ,title :header #'admin-header
+                       :menu #'admin-menu :footer #'admin-footer)
       (cl-who:with-html-output (hunchentoot::*standard-output*)
-        ,@body)
-      (admin-footer))))
+        ,@body))))
 
 (defrequest rsn-admin (:vhost *ssl-vhost*)
   (admin-page ("REDSHIFTNET Dashboard" #'admin-login)
