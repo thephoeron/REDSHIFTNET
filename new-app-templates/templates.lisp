@@ -2,7 +2,7 @@
 
 (in-package :{APPNAME})
 
-;; Customize these functions to implement your desired template
+;; Customize these macros to implement your desired template
 (defmacro %basic-{APPNAME}-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil)) &body body)
   "Basic, no frills {APPNAME} page function, useful for error pages, system notifications, login pages, wrapping AJAX html content, etc."
   `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)

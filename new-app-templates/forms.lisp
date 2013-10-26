@@ -2,4 +2,6 @@
 
 (in-package :{APPNAME})
 
+;; Define your auto-validating forms here
+
 ;; EOF

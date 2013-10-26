@@ -2,4 +2,6 @@
 
 (in-package :{APPNAME})
 
+;; If you need any database tables, you can define them here
+
 ;; EOF
