@@ -28,12 +28,11 @@
   (cl-who:with-html-output (hunchentoot::*standard-output*)
     )
   )
-
-(defun admin-dashboard ()
-  "Admin site dashboard widget generator function."
-  (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+(defparameter admin-login-styles '("/static/css/admin/login.css"))
+(defparameter admin-login-scripts 
+  '("/static/js/plugins/forms/uniform/jquery.uniform.min.js"
+    "/static/js/plugins/forms/validation/jquery.validate.js"
+    "/static/js/pages/login.js"))
 
 (defmacro %basic-admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil)) &body body)
   "Basic, no frills Admin page function, useful for error pages, system notifications, login pages, wrapping AJAX html content, etc."
@@ -42,7 +41,18 @@
       (:head
         (:meta :http-equiv "Content-Type" :content "text/html;charset=utf-8")
         (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
+        (:meta :name "application-name" :content "REDSHIFTNET Admin")
+        (:meta :name "author" :content "the Phoeron <//thephoeron.com/>")
         (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :type "text/css" :href "/static/css/bootstrap/bootstrap-theme.css")
+        (:link :rel "stylesheet" :type "text/css" :href "/static/css/icons.css")
+        (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/forms/uniform/uniform.default.css")
+        "<!--[if IE 8]><link href=\"css/ie8.css\" rel=\"stylesheet\" type=\"text/css\" /><![endif]-->"
+        (:link :rel "apple-touch-icon-precomposed" :sizes "144x144" :href "/static/images/ico/apple-touch-icon-144-precomposed.png")
+        (:link :rel "apple-touch-icon-precomposed" :sizes "114x114" :href "/static/images/ico/apple-touch-icon-114-precomposed.png")
+        (:link :rel "apple-touch-icon-precomposed" :sizes "72x72" :href "/static/images/ico/apple-touch-icon-72-precomposed.png")
+        (:link :rel "apple-touch-icon-precomposed" :href "/static/images/ico/apple-touch-icon-57-precomposed.png")
+        (:link :rel "shortcut icon" :href "/static/images/ico/favicon.png")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :href "/admin.css" :type "text/css" :media "screen")
         ,@(mapcar (lambda (file)
@@ -55,6 +65,10 @@
         ,@body
         (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
         (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
+        (:script :type "text/javascript" :src "/static/js/conditionizr.min.js")
+        (:script :type "text/javascript" :src "/static/js/plugins/core/nicescroll/jquery.nicescroll.min.js")
+        (:script :type "text/javascript" :src "/static/js/plugins/core/jrespond/jRespond.min.js")
+        (:script :type "text/javascript" :src "/static/js/jquery.redshiftnetAdmin.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/admin.js")
         ,@(mapcar (lambda (file)
@@ -85,12 +99,16 @@
                   (if (validate-credentials username password)
                       (progn (create-new-session username)
                              (,@body))
-                      (%basic-admin-app-page (:title "Login Failed")
+                      (%basic-admin-app-page (:title "Login Failed"
+                                              :scripts admin-login-scripts
+                                              :styles admin-login-styles)
                         (show-all-messages)
                         (,@login-page-fun)))))
                ((eql :get (hunchentoot:request-method*))
                 (progn (hunchentoot:start-session)
-                       (%basic-admin-app-page (:title "Login")
+                       (%basic-admin-app-page (:title "Login"
+                                               :scripts admin-login-scripts
+                                               :styles admin-login-styles)
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
                            (,@login-page-fun)))))
                (t (hunchentoot:redirect "/403/")))
@@ -103,21 +121,36 @@
                       (create-new-session the-user)
                       (cl-who:with-html-output (hunchentoot::*standard-output*)
                         ,@body))
-               (progn (%basic-admin-app-page (:title "Error: Validation Failure")
+               (progn (%basic-admin-app-page (:title "Error: Validation Failure"
+                                              :scripts admin-login-scripts
+                                              :styles admin-login-styles)
                         (show-all-messages)
                         (cl-who:with-html-output (hunchentoot::*standard-output*)
                           (,@login-page-fun)))))))))
 
-(defmacro admin-page ((title login-page-fun) &body body)
+(defmacro admin-page ((title login-page-fun &key (styles nil) (scripts nil)) &body body)
   "Admin site page generator macro."
   `(%admin-auth-page ,name (uri title ,@login-page-fun)
      (%admin-app-page (:title ,title :header #'admin-header
-                       :menu #'admin-menu :footer #'admin-footer)
+                       :menu #'admin-menu :footer #'admin-footer
+                       :scripts ,@scripts :styles ,@styles)
       (cl-who:with-html-output (hunchentoot::*standard-output*)
         ,@body))))
 
+;; Admin Dashboard
+(defparameter admin-dashboard-styles '())
+(defparameter admin-dashboard-scripts '())
+
+(defun admin-dashboard ()
+  "Admin site dashboard widget generator function."
+  (cl-who:with-html-output (hunchentoot::*standard-output*)
+    )
+  )
+
 (defrequest rsn-admin (:vhost *ssl-vhost*)
-  (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login)
+  (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
+               :styles admin-dashboard-styles
+               :scripts admin-dashboard-scripts)
      (admin-dashboard)))
 
 ;; EOF
