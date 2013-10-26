@@ -35,8 +35,8 @@
     )
   )
 
-(defmacro %basic-admin-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil)) &body body)
-  "Basic, no frills {APPNAME} page function, useful for error pages, system notifications, login pages, wrapping AJAX html content, etc."
+(defmacro %basic-admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil)) &body body)
+  "Basic, no frills Admin page function, useful for error pages, system notifications, login pages, wrapping AJAX html content, etc."
   `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
     (:html :lang "en"
       (:head
@@ -44,7 +44,7 @@
         (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
         (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
-        (:link :rel "stylesheet" :href "/{APPNAME}.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "/admin.css" :type "text/css" :media "screen")
         ,@(mapcar (lambda (file)
                     `(:link :type "text/css" :rel "stylesheet" :media "screen"
                             :href ,(format nil "~A" file)))
@@ -56,15 +56,15 @@
         (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
         (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
-        (:script :type "text/javascript" :src "/{APPNAME}.js")
+        (:script :type "text/javascript" :src "/admin.js")
         ,@(mapcar (lambda (file)
                     `(:script :type "text/javascript"
                               :src ,(format nil "~A" file)))
                   scripts)))))
 
-(defmacro %admin-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil) header menu footer) &body body)
+(defmacro %admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
-  `(%basic-{APPNAME}-app-page (:title ,title :styles ,@styles :scripts ,@scripts)
+  `(%basic-admin-app-page (:title ,title :styles ,@styles :scripts ,@scripts)
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
         (,@header ,title))
@@ -117,7 +117,7 @@
         ,@body))))
 
 (defrequest rsn-admin (:vhost *ssl-vhost*)
-  (admin-page ("REDSHIFTNET Dashboard" #'admin-login)
+  (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login)
      (admin-dashboard)))
 
 ;; EOF
