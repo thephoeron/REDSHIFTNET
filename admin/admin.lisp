@@ -31,11 +31,53 @@
     "/static/js/plugins/forms/validation/jquery.validate.js"
     "/static/js/pages/login.js"))
 
+(define-rsn-form (admin-login-form :submit "Login" :general-validation (#'check-password "Bad password. Try again."))
+  ((username text
+    :validation
+    ((not-blank?) "Your username is required"
+     (longer-than? 2) "Your username must be longer than 2 characters"))
+   (password password))
+  (let ((the-user (cl-who:escape-string username))
+        (the-pass (cl-who:escape-string password)))
+    (push-success-msg (format nil "Thank you, ~A.  You have logged in successfully." the-user))))
+
+(define-rsn-form (admin-forgot-password-form :submit "Recover Password")
+  ((username text
+    :validation
+    ((not-blank?) "Your username is required"
+     (longer-than? 2) "Your username must be longer than 2 characters"))
+   (email text
+    :validation
+    ((not-blank?) "Your email address is required"
+     (matches? "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$") "The email address you entered does not appear to be valid.")))
+  (let ((the-user (cl-who:escape-string username))
+        (the-email (cl-who:escape-string email)))
+    (push-success-msg (format nil "Thank you, ~A. Your temporary password has been sent to ~A." the-user the-email))))
+
 (defun admin-login ()
   "Login form for admin section."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+    (:div :class "container-fluid"
+      (:div :id "login"
+        (:div :class "login-wrapper" :data-active "log"
+          (:a :class "navbar-brand" :href "#"
+            (:img :src "/static/images/rsn-text-logo.png"
+                  :alt "REDSHIFTNET Admin" :class "image-responsive"))
+          (:div :id "log"
+            (:div :class "page-header"
+              (:h3 :class "center" "Please Login"))
+            (show-rsn-form admin-login-form))
+          (:div :id "forgot"
+            (:div :class "page-header"
+              (:h3 :class "center" "Forgot Password"))
+            (show-rsn-form admin-forgot-password-form)))
+        (:div :id "bar" :data-active "log"
+          (:div :class "btn-group btn-group-vertical"
+            (:a :id "log" :href "#" :class "btn tipR" :title "Login"
+              (:i :class "icon16 i-key"))
+            (:a :id "forgot" :href "#" :class "btn tipR" :title "Forgot Password"
+              (:i :class "icon16 i-question"))))
+        (:div :class "clearfix")))))
 
 ;; Admin page generator macros
 (defmacro %basic-admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil)) &body body)
