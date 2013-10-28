@@ -26,7 +26,7 @@
               (:li :role "presentation"
                 (:a :href "#" :class ""
                   (:i :class "icon16 i-file-zip")
-                  "User LuptonC attached 3 files"))))
+                  "User NonnyA attached 3 files"))))
           (:li :class "divider-vertical")
           (:li :class "dropdown"
             (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown"
@@ -57,14 +57,35 @@
 (defun admin-footer ()
   "Template block for admin site footer."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+    (:div :class "push")
+    (:div :class "container"
+      (:div :class "row"
+        (:div :class "col-md-12"
+          (:p :class "muted credit"
+            (fmt "Powered by ~A v~A and ~A v~A."
+              (lisp-implementation-type)
+              (lisp-implementation-version)
+              (server-type)
+              (server-version))))))))
 
 (defun admin-menu ()
   "Admin Site menu generator function."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+    (:div :class "side-options"
+      (:ul (:li (:a :href "#" :id "collapse-nav" :class "act act-primary tip" :title "Collapse Navigation" (:i :class "icon16 i-arrow-left-7")))))
+    (:div :class "sidebar-wrapper"
+      (:nav :id "mainnav"
+        (:ul :class "nav nav-list"
+          (:li (:a :href "/admin/"
+            (:span :class "icon" (:i :class "icon20 i-screen"))
+            (:span :class "txt" "Dashboard")))
+          (:li (:a :href "/admin/tables/"
+            (:span :class "icon" (:i :class "icon20 i-table-2"))
+            (:span :class "text" "Tables")
+            (:ul :class "sub"
+              (:li (:a :href "/admin/tables/"
+                (:span :class "icon" (:i :class "icon20 i-table"))
+                (:span :class "txt" "All Tables")))))))))))
 
 ;; Admin Login page
 (defparameter admin-login-styles '("/static/css/admin/login.css"))
@@ -172,7 +193,15 @@
         (,@header ,title))
       (:div :class "main"
         (:aside :id "sidebar" (,@menu))
-        (:div :id "content" ,@body))
+        (:section :id "content"
+          (:div :class "wrapper"
+            (:div :class "crumb"
+              (:ul :class "breadcrumb"
+                (:li (:a :href "/" (:i :class "icon16 i-home-4") "Home"))
+                (:li (:a :href "/admin/" "Admin"))
+                (:li :class "active" (:a :href "/admin/" "Dashboard"))))
+            (:div :class "container-fluid"
+              ,@body))))
       (:footer :id "footer"
         (,@footer)))))
 
@@ -233,8 +262,11 @@
 (defun admin-dashboard ()
   "Admin site dashboard widget generator function."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+    (:div :id "heading" :class "page-header"
+      (:h1 (:i :class "icon20 i-dashboard") " Dashboard"))
+    (:div :class "row"
+      (:p :class "lead"
+        "Welcome to REDSHIFTNET Admin.  This is a good place to put your favourite dashboard widgets.  There should probably be a list somewhere that is built through the interface, so users can customize it..."))))
 
 (defrequest rsn-admin (:vhost *ssl-vhost*)
   (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
