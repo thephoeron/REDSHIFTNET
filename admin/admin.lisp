@@ -5,8 +5,14 @@
 
 (in-package :redshiftnet)
 
+;; need user-support functions:
+;; - (get-user-avatar session-token)
+;; - (get-username session-token)
+;; plus ajax callback functions in js for notifications and messages
+;; with authenticated json requests
+
 ;; Admin header, footer, and menu template elements
-(defun admin-header (title)
+(defun admin-header (title session-token)
   "Template block for admin site header."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
     (:nav :class "navbar navbar-default navbar-fixed-top" :role "navigation"
@@ -189,7 +195,7 @@
   `(%basic-admin-app-page (:title ,title :styles ,@styles :scripts ,@scripts)
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
-        (,@header ,title))
+        (,@header ,title (hunchentoot:session-value 'token)))
       (:div :class "main"
         (:aside :id "sidebar" (,@menu))
         (:section :id "content"
