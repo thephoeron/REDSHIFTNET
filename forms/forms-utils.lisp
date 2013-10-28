@@ -5,13 +5,13 @@
 
 (in-package :redshiftnet)
 
-;;;;;;;;;;;;;;;general shortcuts
+;; general shortcuts
 (defmacro html-to-stout (&body body)
-  `(with-html-output (*standard-output* nil :indent t) ,@body))
+  `(cl-who:with-html-output (hunchentoot::*standard-output* nil :indent t) ,@body))
 
 (defmacro html-to-str (&body body)
   "Returns HTML as a string, as well as printing to standard-out"
-  `(with-html-output-to-string (*standard-output*) ,@body))
+  `(cl-who:with-html-output-to-string (hunchentoot::*standard-output*) ,@body))
 
 (defun split-validation-list (validation-list)
   (loop for (fn msg) on validation-list by #'cddr

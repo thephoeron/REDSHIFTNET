@@ -5,45 +5,45 @@
 
 (in-package :redshiftnet)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; CLASS DECLARATIONS
+;; CLASS DECLARATIONS
 (defclass rsn-form ()
-  ((name			 :reader name			:initarg :name)
-   (fields			 :reader fields			:initarg :fields)
-   (validation-functions 	 :accessor validation-functions :initarg :validation-functions	 :initform nil)
-   (error-messages	 	 :reader error-messages		:initarg :error-messages 	 :initform nil)
-   (submit-caption		 :reader submit			:initarg :submit		 :initform "Submit")
-   (enctype			 :accessor enctype		:initarg :enctype		 :initform "application/x-www-form-urlencoded")
-   (on-success			 :reader on-success		:initarg :on-success)))
+  ((name :reader name :initarg :name)
+   (fields :reader fields :initarg :fields)
+   (validation-functions :accessor validation-functions :initarg :validation-functions :initform nil)
+   (error-messages :reader error-messages :initarg :error-messages :initform nil)
+   (submit-caption :reader submit :initarg :submit :initform "Submit")
+   (enctype :accessor enctype :initarg :enctype :initform "application/x-www-form-urlencoded")
+   (on-success :reader on-success :initarg :on-success)))
 
 (defclass rsn-form-field ()
-  ((name			:reader name			:initarg :name)
-   (validation-functions	:accessor validation-functions	:initarg :validation-functions	:initform nil)
-   (default-value		:reader default-value		:initarg :default-value		:initform nil)
-   (error-messages		:accessor error-messages	:initarg :error-messages	:initform nil)))
-(defclass hidden			(rsn-form-field) ())
-(defclass text				(rsn-form-field) ())
-(defclass textarea			(rsn-form-field) ())
-(defclass password			(rsn-form-field) ())
-(defclass file				(rsn-form-field) ())
-(defclass checkbox			(rsn-form-field) ())
+  ((name :reader name :initarg :name)
+   (validation-functions accessor validation-functions initarg :validation-functions :initform nil)
+   (default-value :reader default-value :initarg :default-value :initform nil)
+   (error-messages :accessor error-messages	:initarg :error-messages :initform nil)))
+(defclass hidden (rsn-form-field) ())
+(defclass text (rsn-form-field) ())
+(defclass textarea (rsn-form-field) ())
+(defclass password (rsn-form-field) ())
+(defclass file (rsn-form-field) ())
+(defclass checkbox (rsn-form-field) ())
 
-(defclass rsn-form-field-set		(rsn-form-field)
+(defclass rsn-form-field-set (rsn-form-field)
   ((value-set :accessor value-set :initarg :value-set :initform nil))
   (:documentation "This class is for fields that show the user a list of options"))
-(defclass select			(rsn-form-field-set) ())
-(defclass radio-set			(rsn-form-field-set) ())
+(defclass select (rsn-form-field-set) ())
+(defclass radio-set (rsn-form-field-set) ())
 
 (defclass rsn-form-field-return-set	(rsn-form-field-set) ()
   (:documentation "This class is specifically for fields that return multiple values from the user"))
-(defclass multi-select			(rsn-form-field-return-set) ())
-(defclass checkbox-set			(rsn-form-field-return-set) ())
+(defclass multi-select (rsn-form-field-return-set) ())
+(defclass checkbox-set (rsn-form-field-return-set) ())
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; METHODS
-;;;;;;;;;;post-value
-;;;;NOTE:   This section exists because Hunchentoots' (post-parameter [field-name])
-;;        returns a single value. This is problematic for multi-select boxes and checkbox sets
-;;        (both of which potentially return multiple values from the user).
-;;          post-value is not necessarily Hunchentoot specific, but it does expect values in the form of an alist
+;; METHODS
+;; post-value
+;; NOTE: This section exists because Hunchentoots' (post-parameter [field-name])
+;; returns a single value. This is problematic for multi-select boxes and checkbox sets
+;; (both of which potentially return multiple values from the user).
+;; post-value is not necessarily Hunchentoot specific, but it does expect values in the form of an alist
 
 (defmethod post-value ((rsn-form rsn-form) post-alist)
   (mapcar (lambda (f) (post-value f post-alist)) (fields rsn-form)))
@@ -55,11 +55,10 @@
   (loop for (k . v) in post-alist
 	if (string= k (name field)) collect v))
   
-;;;;;;;;;;validate
-;;;;;NOTE: The validate methods each return (values [validation result] [errors]). 
-;;         [validation result] is a boolean
-;;         [errors] can be either a list or tree of strings
-
+;; validate
+;; NOTE: The validate methods each return (values [validation result] [errors]). 
+;; [validation result] is a boolean
+;; [errors] can be either a list or tree of strings
 (defmethod validate ((rsn-form rsn-form) form-values)
   (let ((errors (if (validation-functions rsn-form)
 		    (make-list (length (fields rsn-form)) ;;so that elements don't get cut off
@@ -80,10 +79,10 @@
 		      unless (funcall fn value) collect msg)))
     (values (every #'null errors) errors)))
 
-;;;;;;;;;;show
-;;;; The show functions just take a rsn-form/(-field)?/ (along with its value/s?/ and error/s?/)
-;;   and output the corresponding HTML. This part is cl-who specific, but it could be easily made portable
-;;   by replacing html-to-stout and html-to-str with raw format calls
+;; show
+;; The show functions just take a rsn-form/(-field)?/ (along with its value/s?/ and error/s?/)
+;; and output the corresponding HTML. This part is cl-who specific, but it could be easily made portable
+;; by replacing html-to-stout and html-to-str with raw format calls
 
 (defmethod show ((rsn-form rsn-form) &optional values errors)
   (with-slots (error-messages name enctype) rsn-form
@@ -148,24 +147,25 @@
 				      :checked (when (member v value :test #'string=) "checked"))
 			      (str v)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; PREDICATES
+;; PREDICATES
 (defmacro define-predicate (name (&rest args) &body body)
   `(defun ,name ,args (lambda (val) ,@body)))
 
-;;;;;;;;;; basic field predicates
+;; basic field predicates
 (define-predicate longer-than? (num) (> (length val) num))
 (define-predicate shorter-than? (num) (< (length val) num))
 (define-predicate matches? (regex) (scan regex val))
 (define-predicate mismatches? (regex) (not (scan regex val)))
 (define-predicate not-blank? () (or (null val) (and (stringp val) (not (string= "" val)))))
 (define-predicate same-as? (field-name-string) (string= val (post-parameter field-name-string)))
+(define-predicate is-email? () (scan "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" val))
 
-;;;;;;;;;; file-related
+;; file-related
 ;; a hunchentoot file tuple is '([temp filename] [origin filename] [file mimetype])
 (define-predicate file-type? (&rest accepted-types) (member (third val) accepted-types :test #'equal))
 (define-predicate file-smaller-than? (byte-size) (and (car val) (> byte-size (file-size (car val)))))
 
-;;;;;;;;;; set-related
+;; set-related
 (define-predicate picked-more-than? (num) (> (length val) num))
 (define-predicate picked-fewer-than? (num) (< (length val) num))
 (define-predicate picked-exactly? (num) (= (length val) num))
