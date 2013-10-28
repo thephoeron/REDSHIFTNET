@@ -112,20 +112,19 @@
    (email text
     :validation
     ((not-blank?) "Your email address is required"
-     (matches? "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$") "The email address you entered does not appear to be valid.")))
+     (is-email?) "The email address you entered does not appear to be valid.")))
   (let ((the-user (cl-who:escape-string username))
         (the-email (cl-who:escape-string email)))
     (push-success-msg (format nil "Thank you, ~A. Your temporary password has been sent to ~A." the-user the-email))))
 
-(defun admin-login ()
-  "Login form for admin section."
+(defun admin-login (logo)
+  "Login page for admin section."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
     (:div :class "container-fluid"
       (:div :id "login"
         (:div :class "login-wrapper" :data-active "log"
           (:a :class "navbar-brand" :href "#"
-            (:img :src "/static/images/rsn-text-logo.png"
-                  :alt "REDSHIFTNET Admin" :class "image-responsive"))
+            (:img :class "image-responsive" :alt "REDSHIFTNET Admin" :src (str logo)))
           (:div :id "log"
             (:div :class "page-header"
               (:h3 :class "center" "Please Login"))
