@@ -256,8 +256,10 @@
         ,@body))))
 
 ;; Admin Dashboard
-(defparameter admin-dashboard-styles '())
-(defparameter admin-dashboard-scripts '())
+(defparameter admin-dashboard-styles 
+  '("/static/css/custom.css"))
+(defparameter admin-dashboard-scripts
+  '("/static/js/pages/dashboard.js"))
 
 (defun admin-dashboard ()
   "Admin site dashboard widget generator function."
