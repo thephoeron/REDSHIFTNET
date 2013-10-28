@@ -9,8 +9,50 @@
 (defun admin-header (title)
   "Template block for admin site header."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
-    )
-  )
+    (:nav :class "navbar navbar-default navbar-fixed-top" :role "navigation"
+      (:a :class "navbar-brand" :href "/admin/"
+        (:img :src "/static/images/logo.png" :alt "REDSHIFTNET Admin" :class "img-responsive"))
+      (:button :type "button" :class "navbar-toggle btn-danger" :data-toggle "collapse" :data-target ".navbar-to-collapse"
+        (:span :class "sr-only" "Toggle Menu")
+        (:i :class "icon16 i-arrow-8"))
+      (:div :class "collapse navbar-collapse navbar-to-collapse"
+        (:ul :class "nav navbar-nav pull-right"
+          (:li :class "divider-vertical")
+          (:li :class "dropdown"
+            (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown"
+              (:i :class "icon24 i-bell-2")
+              (:span :class "notification red" "1"))
+            (:ul :class "dropdown-menu" :role "menu"
+              (:li :role "presentation"
+                (:a :href "#" :class ""
+                  (:i :class "icon16 i-file-zip")
+                  "User LuptonC attached 3 files"))))
+          (:li :class "divider-vertical")
+          (:li :class "dropdown"
+            (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown"
+              (:i :class "icon24 i-envelope-2")
+              (:span :class "notification red" "3"))
+            (:ul :class "dropdown-menu messages" :role "menu"
+              (:li :class "head" :role "presentation"
+                (:h4 "Inbox")
+                (:span :class "count" "3 Messages")
+                (:span :class "new-msg"
+                  (:a :href "#" :class "tipB" :title "Compose new message"
+                    (:i :class "icon16 i-pencil-5"))))))
+          (:li :class "divider-vertical")
+          (:li :class "dropdown user"
+            (:a :href "#" :class "dropdown-toggle avatar" :data-toggle "dropdown"
+              (:img :src "/static/images/avatars/anonymous.jpg" :alt "The User")
+              (:span :class "more"
+                (:i :class "icon16 i-arrow-down-2")))
+            (:ul :class "dropdown-menu" :role "menu"
+              (:li :role "presentation"
+                (:a :href "#" :class "" (:i :class "icon16 i-cogs") " Settings"))
+              (:li :role "presentation"
+                (:a :href "#" :class "" (:i :class "icon16 i-user") " Profile"))
+              (:li :role "presentation"
+                (:a :href "#" :class "" (:i :class "icon16 i-exit") " Logout"))))
+          (:li :class "divider-vertical"))))))
 
 (defun admin-footer ()
   "Template block for admin site footer."
