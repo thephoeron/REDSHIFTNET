@@ -131,6 +131,17 @@ application."
             (make-pathname :directory '(:relative "new-app-templates" "cert"))
             (asdf-system-directory :redshiftnet))))
         new-project-dir)
+    ; copy packages.lisp
+    (copy-file-replace
+      (merge-pathnames
+        (make-pathname :directory '(:relative "new-app-templates")
+                       :name "packages" :type "lisp")
+        (asdf-system-directory :redshiftnet))
+      (merge-pathnames
+        (make-pathname :name "packages" :type "lisp")
+        new-project-src-dir)
+      *app-name-placeholder*
+      (attributize-name name))
     ; copy config.lisp
     (copy-file-replace
       (merge-pathnames

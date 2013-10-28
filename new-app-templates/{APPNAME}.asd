@@ -13,7 +13,8 @@
     :licence "MIT"
     :description "{APPNAME}"
     :depends-on (:redshiftnet)
-    :components ((:file "config")
+    :components ((:file "packages")
+                 (:file "config")
                  (:file "styles")
                  (:file "scripts")
                  (:file "db")

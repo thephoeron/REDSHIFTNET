@@ -19,8 +19,8 @@
     (ensure-directories-exist *ssl-acc-log*)
     (ensure-directories-exist *ssl-msg-log*)
     (postmodern:connect-toplevel pm-db pm-user pm-pass pm-host)
-    (hunchentoot:start can-vhost)
-    (hunchentoot:start usa-vhost)
+    (hunchentoot:start www-vhost)
+    (hunchentoot:start ssl-vhost)
     (format t "REDSHIFTNET Started and Running:~%       WWW: ~W~%          SSL: ~W~%" www-vhost ssl-vhost))
 
 (defun rsn-stop ()
