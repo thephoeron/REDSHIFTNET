@@ -39,13 +39,13 @@
          ; declare validation handler
          (define-easy-handler (,(intern (format nil "VALIDATE-~a" name)) :uri ,(format nil "/validate-~(~a~)" name)) ()
            (let* ((rsn-form-values (post-value ,name (post-parameters*)))
-                  (rsn-form-return-values (loop for f in (rsn-forms::fields ,name) ;;the values list, less password values
+                  (rsn-form-return-values (loop for f in (rsn::fields ,name) ;;the values list, less password values
                                                 for v in rsn-form-values
                                                 unless (eq (type-of f) 'password) collect v
                                                 else collect nil)))
              (multiple-value-bind (result errors) (validate ,name rsn-form-values)
              (if result
-               (apply (rsn-forms::on-success ,name) rsn-form-values) ;; if everything's ok, send the user on
+               (apply (rsn::on-success ,name) rsn-form-values) ;; if everything's ok, send the user on
                (progn
                  (setf (session-value :rsn-form-values) rsn-form-return-values
                        (session-value :rsn-form-errors) errors
@@ -66,11 +66,11 @@
   `(let* ((default-val ,default-values)
       (val (cond ((eq (session-value :rsn-form-name) ',rsn-form-name) 
               (session-value :rsn-form-values))
-             (default-val (ensure-list-length default-val (length (rsn-forms::fields ,rsn-form-name))))
-             (t (make-list (length (rsn-forms::fields ,rsn-form-name))))))
+             (default-val (ensure-list-length default-val (length (rsn::fields ,rsn-form-name))))
+             (t (make-list (length (rsn::fields ,rsn-form-name))))))
       (err (if (eq (session-value :rsn-form-name) ',rsn-form-name)
            (session-value :rsn-form-errors)
-           (make-list (length (rsn-forms::fields ,rsn-form-name))))))
+           (make-list (length (rsn::fields ,rsn-form-name))))))
      (show ,rsn-form-name val err)
      (when (eq (session-value :rsn-form-name) ',rsn-form-name)
        (delete-session-value :rsn-form-name)

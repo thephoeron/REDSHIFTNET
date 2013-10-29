@@ -236,7 +236,7 @@ BE CAREFUL."
   (show-info-messages)
   (show-success-messages))
 
-(defmacro! require-fields (&rest args)
+(lol:defmacro! require-fields (&rest args)
   `(let ((,g!success t))
      (flet ((,g!failed (msg)
                (setf ,g!success nil)

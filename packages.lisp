@@ -14,8 +14,6 @@
           :cl-ppcre
           :local-time
           :postmodern
-          :ironclad
-          :babel
           :hunchentoot)
     (:export #:web-start #:web-stop
              #:server-type #:server-version

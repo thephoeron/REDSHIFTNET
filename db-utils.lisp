@@ -28,7 +28,7 @@ sequences, and views."
 
 (defun database-version ()
   "Returns the version of the current postgresql database."
-  (query (:select (:version)) :single)
+  (query (:select (:version)) :single))
   
 (defun list-databases ()
   "This list drops the first two template databases."

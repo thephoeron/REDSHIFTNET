@@ -59,14 +59,15 @@
 ;;; Note: Easy-Handlers get pushed to every VHOST by default.  Useful for sharing resources between toplevel domains.
 
 (defvar vhost-web (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
-(defvar vhost-ssl (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*))
+(defvar vhost-ssl (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
+                                			:ssl-privatekey-file *ssl-key* :ssl-certificate-file *ssl-cert*))
 
-(setf (dispatch-table www-vhost)
+(setf (dispatch-table vhost-web)
       (list
         'hunchentoot:dispatch-easy-handlers
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)
         (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*)))
-      (dispatch-table ssl-vhost)
+      (dispatch-table vhost-ssl)
       (list
         'hunchentoot:dispatch-easy-handlers
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)

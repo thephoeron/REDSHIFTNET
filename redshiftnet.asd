@@ -39,7 +39,8 @@
                :submarine
                :ironclad
                :babel
-               :hunchentoot)
+               :hunchentoot
+               :docutils)
   :components ((:file "packages")
                (:file "vhost")
                (:file "config")

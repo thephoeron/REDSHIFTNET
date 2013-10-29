@@ -94,11 +94,10 @@
                 (:span :class "txt" "All Tables")))))))))))
 
 ;; Admin Login page
-(defparameter admin-login-styles '("/static/css/admin/login.css"))
-(defparameter admin-login-scripts 
-  '("/static/js/plugins/forms/uniform/jquery.uniform.min.js"
-    "/static/js/plugins/forms/validation/jquery.validate.js"
-    "/static/js/pages/login.js"))
+(defparameter admin-login-styles (list "/static/css/admin/login.css"))
+(defparameter admin-login-scripts (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
+                                        "/static/js/plugins/forms/validation/jquery.validate.js"
+                                        "/static/js/pages/login.js"))
 
 (define-rsn-form (admin-login-form :submit "Login" :general-validation (#'check-password "Bad password. Try again."))
   ((username text
@@ -192,12 +191,12 @@
 
 (defmacro %admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
-  `(%basic-admin-app-page (:title ,title :styles ,@styles :scripts ,@scripts)
+  `(%basic-admin-app-page (:title ,title :styles ,styles :scripts ,scripts)
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
-        (,@header ,title (hunchentoot:session-value 'token)))
+        (header ,title (hunchentoot:session-value 'token)))
       (:div :class "main"
-        (:aside :id "sidebar" (,@menu))
+        (:aside :id "sidebar" (menu))
         (:section :id "content"
           (:div :class "wrapper"
             (:div :class "crumb"
@@ -208,7 +207,7 @@
             (:div :class "container-fluid"
               ,@body))))
       (:footer :id "footer"
-        (,@footer)))))
+        (footer)))))
 
 ;; Admin auth page macro
 ;; admin pages return nil unless inside an ssl vhost defrequest
@@ -223,17 +222,17 @@
                       (progn (create-new-session username)
                              (,@body))
                       (%basic-admin-app-page (:title "Login Failed"
-                                              :scripts admin-login-scripts
-                                              :styles admin-login-styles)
+                                              :scripts 'admin-login-scripts
+                                              :styles 'admin-login-styles)
                         (show-all-messages)
-                        (,@login-page-fun)))))
+                        (login-page-fun "/static/images/redshiftnet_logo_text.png")))))
                ((eql :get (hunchentoot:request-method*))
                 (progn (hunchentoot:start-session)
                        (%basic-admin-app-page (:title "Login"
-                                               :scripts admin-login-scripts
-                                               :styles admin-login-styles)
+                                               :scripts 'admin-login-scripts
+                                               :styles 'admin-login-styles)
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
-                           (,@login-page-fun)))))
+                           (login-page-fun "/static/images/redshiftnet_logo_text.png")))))
                (t (hunchentoot:redirect "/403/")))
          ;; else
          (let* ((token (hunchentoot:session-value 'token))
@@ -245,26 +244,26 @@
                       (cl-who:with-html-output (hunchentoot::*standard-output*)
                         ,@body))
                (progn (%basic-admin-app-page (:title "Error: Validation Failure"
-                                              :scripts admin-login-scripts
-                                              :styles admin-login-styles)
+                                              :scripts 'admin-login-scripts
+                                              :styles 'admin-login-styles)
                         (show-all-messages)
                         (cl-who:with-html-output (hunchentoot::*standard-output*)
-                          (,@login-page-fun)))))))))
+                          (login-page-fun "/static/images/redshiftnet_logo_text.png")))))))))
 
 (defmacro admin-page ((title login-page-fun &key (styles nil) (scripts nil)) &body body)
   "Admin site page generator macro."
-  `(%admin-auth-page ,name (uri title ,@login-page-fun)
+  `(%admin-auth-page (title #',login-page-fun)
      (%admin-app-page (:title ,title :header #'admin-header
                        :menu #'admin-menu :footer #'admin-footer
-                       :scripts ,@scripts :styles ,@styles)
+                       :scripts 'scripts :styles 'styles)
       (cl-who:with-html-output (hunchentoot::*standard-output*)
         ,@body))))
 
 ;; Admin Dashboard
-(defparameter admin-dashboard-styles 
-  '("/static/css/custom.css"))
-(defparameter admin-dashboard-scripts
-  '("/static/js/pages/dashboard.js"))
+(defparameter admin-dashboard-styles (list "/static/css/custom.css"
+                                           "/static/css/app.css"))
+(defparameter admin-dashboard-scripts (list "/static/js/pages/dashboard.js"
+                                            "/static/js/app.js"))
 
 (defun admin-dashboard ()
   "Admin site dashboard widget generator function."

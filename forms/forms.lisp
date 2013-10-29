@@ -17,7 +17,7 @@
 
 (defclass rsn-form-field ()
   ((name :reader name :initarg :name)
-   (validation-functions accessor validation-functions initarg :validation-functions :initform nil)
+   (validation-functions :accessor validation-functions :initarg :validation-functions :initform nil)
    (default-value :reader default-value :initarg :default-value :initform nil)
    (error-messages :accessor error-messages	:initarg :error-messages :initform nil)))
 (defclass hidden (rsn-form-field) ())
