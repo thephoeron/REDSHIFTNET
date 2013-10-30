@@ -26,6 +26,7 @@ Ex:
 		     (string name)
 		     (integer (format nil "~A" name)))))
     (string-downcase (substitute #\- #\Space namestr))))
+
 (defun make-dir (pathname)
   "Create directory 'pathname'.
 Borrowed from cl-darcs with permission of copyright owner."
@@ -53,7 +54,6 @@ Borrowed from cl-darcs with permission of copyright owner."
          (excluding-wild (mapcar
                           (lambda (excluded) (merge-pathnames wild excluded))
                           excluding))
-
          (files (fad:list-directory (truename source))))
     (dolist (source-file files)
       (let ((target-file (translate-pathname source-file source-wild target-wild)))
@@ -65,7 +65,8 @@ Borrowed from cl-darcs with permission of copyright owner."
            (make-dir target-file)
            (copy-directory source-file target-file :excluding excluding))
           (t
-           (copy-file source-file target-file)))))))
+            (ensure-directories-exist target-file :verbose t)
+            (copy-file source-file target-file :overwrite t)))))))
 
 (defun asdf-system-directory (system-name)
   "Returns a directory of the asdf system file of system
@@ -116,21 +117,21 @@ application."
           (merge-pathnames
             (make-pathname :directory '(:relative "new-app-templates" "static"))
             (asdf-system-directory :redshiftnet))))
-		    new-project-dir)
+		  new-project-dir)
     (copy-directory
       (pathname-as-file
         (truename
           (merge-pathnames
             (make-pathname :directory '(:relative "new-app-templates" "logs"))
             (asdf-system-directory :redshiftnet))))
-        new-project-dir)
+      new-project-dir)
     (copy-directory
       (pathname-as-file
         (truename
           (merge-pathnames
             (make-pathname :directory '(:relative "new-app-templates" "cert"))
             (asdf-system-directory :redshiftnet))))
-        new-project-dir)
+      new-project-dir)
     ; copy packages.lisp
     (copy-file-replace
       (merge-pathnames
@@ -139,7 +140,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "packages" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy config.lisp
@@ -150,7 +151,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "config" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy db.lisp
@@ -161,7 +162,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "db" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy forms.lisp
@@ -172,7 +173,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "forms" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy make.lisp
@@ -183,7 +184,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "make" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy requests.lisp
@@ -194,7 +195,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "requests" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy scripts.lisp
@@ -205,7 +206,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "scripts" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy styles.lisp
@@ -216,7 +217,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "styles" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy templates.lisp
@@ -227,7 +228,7 @@ application."
         (asdf-system-directory :redshiftnet))
       (merge-pathnames
         (make-pathname :name "templates" :type "lisp")
-        new-project-src-dir)
+        new-project-dir)
       *app-name-placeholder*
       (attributize-name name))
     ; copy {APPNAME}.asd

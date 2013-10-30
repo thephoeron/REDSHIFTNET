@@ -10,6 +10,7 @@
     (:use :cl
           :cl-who
           :css-lite
+          :cl-fad
           :split-sequence
           :cl-ppcre
           :local-time

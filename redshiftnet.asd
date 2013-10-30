@@ -6,10 +6,11 @@
 (in-package :cl-user)
 
 (defpackage redshiftnet-asd
+  (:nicknames #:rsn-op)
   (:use :cl :asdf)
   (:export #:server-type #:server-version
            #:defrequest #:basic-app-page #:app-page
-           #:*rsn-version*))
+           #:*rsn-version* #:make-app #:make-app-op))
 
 (in-package :redshiftnet-asd)
 
@@ -63,8 +64,10 @@
                 :serial t
                 :components ((:file "admin")))
                (:file "redshiftnet")
-               (:file "make-new-app")))
+               (:file "make-new-app"))
+  :in-order-to ((make-app-op (load-op "redshiftnet"))))
 
+;;;; Stolen from Weblocks
 ;;;; make-app-op operation
 (defclass make-app-op (operation)
   ()
@@ -89,7 +92,7 @@
 ;;;; helper function that hides away the unnecessary arguments to
 ;;;; (asdf:operate)
 
-(defun make-app (name &optional (target "~/quicklisp/local-projects/"))
+(defun make-app (name &optional target)
   "Creates a new REDSHIFTNET app named <name> into directory <target> 
    based on the new-app-template.  <target> defaults to ~/quicklisp/local-projects/"
   (asdf:operate 'make-app-op :redshiftnet :name name :target target))
