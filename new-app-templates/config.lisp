@@ -55,8 +55,8 @@
 ;;; DEFINE VHOST ACCEPTORS AND DISPATCH-TABLES
 ;;; Note: Easy-Handlers get pushed to every VHOST by default.  Useful for sharing resources between multiple toplevel and sub- domains.
 
-(defvar vhost-web (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
-(defvar vhost-ssl (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
+(defvar www-vhost (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
+(defvar ssl-vhost (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
                                 			:ssl-privatekey-file *ssl-key* :ssl-certificate-file *ssl-cert*))
 
 (setf (dispatch-table www-vhost)
