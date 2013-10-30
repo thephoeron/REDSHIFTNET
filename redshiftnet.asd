@@ -44,7 +44,6 @@
                :docutils)
   :components ((:file "packages")
                (:file "vhost")
-               (:file "config")
                (:file "utils")
                (:file "db-utils")
                (:file "web")
@@ -60,6 +59,7 @@
                              (:file "auth-sessions")
                              (:file "auth-realms")
                              (:file "auth")))
+               (:file "config")
                (:module "admin"
                 :serial t
                 :components ((:file "admin")))

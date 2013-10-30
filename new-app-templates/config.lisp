@@ -21,7 +21,7 @@
 (setf ;; for utf-8
       hunchentoot:*default-content-type* "text/html; charset=utf-8"
       ;; for debug mode, set to 't'
-      hunchentoot:*catch-errors-p* nil
+      hunchentoot:*catch-errors-p* t
       (cl-who:html-mode) :html5
       ps:*js-string-delimiter* #\'
       css-lite:*indent-css* 4

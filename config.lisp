@@ -25,6 +25,7 @@
       hunchentoot:*default-content-type* "text/html; charset=utf-8"
       ;; for debug mode, set to 't'
       hunchentoot:*catch-errors-p* t
+      hunchentoot:*session-secret* (generate-new-session-token)
       (cl-who:html-mode) :html5
       ps:*js-string-delimiter* #\'
       css-lite:*indent-css* 4
@@ -35,7 +36,7 @@
                                           *load-truename*)))
     "The directory path of the current file.")
 
-(defparameter *static-folder* (merge-pathnames "static/" *default-directory*)
+(defparameter *static-folder* (merge-pathnames "new-app-templates/static/" *default-directory*)
 	"Static File Folder.  Caveat Programmer: Everything under this directory will be web accessible...")
 
 ;;;; Default SSL keys/certificates

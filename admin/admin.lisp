@@ -156,7 +156,7 @@
         (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
         (:meta :name "application-name" :content "REDSHIFTNET Admin")
         (:meta :name "author" :content "the Phoeron <//thephoeron.com/>")
-        (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "/static/css/bootstrap/bootstrap.min.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/bootstrap/bootstrap-theme.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/icons.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/forms/uniform/uniform.default.css")
@@ -167,27 +167,27 @@
         (:link :rel "apple-touch-icon-precomposed" :href "/static/images/ico/apple-touch-icon-57-precomposed.png")
         (:link :rel "shortcut icon" :href "/static/images/ico/favicon.png")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
-        (:link :rel "stylesheet" :href "/admin.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "/static/css/app.css" :type "text/css" :media "screen")
         ,@(mapcar (lambda (file)
                     `(:link :type "text/css" :rel "stylesheet" :media "screen"
                             :href ,(format nil "~A" file)))
-                     `(list ,@styles))
+                     (list styles))
         (:title ,title)
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
         ,@body
-        (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
-        (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
+        (:script :type "text/javascript" :src "/static/js/jquery-1.10.2.min.js")
+        (:script :type "text/javascript" :src "/static/js/bootstrap/bootstrap.min.js")
         (:script :type "text/javascript" :src "/static/js/conditionizr.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/nicescroll/jquery.nicescroll.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/jrespond/jRespond.min.js")
         (:script :type "text/javascript" :src "/static/js/jquery.redshiftnetAdmin.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
-        (:script :type "text/javascript" :src "/admin.js")
+        (:script :type "text/javascript" :src "/static/js/app.js")
         ,@(mapcar (lambda (file)
                     `(:script :type "text/javascript"
                               :src ,(format nil "~A" file)))
-                  `(list ,@scripts))))))
+                  (list scripts))))))
 
 (defmacro %admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
@@ -278,6 +278,8 @@
   (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
-     (admin-dashboard)))
+     (admin-dashboard)
+     (cl-who:with-html-output (hunchentoot::*standard-output*)
+       (:p "A test paragraph, just to see what the deal is."))))
 
 ;; EOF
