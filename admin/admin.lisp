@@ -194,9 +194,9 @@
   `(%basic-admin-app-page (:title ,title :styles `(list ,@styles) :scripts `(list ,@scripts))
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
-        (funcall header ,title (hunchentoot:session-value 'token)))
+        (funcall ,header ,title (hunchentoot:session-value 'token)))
       (:div :class "main"
-        (:aside :id "sidebar" (funcall menu))
+        (:aside :id "sidebar" (funcall ,menu))
         (:section :id "content"
           (:div :class "wrapper"
             (:div :class "crumb"
@@ -207,11 +207,11 @@
             (:div :class "container-fluid"
               ,@body))))
       (:footer :id "footer"
-        (funcall footer)))))
+        (funcall ,footer)))))
 
 ;; Admin auth page macro
 ;; admin pages return nil unless inside an ssl vhost defrequest
-(defmacro %admin-auth-page ((title login-page-fun) &body body)
+(defmacro %admin-auth-page ((title lpf) &body body)
   "Core auth-page template."
   `(when (hunchentoot:ssl-p)
      (if (null (hunchentoot:session-value 'token))
@@ -225,14 +225,14 @@
                                               :scripts `(list ,@admin-login-scripts)
                                               :styles `(list ,@admin-login-styles))
                         (show-all-messages)
-                        (funcall ,@login-page-fun "/static/images/redshiftnet_logo_text.png")))))
+                        (funcall ,lpf "/static/images/redshiftnet_logo_text.png")))))
                ((eql :get (hunchentoot:request-method*))
                 (progn (hunchentoot:start-session)
                        (%basic-admin-app-page (:title "Login"
                                                :scripts `(list ,@admin-login-scripts)
                                                :styles `(list ,@admin-login-styles))
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
-                           (funcall ,@login-page-fun "/static/images/redshiftnet_logo_text.png")))))
+                           (funcall ,lpf "/static/images/redshiftnet_logo_text.png")))))
                (t (hunchentoot:redirect "/403/")))
          ;; else
          (let* ((token (hunchentoot:session-value 'token))
@@ -248,11 +248,11 @@
                                               :styles `(list ,@admin-login-styles))
                         (show-all-messages)
                         (cl-who:with-html-output (hunchentoot::*standard-output*)
-                          (funcall ,@login-page-fun "/static/images/redshiftnet_logo_text.png")))))))))
+                          (funcall ,lpf "/static/images/redshiftnet_logo_text.png")))))))))
 
 (defmacro admin-page ((title login-page-fun &key (styles nil) (scripts nil)) &body body)
   "Admin site page generator macro."
-  `(%admin-auth-page (title #',login-page-fun)
+  `(%admin-auth-page (title ,login-page-fun)
      (%admin-app-page (:title ,title :header #'admin-header
                        :menu #'admin-menu :footer #'admin-footer
                        :scripts `(list ,@scripts) :styles `(list ,@styles))

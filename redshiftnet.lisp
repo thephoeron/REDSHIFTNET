@@ -18,16 +18,16 @@
     (ensure-directories-exist *www-msg-log*)
     (ensure-directories-exist *ssl-acc-log*)
     (ensure-directories-exist *ssl-msg-log*)
-    (postmodern:connect-toplevel pm-db pm-user pm-pass pm-host)
-    (hunchentoot:start www-vhost)
-    (hunchentoot:start ssl-vhost)
-    (format t "REDSHIFTNET Started and Running:~%       WWW: ~W~%          SSL: ~W~%" www-vhost ssl-vhost))
+    ;(postmodern:connect-toplevel *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    (hunchentoot:start vhost-web)
+    (hunchentoot:start vhost-ssl)
+    (format t "REDSHIFTNET Started and Running:~%       WWW: ~W~%          SSL: ~W~%" vhost-web vhost-ssl))
 
 (defun rsn-stop ()
     "Server Stop function for REDSHIFTNET"
-    (when (or www-vhost ssl-vhost)
-      (postmodern:disconnect-toplevel)
-      (format t "REDSHIFTNET running on acceptors ~W and ~W~%" (hunchentoot:stop www-vhost) (hunchentoot:stop ssl-vhost)))
+    (when (or vhost-web vhost-ssl)
+      ;(postmodern:disconnect-toplevel)
+      (format t "REDSHIFTNET running on acceptors ~W and ~W~%" (hunchentoot:stop vhost-web) (hunchentoot:stop vhost-ssl)))
     (format t "REDSHIFTNET Stopped successfully...~%"))
 
 (defun rsn-restart ()
