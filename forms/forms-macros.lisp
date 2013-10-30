@@ -9,13 +9,14 @@
 ;; NOTE: If you REALLY want, you can define your own raw rsn-form instance and validator as in define-rsn-form.
 ;; The same can be said about show-rsn-form. If you go this route, pay attention to how they communicate;
 ;; currently they use Hunchentoots' session
-(defun define-field (field-name field-type &key size value-set default-value validation)
+(defun define-field (field-name field-type &key size value-set default-value validation icon)
   "Takes a terse declaration and expands it into a make-instance for macro purposes"
   (let ((final-value-set (when value-set `(:value-set ,value-set)))
-    (final-size (when size `(:size ,size))))
+        (final-size (when size `(:size ,size)))
+        (final-icon (when icon `(:icon ,icon))))
     (multiple-value-bind (functions messages) (split-validation-list validation)
       `(make-instance ',field-type :name ,(format nil "~(~a~)" field-name) 
-              :default-value ,default-value ,@final-value-set ,@final-size
+              :default-value ,default-value ,@final-value-set ,@final-size ,@final-icon
               :validation-functions (list ,@functions) :error-messages (list ,@messages)))))
 
 (defmacro define-rsn-form ((name &key general-validation (submit "Submit")) (&rest fields) &rest on-success)

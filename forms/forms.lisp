@@ -19,6 +19,7 @@
   ((name :reader name :initarg :name)
    (validation-functions :accessor validation-functions :initarg :validation-functions :initform nil)
    (default-value :reader default-value :initarg :default-value :initform nil)
+   (icon :accessor icon :initarg :icon :initform nil)
    (error-messages :accessor error-messages :initarg :error-messages :initform nil)))
 (defclass hidden (rsn-form-field) ())
 (defclass text (rsn-form-field) ())
@@ -106,7 +107,7 @@
   `(defmethod show ((field ,field-type) &optional value error)
      (html-to-str 
        (:div :class "form-group relative" (string-downcase (name field))
-        (:div :class "icon" (:i :style "" :class (format nil "icon20 i-~a" (name field))))
+        (:div :class "icon" (:i :style "" :class (format nil "icon20 ~a" (icon field))))
         ,@body
         (when error (htm (:div :class "alert alert-error"
                             (:button :type "button" :class "close" :data-dismiss "alert" "×")

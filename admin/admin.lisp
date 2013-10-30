@@ -101,20 +101,24 @@
 
 (define-rsn-form (admin-login-form :submit "Login")
   ((username text
+    :icon "i-user"
     :validation
     ((not-blank?) "Your username is required"
      (longer-than? 2) "Your username must be longer than 2 characters"))
-   (password password))
+   (password password
+    :icon "i-key"))
   (let ((the-user (cl-who:escape-string username))
         (the-pass (cl-who:escape-string password)))
     (push-success-msg (format nil "Thank you, ~A.  You have logged in successfully." the-user))))
 
 (define-rsn-form (admin-forgot-password-form :submit "Recover Password")
   ((username text
+    :icon "i-user"
     :validation
     ((not-blank?) "Your username is required"
      (longer-than? 2) "Your username must be longer than 2 characters"))
    (email text
+    :icon "i-envelop-2"
     :validation
     ((not-blank?) "Your email address is required"
      (is-email?) "The email address you entered does not appear to be valid.")))
@@ -225,14 +229,14 @@
                                               :scripts `(list ,@admin-login-scripts)
                                               :styles `(list ,@admin-login-styles))
                         (show-all-messages)
-                        (funcall ,lpf "/static/images/redshiftnet_logo_text.png")))))
+                        (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))
                ((eql :get (hunchentoot:request-method*))
                 (progn (hunchentoot:start-session)
                        (%basic-admin-app-page (:title "Login"
                                                :scripts `(list ,@admin-login-scripts)
                                                :styles `(list ,@admin-login-styles))
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
-                           (funcall ,lpf "/static/images/redshiftnet_logo_text.png")))))
+                           (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))
                (t (hunchentoot:redirect "/403/")))
          ;; else
          (let* ((token (hunchentoot:session-value 'token))
@@ -248,7 +252,7 @@
                                               :styles `(list ,@admin-login-styles))
                         (show-all-messages)
                         (cl-who:with-html-output (hunchentoot::*standard-output*)
-                          (funcall ,lpf "/static/images/redshiftnet_logo_text.png")))))))))
+                          (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))))))
 
 (defmacro admin-page ((title login-page-fun &key (styles nil) (scripts nil)) &body body)
   "Admin site page generator macro."
