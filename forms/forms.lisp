@@ -19,7 +19,7 @@
   ((name :reader name :initarg :name)
    (validation-functions :accessor validation-functions :initarg :validation-functions :initform nil)
    (default-value :reader default-value :initarg :default-value :initform nil)
-   (error-messages :accessor error-messages	:initarg :error-messages :initform nil)))
+   (error-messages :accessor error-messages :initarg :error-messages :initform nil)))
 (defclass hidden (rsn-form-field) ())
 (defclass text (rsn-form-field) ())
 (defclass textarea (rsn-form-field) ())
@@ -33,7 +33,7 @@
 (defclass select (rsn-form-field-set) ())
 (defclass radio-set (rsn-form-field-set) ())
 
-(defclass rsn-form-field-return-set	(rsn-form-field-set) ()
+(defclass rsn-form-field-return-set (rsn-form-field-set) ()
   (:documentation "This class is specifically for fields that return multiple values from the user"))
 (defclass multi-select (rsn-form-field-return-set) ())
 (defclass checkbox-set (rsn-form-field-return-set) ())
@@ -53,7 +53,7 @@
 
 (defmethod post-value ((field rsn-form-field-return-set) post-alist)
   (loop for (k . v) in post-alist
-	if (string= k (name field)) collect v))
+    if (string= k (name field)) collect v))
   
 ;; validate
 ;; NOTE: The validate methods each return (values [validation result] [errors]). 
@@ -61,22 +61,22 @@
 ;; [errors] can be either a list or tree of strings
 (defmethod validate ((rsn-form rsn-form) form-values)
   (let ((errors (if (validation-functions rsn-form)
-		    (make-list (length (fields rsn-form)) ;;so that elements don't get cut off
-			       :initial-element
-			       (loop for f in (validation-functions rsn-form)
-				     for msg in (error-messages rsn-form)
-				     unless (apply f form-values) collect msg))
-		    (loop for f in (fields rsn-form)
-			  for v in form-values
-			  collect (multiple-value-bind (result error) (validate f v) (unless result error))))))
+            (make-list (length (fields rsn-form)) ;;so that elements don't get cut off
+                   :initial-element
+                   (loop for f in (validation-functions rsn-form)
+                     for msg in (error-messages rsn-form)
+                     unless (apply f form-values) collect msg))
+            (loop for f in (fields rsn-form)
+              for v in form-values
+              collect (multiple-value-bind (result error) (validate f v) (unless result error))))))
     (values (every #'null errors) errors)))
 
 (defmethod validate ((field rsn-form-field) value)
   "Returns (values T NIL) if there are no errors, and (values NIL list-of-errors). 
    By default, a rsn-form-field passes only its own value to its validation functions."
   (let ((errors (loop for fn in (validation-functions field)
-		      for msg in (error-messages field)
-		      unless (funcall fn value) collect msg)))
+              for msg in (error-messages field)
+              unless (funcall fn value) collect msg)))
     (values (every #'null errors) errors)))
 
 ;; show
@@ -88,16 +88,16 @@
   (with-slots (error-messages name enctype) rsn-form
     (html-to-stout
       (when (and (not (every #'null errors)) error-messages)
-	(htm (:span :class "general-error" 
-		    (dolist (s (car errors)) 
-				  (htm (:p (str s)))))))
+    (htm (:span :class "general-error" 
+            (dolist (s (car errors)) 
+                  (htm (:p (str s)))))))
       (:form :name (string-downcase name) :id (string-downcase name) :action (format nil "/validate-~(~a~)" name) :enctype enctype :method "post"
-	     (:ul :class "form-fields"
-		  (loop for a-field in (fields rsn-form)
-			for e in errors
-			for v in values
-			do (str (show a-field v (when (and e (not error-messages)) e))))
-		  (:li (:span :class "label") (:input :type "submit" :class "submit" :value (submit rsn-form))))))))
+         (:div :class "row"
+          (loop for a-field in (fields rsn-form)
+            for e in errors
+            for v in values
+            do (str (show a-field v (when (and e (not error-messages)) e))))
+          (:div :class "form-group relative" (:span :class "label") (:button :type "submit" :class "btn btn-primary pull-right col-lg-5" (str (submit rsn-form)))))))))
 
 (defmethod show ((field hidden) &optional value error)
   (html-to-str (:input :name (name field) :value value :type "hidden")))
@@ -105,47 +105,50 @@
 (defmacro define-show (field-type &body body)
   `(defmethod show ((field ,field-type) &optional value error)
      (html-to-str 
-       (:li :class (string-downcase (name field))
-	    (:span :class "label" (str (string-capitalize (regex-replace-all "-" (name field) " "))))
-	    ,@body
-	    (when error (htm (:span :class "rsn-form-error"
-				    (dolist (s error) 
-				      (htm (:p (str s)))))))))))
+       (:div :class "form-group relative" (string-downcase (name field))
+        (:div :class "icon" (:i :style "" :class (format nil "icon20 i-~a" (name field))))
+        ,@body
+        (when error (htm (:div :class "alert alert-error"
+                            (:button :type "button" :class "close" :data-dismiss "alert" "×")
+                            (:i :class "icon24 i-close-4" :style "float: left;")
+                            (:h3 "Error")
+                            (dolist (s error) 
+                              (htm (:p (str s)))))))))))
 
-(define-show rsn-form-field (:input :name (name field) :value value :class "text-box"))
-(define-show textarea (:textarea :name (name field) (str value)))
-(define-show password (:input :name (name field) :type "password" :class "text-box"))
-(define-show file (:input :name (name field) :type "file" :class "file"))
+(define-show rsn-form-field (:input :name (name field) :type "text" :value value :class "form-control" :placeholder (symbol-to-label field)))
+(define-show textarea (:textarea :name (name field) :placeholder (symbol-to-label field) (str value)))
+(define-show password (:input :name (name field) :type "password" :placeholder (symbol-to-label field) :class "form-control"))
+(define-show file (:input :name (name field) :type "file" :placeholder (symbol-to-label field) :class "file"))
 
 (define-show select 
   (:select :name (name field)
-	   (loop for v in (value-set field) 
-		 do (htm (:option :value v :selected (when (string= v value) "selected") (str v))))))
+       (loop for v in (value-set field) 
+         do (htm (:option :value v :selected (when (string= v value) "selected") (str v))))))
 
 (define-show checkbox
   (:input :type "checkbox" :name (name field) :value (name field) 
-	  :checked (when (string= (name field) value) "checked")))
+      :checked (when (string= (name field) value) "checked")))
 
 (define-show radio-set 
   (loop for v in (value-set field)
-	do (htm (:span :class "input+label" 
-			      (:input :type "radio" :name (name field) :value v 
-				      :checked (when (string= v value) "checked"))
-			      (str v)))))
+    do (htm (:span :class "input+label" 
+                  (:input :type "radio" :name (name field) :value v 
+                      :checked (when (string= v value) "checked"))
+                  (str v)))))
 
 (define-show multi-select
   (:select :name (name field) :multiple "multiple" :size 5
-	   (loop for v in (value-set field)
-		 do (htm (:option :value v 
-				  :selected (when (member v value :test #'string=) "selected")
-					    (str v))))))
+       (loop for v in (value-set field)
+         do (htm (:option :value v 
+                  :selected (when (member v value :test #'string=) "selected")
+                        (str v))))))
 
 (define-show checkbox-set
   (loop for v in (value-set field)
-	do (htm (:span :class "input+label"
-			      (:input :type "checkbox" :name (name field) :value v 
-				      :checked (when (member v value :test #'string=) "checked"))
-			      (str v)))))
+    do (htm (:span :class "input+label"
+                  (:input :type "checkbox" :name (name field) :value v 
+                      :checked (when (member v value :test #'string=) "checked"))
+                  (str v)))))
 
 ;; PREDICATES
 (defmacro define-predicate (name (&rest args) &body body)

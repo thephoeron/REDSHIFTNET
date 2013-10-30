@@ -22,4 +22,8 @@
 (defun file-size (f-name)
   (with-open-file (stream f-name :direction :input :if-does-not-exist nil) (file-length stream)))
 
+(defun symbol-to-label (field-name)
+  "Returns a string of a field-name formatted for labels"
+  (string-capitalize (regex-replace-all "-" (name field-name) " ")))
+
 ;; EOF
