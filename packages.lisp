@@ -10,12 +10,14 @@
     (:use :cl
           :cl-who
           :css-lite
+          :parenscript
           :cl-fad
           :split-sequence
           :cl-ppcre
           :local-time
           :postmodern
           :hunchentoot)
+    (:shadowing-import-from :parenscript #:%)
     (:export #:web-start #:web-stop
              #:server-type #:server-version
              ;; REDSHIFTNET Web
