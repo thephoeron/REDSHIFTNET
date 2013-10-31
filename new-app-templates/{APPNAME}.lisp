@@ -22,9 +22,9 @@
 
 (defun {APPNAME}-restart ()
   "Restart Server function for {APPNAME}.  Caveat programmer: Assumes SBCL environment and Quicklisp installed."
-  (rsn-stop)
+  ({APPNAME}-stop)
   (ql:quickload "{APPNAME}")
-  (rsn-start)
+  ({APPNAME}-start)
   (sb-ext:gc :full t)
   (format nil "~%{APPNAME} restarted successfully..."))
 

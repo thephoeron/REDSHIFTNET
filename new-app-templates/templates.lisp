@@ -16,7 +16,7 @@
         ,@(mapcar (lambda (file)
                     `(:link :type "text/css" :rel "stylesheet" :media "screen"
                             :href ,(format nil "~A" file)))
-                     styles)
+                     (lol:flatten (list styles)))
         (:title ,title)
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
@@ -28,18 +28,18 @@
         ,@(mapcar (lambda (file)
                     `(:script :type "text/javascript"
                               :src ,(format nil "~A" file)))
-                  scripts)))))
+                  (lol:flatten (list scripts)))))))
 
 (defmacro %{APPNAME}-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
-  `(%basic-{APPNAME}-app-page (:title ,title :styles ,@styles :scripts ,@scripts)
+  `(%basic-{APPNAME}-app-page (:title ,title :styles ,@(list styles) :scripts ,@(list scripts))
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
-        (,@header))
+        (funcall ,header ,title (hunchentoot:session-value 'token)))
       (:div :class "main"
-        (:aside :id "sidebar" (,@menu))
+        (:aside :id "sidebar" (funcall ,menu))
         (:div :id "content" ,@body))
       (:footer :id "footer"
-        (,@footer)))))
+        (funcall ,footer)))))
 
 ;; EOF

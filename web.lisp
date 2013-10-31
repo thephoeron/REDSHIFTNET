@@ -27,7 +27,7 @@
 ;; REDSHIFTNET Master jQuery functions
 (define-easy-handler (redshiftnet-js :uri "/redshiftnet.js") ()
   (setf (content-type*) "text/javascript")
-  (ps:ps
+  (parenscript:ps
     ((@ ($ document) ready)
         (lambda ()
             ((@ ($ "#ajax-link") click)

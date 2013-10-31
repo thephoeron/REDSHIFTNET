@@ -22,9 +22,9 @@ Ex:
   (when (null name)
     (return-from attributize-name ""))
   (let ((namestr (etypecase name
-		     (symbol (symbol-name name))
-		     (string name)
-		     (integer (format nil "~A" name)))))
+         (symbol (symbol-name name))
+         (string name)
+         (integer (format nil "~A" name)))))
     (string-downcase (substitute #\- #\Space namestr))))
 
 (defun make-dir (pathname)
@@ -72,8 +72,8 @@ Borrowed from cl-darcs with permission of copyright owner."
   "Returns a directory of the asdf system file of system
 'system-name'."
   (make-pathname :directory
-		 (pathname-directory (truename (asdf:system-definition-pathname
-						(asdf:find-system system-name))))))
+     (pathname-directory (truename (asdf:system-definition-pathname
+            (asdf:find-system system-name))))))
 
 (defun copy-file-replace (source target &optional match replacement)
   "Copies 'source' to 'target' replacing all instances of 'match' with
@@ -117,7 +117,7 @@ application."
           (merge-pathnames
             (make-pathname :directory '(:relative "new-app-templates" "static"))
             (asdf-system-directory :redshiftnet))))
-		  new-project-dir)
+      new-project-dir)
     (copy-directory
       (pathname-as-file
         (truename
@@ -245,14 +245,14 @@ application."
     ; copy {APPNAME}.lisp
     (copy-file-replace
       (merge-pathnames
-			  (make-pathname :directory '(:relative "new-app-templates")
-				       :name "{APPNAME}" :type "lisp")
-			  (asdf-system-directory :redshiftnet))
-		  (merge-pathnames
-			  (make-pathname :name (attributize-name name) :type "lisp")
-			  new-project-dir)
-			*app-name-placeholder*
-		  (attributize-name name))
+        (make-pathname :directory '(:relative "new-app-templates")
+               :name "{APPNAME}" :type "lisp")
+        (asdf-system-directory :redshiftnet))
+      (merge-pathnames
+        (make-pathname :name (attributize-name name) :type "lisp")
+        new-project-dir)
+      *app-name-placeholder*
+      (attributize-name name))
     ; Should check to see if quicklisp is available and app has been created under ~/quicklisp/local-projects/
     ; if not, tell user to add new app to asdf central registry
     (format t "~%~A has been created.~%" name)
