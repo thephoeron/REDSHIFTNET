@@ -109,7 +109,9 @@
     :icon "i-key"))
   (let ((the-user (cl-who:escape-string username))
         (the-pass (cl-who:escape-string password)))
-    (push-success-msg (format nil "Thank you, ~A.  You have logged in successfully." the-user))))
+    ;; need to insert validation here
+    (push-success-msg (format nil "Thank you, ~A.  You have logged in successfully." the-user))
+    (redirect (hunchentoot:referer))))
 
 (define-rsn-form (admin-forgot-password-form :submit "Recover Password")
   ((username text
