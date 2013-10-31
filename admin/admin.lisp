@@ -175,7 +175,7 @@
         ,@(mapcar (lambda (file)
                     `(:link :type "text/css" :rel "stylesheet" :media "screen"
                             :href ,(format nil "~A" file)))
-                     (list styles))
+                      (lol:flatten (list styles)))
         (:title ,title)
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
@@ -191,11 +191,11 @@
         ,@(mapcar (lambda (file)
                     `(:script :type "text/javascript"
                               :src ,(format nil "~A" file)))
-                  (list scripts))))))
+                  (lol:flatten (list scripts)))))))
 
 (defmacro %admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
-  `(%basic-admin-app-page (:title ,title :styles `(list ,@styles) :scripts `(list ,@scripts))
+  `(%basic-admin-app-page (:title ,title :styles ,@(list styles) :scripts ,@(list scripts))
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
         (funcall ,header ,title (hunchentoot:session-value 'token)))
@@ -226,15 +226,15 @@
                       (progn (create-new-session username)
                              ,@body)
                       (%basic-admin-app-page (:title "Login Failed"
-                                              :scripts `(list ,@admin-login-scripts)
-                                              :styles `(list ,@admin-login-styles))
+                                              :scripts ,@(list admin-login-scripts)
+                                              :styles ,@(list admin-login-styles))
                         (show-all-messages)
                         (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))
                ((eql :get (hunchentoot:request-method*))
                 (progn (hunchentoot:start-session)
                        (%basic-admin-app-page (:title "Login"
-                                               :scripts `(list ,@admin-login-scripts)
-                                               :styles `(list ,@admin-login-styles))
+                                               :scripts ,@(list admin-login-scripts)
+                                               :styles ,@(list admin-login-styles))
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
                            (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))
                (t (hunchentoot:redirect "/403/")))
@@ -248,8 +248,8 @@
                       (cl-who:with-html-output (hunchentoot::*standard-output*)
                         ,@body))
                (progn (%basic-admin-app-page (:title "Error: Validation Failure"
-                                              :scripts `(list ,@admin-login-scripts)
-                                              :styles `(list ,@admin-login-styles))
+                                              :scripts ,@(list admin-login-scripts)
+                                              :styles ,@(list admin-login-styles))
                         (show-all-messages)
                         (cl-who:with-html-output (hunchentoot::*standard-output*)
                           (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))))))
@@ -259,7 +259,7 @@
   `(%admin-auth-page (title ,login-page-fun)
      (%admin-app-page (:title ,title :header #'admin-header
                        :menu #'admin-menu :footer #'admin-footer
-                       :scripts `(list ,@scripts) :styles `(list ,@styles))
+                       :scripts ,@(list scripts) :styles ,@(list styles))
       (cl-who:with-html-output (hunchentoot::*standard-output*)
         ,@body))))
 
