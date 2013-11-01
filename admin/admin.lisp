@@ -94,7 +94,7 @@
                 (:span :class "txt" "All Tables")))))))))))
 
 ;; Admin Login page
-(defparameter admin-login-styles (list "/static/css/admin/login.css"))
+(defparameter admin-login-styles (list "/static/css/pages/login.css"))
 (defparameter admin-login-scripts (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
                                         "/static/js/plugins/forms/validation/jquery.validate.js"
                                         "/static/js/pages/login.js"))
@@ -286,6 +286,6 @@
                :scripts admin-dashboard-scripts)
      (admin-dashboard)
      (cl-who:with-html-output (hunchentoot::*standard-output*)
-       (:p "A test paragraph, just to see what the deal is."))))
+       (:p "A test paragraph, just to see what the deal is..."))))
 
 ;; EOF

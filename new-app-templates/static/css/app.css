@@ -2846,6 +2846,11 @@ html.loginPage {
 		right: -43px;
 		top: -1px;
 	}
+	/* a test to remove strange rounded corner on login tabs */
+	#login #bar a {
+		border-radius: 0;
+		width: 43px;
+	}
 
 	#login #bar[data-active="log"] a#log, #login #bar[data-active="reg"] a#reg, #login #bar[data-active="forgot"] a#forgot {
 		background: white;
