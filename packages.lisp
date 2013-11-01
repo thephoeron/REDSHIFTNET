@@ -18,7 +18,7 @@
           :postmodern
           :hunchentoot)
     (:shadowing-import-from :parenscript #:%)
-    (:export #:web-start #:web-stop
+    (:export #:rsn-start #:rsn-stop #:rsn-restart
              #:server-type #:server-version
              ;; REDSHIFTNET Web
              #:app-page #:basic-app-page
@@ -55,6 +55,12 @@
              #:file-type? #:file-smaller-than?
              #:not-blank? #:same-as?
              #:picked-more-than? #:picked-fewer-than? #:picked-exactly?
+             ;; REDSHIFTNET Admin
+             #:%basic-admin-app-page #:%admin-app-page
+             #:admin-page #:admin-header #:admin-menu #:admin-footer
+             #:admin-login #:admin-login-styles #:admin-login-scripts
+             #:admin-login-form #:admin-forgot-password-form
+             #:admin-dashboard #:admin-dashboard-styles #:admin-dashboard-scripts
              ))
 
 ;; see asdf system definition
