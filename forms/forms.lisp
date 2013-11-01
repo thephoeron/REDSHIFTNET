@@ -9,6 +9,7 @@
 (defclass rsn-form ()
   ((name :reader name :initarg :name)
    (fields :reader fields :initarg :fields)
+   (action :accessor action :initarg :action :initform "")
    (validation-functions :accessor validation-functions :initarg :validation-functions :initform nil)
    (error-messages :reader error-messages :initarg :error-messages :initform nil)
    (submit-caption :reader submit :initarg :submit :initform "Submit")
@@ -92,7 +93,7 @@
     (htm (:span :class "general-error" 
             (dolist (s (car errors)) 
                   (htm (:p (str s)))))))
-      (:form :name (string-downcase name) :id (string-downcase name) :action (format nil "/validate-~(~a~)" name) :enctype enctype :method "post"
+      (:form :name (string-downcase name) :id (string-downcase name) :action (action rsn-form) :enctype enctype :method "post" ;; :action (format nil "/validate-~(~a~)" name)
          (:div :class "row"
           (loop for a-field in (fields rsn-form)
             for e in errors

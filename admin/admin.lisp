@@ -99,7 +99,7 @@
                                         "/static/js/plugins/forms/validation/jquery.validate.js"
                                         "/static/js/pages/login.js"))
 
-(define-rsn-form (admin-login-form :submit "Login")
+(define-rsn-form (admin-login-form :submit "Login" :action "")
   ((username text
     :icon "i-user"
     :validation

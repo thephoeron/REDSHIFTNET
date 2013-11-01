@@ -3,7 +3,8 @@
 (in-package :cl-user)
 
 (defpackage #:{APPNAME}
-  (:use :cl :cl-who :hunchentoot :redshiftnet)
+  (:use :cl :cl-who :parenscript :postmodern :hunchentoot :redshiftnet)
+  (:shadowing-import-from :parenscript #:%)
   (:export #:{APPNAME}-start
            #:{APPNAME}-stop
            #:{APPNAME}-restart)

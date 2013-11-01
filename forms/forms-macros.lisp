@@ -19,11 +19,14 @@
               :default-value ,default-value ,@final-value-set ,@final-size ,@final-icon
               :validation-functions (list ,@functions) :error-messages (list ,@messages)))))
 
-(defmacro define-rsn-form ((name &key general-validation (submit "Submit")) (&rest fields) &rest on-success)
+(defmacro define-rsn-form ((name &key general-validation (submit "Submit") (action "validate")) (&rest fields) &rest on-success)
   "Converts a terse declaration form into the corresponding object and validation handler."
   ; the flet function converts a terse declaration into the corresponding make-instance declaration
   (let* ((field-names (mapcar #'car fields))
          (field-objects (mapcar (lambda (f) (apply #'define-field f)) fields))
+         (the-action (if (string= action "validate")
+                         (format nil "/validate-~(~a~)" name)
+                         action))
          (enctype (if (every (lambda (f) (not (eq (cadr f) 'file))) fields)
                       "application/x-www-form-urlencoded" 
                       "multipart/form-data")))
@@ -33,6 +36,7 @@
          (defparameter ,name
            (make-instance 'rsn-form
                           :name ',name :submit ,submit :enctype ,enctype
+                          :action ,the-action
                           :validation-functions ,(when general-validation `(list ,@gen-val-fn)) 
                           :error-messages ,(when general-validation `(list ,@gen-err-msg))
                           :fields (list ,@field-objects)
