@@ -94,10 +94,12 @@
                 (:span :class "txt" "All Tables")))))))))))
 
 ;; Admin Login page
-(defparameter admin-login-styles (list "/static/css/pages/login.css"))
-(defparameter admin-login-scripts (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
-                                        "/static/js/plugins/forms/validation/jquery.validate.js"
-                                        "/static/js/pages/login.js"))
+(eval-when (:compile-toplevel :execute :load-toplevel)
+  ;; Gotta make sure these parameters are available at macro expansion time
+  (defparameter admin-login-styles (list "/static/css/pages/login.css"))
+  (defparameter admin-login-scripts (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
+                                          "/static/js/plugins/forms/validation/jquery.validate.js"
+                                          "/static/js/pages/login.js")))
 
 (define-rsn-form (admin-login-form :submit "Login" :action "")
   ((username text
@@ -266,10 +268,12 @@
         ,@body))))
 
 ;; Admin Dashboard
-(defparameter admin-dashboard-styles (list "/static/css/custom.css"
-                                           "/static/css/app.css"))
-(defparameter admin-dashboard-scripts (list "/static/js/pages/dashboard.js"
-                                            "/static/js/app.js"))
+(eval-when (:compile-toplevel :execute :load-toplevel)
+  ;; Gotta make these parameters available at macro-expansion time
+  (defparameter admin-dashboard-styles (list "/static/css/custom.css"
+                                             "/static/css/app.css"))
+  (defparameter admin-dashboard-scripts (list "/static/js/pages/dashboard.js"
+                                              "/static/js/app.js")))
 
 (defun admin-dashboard ()
   "Admin site dashboard widget generator function."
