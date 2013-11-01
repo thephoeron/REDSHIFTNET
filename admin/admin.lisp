@@ -36,7 +36,7 @@
           (:li :class "divider-vertical")
           (:li :class "dropdown"
             (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown"
-              (:i :class "icon24 i-envelope-2")
+              (:i :class "icon24 i-envelop-2")
               (:span :class "notification red" "3"))
             (:ul :class "dropdown-menu messages" :role "menu"
               (:li :class "head" :role "presentation"
@@ -85,21 +85,30 @@
           (:li (:a :href "/admin/"
             (:span :class "icon" (:i :class "icon20 i-screen"))
             (:span :class "txt" "Dashboard")))
-          (:li (:a :href "/admin/tables/"
+          (:li (:a :href "#tables"
             (:span :class "icon" (:i :class "icon20 i-table-2"))
-            (:span :class "text" "Tables")
+            (:span :class "txt" "Tables")
             (:ul :class "sub"
               (:li (:a :href "/admin/tables/"
-                (:span :class "icon" (:i :class "icon20 i-table"))
-                (:span :class "txt" "All Tables")))))))))))
+                       (:span :class "icon" (:i :class "icon20 i-table"))
+                       (:span :class "txt" "All Tables")))
+              (:li (:a :href "/admin/tables/person/"
+                       (:span :class "icon" (:i :class "icon20 i-table"))
+                       (:span :class "txt" "Person Table")))))))))))
 
 ;; Admin Login page
 (eval-when (:compile-toplevel :execute :load-toplevel)
   ;; Gotta make sure these parameters are available at macro expansion time
+  ;; Login page
   (defparameter admin-login-styles (list "/static/css/pages/login.css"))
   (defparameter admin-login-scripts (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
                                           "/static/js/plugins/forms/validation/jquery.validate.js"
-                                          "/static/js/pages/login.js")))
+                                          "/static/js/pages/login.js"))
+  ;; Admin Dashboard
+  (defparameter admin-dashboard-styles (list "/static/css/custom.css"
+                                             "/static/css/app.css"))
+  (defparameter admin-dashboard-scripts (list "/static/js/pages/dashboard.js"
+                                              "/static/js/app.js")))
 
 (define-rsn-form (admin-login-form :submit "Login" :action "")
   ((username text
@@ -168,13 +177,14 @@
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/bootstrap/bootstrap-theme.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/icons.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/forms/uniform/uniform.default.css")
+        (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/ui/jgrowl/jquery.jgrowl.css")
         "<!--[if IE 8]><link href=\"css/ie8.css\" rel=\"stylesheet\" type=\"text/css\" /><![endif]-->"
         (:link :rel "apple-touch-icon-precomposed" :sizes "144x144" :href "/static/images/ico/apple-touch-icon-144-precomposed.png")
         (:link :rel "apple-touch-icon-precomposed" :sizes "114x114" :href "/static/images/ico/apple-touch-icon-114-precomposed.png")
         (:link :rel "apple-touch-icon-precomposed" :sizes "72x72" :href "/static/images/ico/apple-touch-icon-72-precomposed.png")
         (:link :rel "apple-touch-icon-precomposed" :href "/static/images/ico/apple-touch-icon-57-precomposed.png")
         (:link :rel "shortcut icon" :href "/static/images/ico/favicon.png")
-        (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
+        ;(:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :href "/static/css/app.css" :type "text/css" :media "screen")
         ,@(mapcar (lambda (file)
                     `(:link :type "text/css" :rel "stylesheet" :media "screen"
@@ -185,12 +195,14 @@
       (:body
         ,@body
         (:script :type "text/javascript" :src "/static/js/jquery-1.10.2.min.js")
+        (:script :type "text/javascript" :src "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js")
         (:script :type "text/javascript" :src "/static/js/bootstrap/bootstrap.min.js")
         (:script :type "text/javascript" :src "/static/js/conditionizr.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/nicescroll/jquery.nicescroll.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/jrespond/jRespond.min.js")
         (:script :type "text/javascript" :src "/static/js/jquery.redshiftnetAdmin.js")
-        (:script :type "text/javascript" :src "/redshiftnet.js")
+        (:script :type "text/javascript" :src "/static/js/plugins/ui/jgrowl/jquery.jgrowl.min.js")
+        ;(:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/static/js/app.js")
         ,@(mapcar (lambda (file)
                     `(:script :type "text/javascript"
@@ -199,7 +211,7 @@
 
 (defmacro %admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
-  `(%basic-admin-app-page (:title ,title :styles ,@(list styles) :scripts ,@(list scripts))
+  `(%basic-admin-app-page (:title ,title :styles ,(eval styles) :scripts ,(eval scripts))
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
         (funcall ,header ,title (hunchentoot:session-value 'token)))
@@ -263,18 +275,11 @@
   `(%admin-auth-page (title ,login-page-fun)
      (%admin-app-page (:title ,title :header #'admin-header
                        :menu #'admin-menu :footer #'admin-footer
-                       :scripts ,@(list scripts) :styles ,@(list styles))
+                       :scripts ,scripts :styles ,@(list styles))
       (cl-who:with-html-output (hunchentoot::*standard-output*)
         ,@body))))
 
 ;; Admin Dashboard
-(eval-when (:compile-toplevel :execute :load-toplevel)
-  ;; Gotta make these parameters available at macro-expansion time
-  (defparameter admin-dashboard-styles (list "/static/css/custom.css"
-                                             "/static/css/app.css"))
-  (defparameter admin-dashboard-scripts (list "/static/js/pages/dashboard.js"
-                                              "/static/js/app.js")))
-
 (defun admin-dashboard ()
   "Admin site dashboard widget generator function."
   (cl-who:with-html-output (hunchentoot::*standard-output*)
@@ -290,6 +295,6 @@
                :scripts admin-dashboard-scripts)
      (admin-dashboard)
      (cl-who:with-html-output (hunchentoot::*standard-output*)
-       (:p "A test paragraph, just to see what the deal is..."))))
+       (:p "A test paragraph, just to see what the deal is... and more... and..."))))
 
 ;; EOF
