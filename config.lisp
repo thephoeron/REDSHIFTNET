@@ -12,11 +12,11 @@
 ;;;; PRIMARY DATABASE CONNECTION
 ;;;; Assumes Postmodern and PostgreSQL 9.1+
 
-(defvar *primary-db* "database-name")
-(defvar *primary-db-user* "database-user")
-(defvar *primary-db-pass* "database-password")
-(defvar *primary-db-host* "database-hostname")
-(defvar *primary-db-port* "5432")
+(defparameter *primary-db* "database-name")
+(defparameter *primary-db-user* "database-user")
+(defparameter *primary-db-pass* "database-password")
+(defparameter *primary-db-host* "database-hostname")
+(defparameter *primary-db-port* "5432")
 
 ;;;; DEFAULT ENVIRONMENT VARIABLES
 ;;;; For Hunchentoot, Parenscript, and CSS-Lite
@@ -26,6 +26,7 @@
       ;; for debug mode, set to 't'
       hunchentoot:*catch-errors-p* t
       hunchentoot:*session-secret* (generate-new-session-token)
+      hunchentoot:*session-max-time* 1209600 ;; 2 weeks in seconds
       (cl-who:html-mode) :html5
       ps:*js-string-delimiter* #\'
       css-lite:*indent-css* 4
@@ -62,6 +63,8 @@
 (defvar vhost-web (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
 (defvar vhost-ssl (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
                                 			:ssl-privatekey-file *ssl-key* :ssl-certificate-file *ssl-cert*))
+;; Ghost Admin vhost acceptor
+(defparameter vhost-admin vhost-ssl)
 
 (setf (dispatch-table vhost-web)
       (list
