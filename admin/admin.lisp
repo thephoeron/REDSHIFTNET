@@ -295,7 +295,7 @@
       (:p :class "lead"
         "Welcome to REDSHIFTNET Admin.  This is a good place to put your favourite dashboard widgets.  There should probably be a list somewhere that is built through the interface, so users can customize it..."))))
 
-(defrequest rsn-admin (:vhost vhost-ssl)
+(defrequest rsn-admin (:vhost vhost-admin)
   (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
@@ -326,10 +326,12 @@
                 (loop for a in all-records
                       for i upto 0
                       do (loop for b in a
+                               unless (eq (car b) :password)
                                do (htm (:th (str (string-symbol-to-label (format nil "~A" (car b))))))))))
               (:tbody
                 (loop for x in all-records
                       do (htm (:tr (loop for y in x
+                                         unless (eq (car y) :password)
                                          do (htm (:td (str (format nil "~A" (cdr y)))))))))))))))))
 
 ;; Output all database tables as html
@@ -374,7 +376,7 @@
 ;; All Tables request
 ;; Accepts get-parameter 'name' to display specific table
 ;; Otherwise it lists all tables in current db grouped by app
-(defrequest rsn-admin/tables (:vhost vhost-ssl)
+(defrequest rsn-admin/tables (:vhost vhost-admin)
   (admin-page ("REDSHIFTNET Admin :: All Tables" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
