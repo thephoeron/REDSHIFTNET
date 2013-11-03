@@ -26,4 +26,8 @@
   "Returns a string of a field-name formatted for labels"
   (string-capitalize (regex-replace-all "-" (name field-name) " ")))
 
+(defun string-symbol-to-label (symbol-name)
+  "Returns a string of a symbol-name formatted for labels"
+  (string-capitalize (regex-replace-all "-" symbol-name " ")))
+
 ;; EOF

@@ -484,23 +484,23 @@ table."
 (defun list-triggers (&optional table-name)
   "List distinct trigger names from the information_schema table. Table-name can be
 either quoted or string."
-    (if table-name
-            (progn
-                (when (symbolp table-name)    
-                    (setf table-name  (string-downcase (write-to-string table-name))))
-                (when (table-exists-p table-name)
-                    (lol:flatten (query 
-                                        (:select (:as 'trg.tgname 'trigger-name) 
-                                                         :from (:as 'pg-trigger 'trg) (:as 'pg-class 'tbl)
-                                                         :where (:and (:= 'trg.tgrelid 'tbl.oid)
-                                                                                    (:= 'tbl.relname '$1)))
-                                        table-name))))
-            (lol:flatten (query 
-                                (:select 'trigger-name :distinct
-                                                 :from 'information-schema.triggers
-                                                 :where 
-                                                 (:not-in 'trigger-schema 
-                                                                    (:set "pg-catalog" "information-schema")))))))
+  (if table-name
+    (progn
+      (when (symbolp table-name)    
+        (setf table-name  (string-downcase (write-to-string table-name))))
+      (when (table-exists-p table-name)
+        (lol:flatten (query 
+          (:select (:as 'trg.tgname 'trigger-name) 
+            :from (:as 'pg-trigger 'trg) (:as 'pg-class 'tbl)
+            :where (:and (:= 'trg.tgrelid 'tbl.oid)
+                      (:= 'tbl.relname '$1)))
+          table-name))))
+    (lol:flatten (query 
+      (:select 'trigger-name :distinct
+        :from 'information-schema.triggers
+        :where 
+        (:not-in 'trigger-schema 
+          (:set "pg-catalog" "information-schema")))))))
 
 (defun list-detailed-triggers ()
   "list detailed information on the triggers from the information_schema table"
