@@ -105,10 +105,16 @@
                                           "/static/js/plugins/forms/validation/jquery.validate.js"
                                           "/static/js/pages/login.js"))
   ;; Admin Dashboard
-  (defparameter admin-dashboard-styles (list "/static/css/custom.css"
-                                             "/static/css/app.css"))
-  (defparameter admin-dashboard-scripts (list "/static/js/pages/dashboard.js"
-                                              "/static/js/app.js")))
+  (defparameter admin-dashboard-styles
+    (list "/static/js/plugins/tables/datatables/jquery.dataTables.css"
+          "/static/css/custom.css"
+          "/static/css/app.css"))
+  (defparameter admin-dashboard-scripts 
+    (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
+          "/static/js/plugins/tables/datatables/jquery.dataTables.min.js"
+          "/static/js/pages/data-tables.js"
+          "/static/js/pages/dashboard.js"
+          "/static/js/app.js")))
 
 (define-rsn-form (admin-login-form :submit "Login" :action "")
   ((username text
@@ -275,7 +281,7 @@
   `(%admin-auth-page (title ,login-page-fun)
      (%admin-app-page (:title ,title :header #'admin-header
                        :menu #'admin-menu :footer #'admin-footer
-                       :scripts ,scripts :styles ,@(list styles))
+                       :scripts ,scripts :styles ,styles)
       (cl-who:with-html-output (hunchentoot::*standard-output*)
         ,@body))))
 
@@ -296,5 +302,96 @@
      (admin-dashboard)
      (cl-who:with-html-output (hunchentoot::*standard-output*)
        (:p "A test paragraph, just to see what the deal is... and more... and..."))))
+
+;; Edit page for database record
+(defun generate-edit-page-for-database-record (table-name record-id)
+  "Accepts a table name and record id, and creates a new request object with an auto-generated form that allows you to edit the record."
+  )
+
+;; Generate page for database table
+;; doesn't seem to be working yet; keep getting 'table-name not a string'
+;; type errors on macro-expansion
+(defmacro generate-page-for-database-table (table-name)
+  "Accepts a database table name and creates a new request object populated by that table's records."
+  (declare (type string table-name))
+  (let* ((all-records 
+           (postmodern:query (:select '* :from (intern table-name)) :alists))
+         (request-name (intern (format nil "rsn-admin/tables/~A/" table-name)))
+         (request-title (format nil "REDSHIFTNET Admin :: Tables :: ~A" (string-symbol-to-label table-name))))
+    `(defrequest ,request-name (:vhost ,vhost-ssl)
+      (admin-page (,request-title #'admin-login
+                   :styles ,admin-dashboard-styles
+                   :scripts ,admin-dashboard-scripts)
+        (cl-who:with-html-output (hunchentoot::*standard-output*)
+          (:div :id "heading" :class "page-header"
+            (:h1 (:i :class "icon20 i-table") "&nbsp" request-title))
+          (:div :class "row"
+            (:div :class "col-lg-12"
+              (:table :class "table table-striped table-bordered table-hover" :id "dataTable"
+                (:thead
+                  (:tr
+                    (loop for a in all-records
+                          for i upto 0
+                          do (loop for b in a
+                                   do (htm (:th (str (format nil "~A" (car b)))))))))
+                (:tbody
+                  (loop for x in all-records
+                        do (htm (:tr (loop for y in x
+                                           do (htm (:td (str (format nil "~A" (cdr y))))))))))))))))))
+
+; (with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+;   (format t "~%; Connecting to PostgreSQL and creating table pages...")
+;   (loop for table in (list-database-tables)
+;         do (let ((the-table (format nil "~A" (substitute #\- #\_ table))))
+;              (format t "~%; -- ~A" the-table)
+;              (generate-page-for-database-table the-table))))
+
+;; Output all database tables as html
+(defun output-all-database-tables-as-html ()
+  "Introspects on the current toplevel database and generates an admin page that lists all tables grouped by app, following the PostgreSQL naming convention 'appname_tablename'."
+  (let* ((all-tables (cl:loop for table in (list-database-tables)
+                           collect (split-sequence #\_ table)))
+         (parsed-tables (cl:loop for (x y) in all-tables
+                              collect x))
+         (table-group-names (remove-duplicates parsed-tables :test #'string=))
+         (table-group-lists (loop for z in table-group-names
+                                  collect (list z (loop for x in all-tables
+                                                        when (string= (car x) z)
+                                                             collect x))))
+         (final-table-list (loop for (x . y) in table-group-lists
+                                 collect (list x (lol:flatten
+                                               (loop for i in y
+                                                     collect (loop for j in i
+                                                                   collect (format nil "~{~a~^-~}" j))))))))
+    (html-to-stout
+    (loop for (x . y) in final-table-list
+          do (htm
+               (:div :class "col-lg-8"
+                (:div :class "page-header"
+                  (:h3 (str (string-symbol-to-label x))))
+               (:table :class "table table-striped"
+                 (:thead
+                   (:tr (:th "Table Name")))
+                 (:tbody
+                 (loop for i in y
+                       do (loop for j in i
+                          do (progn
+                            (htm
+                            (:tr
+                              (:td
+                                (:i :class "icon20 i-table")
+                                "&nbsp;"
+                                (:a :href (str (format nil "/admin/tables/~a/" j))
+                                  (str (string-symbol-to-label j)))))))))))))))))
+
+(defrequest rsn-admin/tables (:vhost vhost-ssl)
+  (admin-page ("REDSHIFTNET Admin :: All Tables" #'admin-login
+               :styles admin-dashboard-styles
+               :scripts admin-dashboard-scripts)
+    (cl-who:with-html-output (hunchentoot::*standard-output*)
+      (:div :id "heading" :class "page-header"
+        (:h1 (:i :class "icon20 i-dashboard") " All Tables"))
+      (:div :class "row"
+        (output-all-database-tables-as-html)))))
 
 ;; EOF
