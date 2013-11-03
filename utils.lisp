@@ -11,6 +11,11 @@
 (defun server-version ()
   *rsn-version*)
 
+;; From PCL
+(defmacro with-gensyms ((&rest names) &body body)
+  `(let ,(loop for n in names collect `(,n (gensym)))
+     ,@body))
+
 ;; Handy function for replacing all instances of PART with REPLACEMENT
 (defun replace-all (string part replacement &key (test #'char=))
 "Returns a new string in which all the occurences of the part 

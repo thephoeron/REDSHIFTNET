@@ -15,9 +15,9 @@
 
 (defun split-validation-list (validation-list)
   (loop for (fn msg) on validation-list by #'cddr
-	collect fn into list-of-fn
-	collect msg into list-of-msg
-	finally (return (values list-of-fn list-of-msg))))
+    collect fn into list-of-fn
+    collect msg into list-of-msg
+    finally (return (values list-of-fn list-of-msg))))
 
 (defun file-size (f-name)
   (with-open-file (stream f-name :direction :input :if-does-not-exist nil) (file-length stream)))

@@ -308,47 +308,34 @@
   "Accepts a table name and record id, and creates a new request object with an auto-generated form that allows you to edit the record."
   )
 
-;; Generate page for database table
-;; doesn't seem to be working yet; keep getting 'table-name not a string'
-;; type errors on macro-expansion
-(defmacro generate-page-for-database-table (table-name)
-  "Accepts a database table name and creates a new request object populated by that table's records."
-  (declare (type string table-name))
-  (let* ((all-records 
-           (postmodern:query (:select '* :from (intern table-name)) :alists))
-         (request-name (intern (format nil "rsn-admin/tables/~A/" table-name)))
-         (request-title (format nil "REDSHIFTNET Admin :: Tables :: ~A" (string-symbol-to-label table-name))))
-    `(defrequest ,request-name (:vhost ,vhost-ssl)
-      (admin-page (,request-title #'admin-login
-                   :styles ,admin-dashboard-styles
-                   :scripts ,admin-dashboard-scripts)
-        (cl-who:with-html-output (hunchentoot::*standard-output*)
-          (:div :id "heading" :class "page-header"
-            (:h1 (:i :class "icon20 i-table") "&nbsp" request-title))
-          (:div :class "row"
-            (:div :class "col-lg-12"
-              (:table :class "table table-striped table-bordered table-hover" :id "dataTable"
-                (:thead
-                  (:tr
-                    (loop for a in all-records
-                          for i upto 0
-                          do (loop for b in a
-                                   do (htm (:th (str (format nil "~A" (car b)))))))))
-                (:tbody
-                  (loop for x in all-records
-                        do (htm (:tr (loop for y in x
-                                           do (htm (:td (str (format nil "~A" (cdr y))))))))))))))))))
-
-; (with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-;   (format t "~%; Connecting to PostgreSQL and creating table pages...")
-;   (loop for table in (list-database-tables)
-;         do (let ((the-table (format nil "~A" (substitute #\- #\_ table))))
-;              (format t "~%; -- ~A" the-table)
-;              (generate-page-for-database-table the-table))))
+(defun output-named-database-table-as-html (table-name)
+  "Outputs the named database table as html."
+  (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    (let* ((all-records
+              (postmodern:query
+                (format nil "SELECT * FROM ~A" (normalize-for-sql table-name))
+                :alists)))
+      (html-to-stout
+        (:div :id "heading" :class "page-header"
+          (:h1 (:i :class "icon20 i-table" 
+            "&nbsp" (string-symbol-to-label table-name))))
+        (:div :class "row"
+          (:div :class "col-lg-12"
+            (:table :class "table table-striped table-bordered table-hover" :id "dataTable"
+              (:thead (:tr
+                (loop for a in all-records
+                      for i upto 0
+                      do (loop for b in a
+                               do (htm (:th (str (string-symbol-to-label (format nil "~A" (car b))))))))))
+              (:tbody
+                (loop for x in all-records
+                      do (htm (:tr (loop for y in x
+                                         do (htm (:td (str (format nil "~A" (cdr y)))))))))))))))))
 
 ;; Output all database tables as html
 (defun output-all-database-tables-as-html ()
   "Introspects on the current toplevel database and generates an admin page that lists all tables grouped by app, following the PostgreSQL naming convention 'appname_tablename'."
+ (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
   (let* ((all-tables (loop for table in (list-database-tables)
                            collect (split-sequence #\_ table)))
          (parsed-tables (loop for (x y) in all-tables
@@ -381,17 +368,23 @@
                               (:td
                                 (:i :class "icon20 i-table")
                                 "&nbsp;"
-                                (:a :href (str (format nil "/admin/tables/~a/" j))
-                                  (str (string-symbol-to-label j)))))))))))))))))
+                                (:a :href (str (format nil "/admin/tables/?name=~a" j))
+                                  (str (string-symbol-to-label j))))))))))))))))))
 
+;; All Tables request
+;; Accepts get-parameter 'name' to display specific table
+;; Otherwise it lists all tables in current db grouped by app
 (defrequest rsn-admin/tables (:vhost vhost-ssl)
   (admin-page ("REDSHIFTNET Admin :: All Tables" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
-    (cl-who:with-html-output (hunchentoot::*standard-output*)
-      (:div :id "heading" :class "page-header"
-        (:h1 (:i :class "icon20 i-dashboard") " All Tables"))
-      (:div :class "row"
-        (output-all-database-tables-as-html)))))
+    (if (hunchentoot:get-parameter "name")
+        (output-named-database-table-as-html (hunchentoot:get-parameter "name"))
+        ; else
+        (cl-who:with-html-output (hunchentoot::*standard-output*)
+          (:div :id "heading" :class "page-header"
+            (:h1 (:i :class "icon20 i-dashboard") " All Tables"))
+          (:div :class "row"
+            (output-all-database-tables-as-html))))))
 
 ;; EOF
