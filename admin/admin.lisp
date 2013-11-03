@@ -349,9 +349,9 @@
 ;; Output all database tables as html
 (defun output-all-database-tables-as-html ()
   "Introspects on the current toplevel database and generates an admin page that lists all tables grouped by app, following the PostgreSQL naming convention 'appname_tablename'."
-  (let* ((all-tables (cl:loop for table in (list-database-tables)
+  (let* ((all-tables (loop for table in (list-database-tables)
                            collect (split-sequence #\_ table)))
-         (parsed-tables (cl:loop for (x y) in all-tables
+         (parsed-tables (loop for (x y) in all-tables
                               collect x))
          (table-group-names (remove-duplicates parsed-tables :test #'string=))
          (table-group-lists (loop for z in table-group-names
