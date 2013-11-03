@@ -82,7 +82,7 @@
     (:div :class "sidebar-wrapper"
       (:nav :id "mainnav"
         (:ul :class "nav nav-list"
-          (:li (:a :href "/admin/"
+          (:li (:a :href "/admin/dashboard/"
             (:span :class "icon" (:i :class "icon20 i-screen"))
             (:span :class "txt" "Dashboard")))
           (:li (:a :href "#tables"
@@ -215,6 +215,42 @@
                               :src ,(format nil "~A" file)))
                   (lol:flatten (list scripts)))))))
 
+(defun admin-breadcrumb (script-name &optional get-parameters)
+  "Creates bootstrapped navigation breadcrumbs from current request's script-name* and optional get-parameters"
+  (let* ((script-list (split-sequence #\/ script-name :remove-empty-subseqs t)))
+    (html-to-stout
+      (:div :class "crumb"
+        (:ul :class "breadcrumb"
+          (:li (:a :href "/" (:i :class "icon16 i-home-4") "Home"))
+          (if get-parameters
+              (progn
+                (loop for page in script-list
+                      do (htm
+                           (:li 
+                             (:a :href (str (inclusive-search-and-return-string script-name page))
+                               (str (string-symbol-to-label (cl-who:escape-string page)))))))
+                (htm
+                  (:li :class "active"
+                    (loop for res in get-parameters
+                          do (htm 
+                               (str (string-symbol-to-label 
+                                      (format nil "~A" (car res)))) 
+                               (str ": ")
+                               (str (string-symbol-to-label 
+                                      (format nil "~A" (cdr res)))))))))
+              ; else
+              (progn
+                (loop for page in script-list
+                      for i upto (length script-list)
+                      when (< i (1- (length script-list)))
+                        do (htm
+                          (:li (:a :href (str (inclusive-search-and-return-string script-name page))
+                            (str (string-symbol-to-label (cl-who:escape-string page))))))
+                      when (eq i (1- (length script-list)))
+                        do (htm (:li :class "active"
+                        (str (string-symbol-to-label (cl-who:escape-string page)))))))
+                ))))))
+
 (defmacro %admin-app-page ((&key (title "REDSHIFTNET Admin") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
   `(%basic-admin-app-page (:title ,title :styles ,(eval styles) :scripts ,(eval scripts))
@@ -225,11 +261,7 @@
         (:aside :id "sidebar" (funcall ,menu))
         (:section :id "content"
           (:div :class "wrapper"
-            (:div :class "crumb"
-              (:ul :class "breadcrumb"
-                (:li (:a :href "/" (:i :class "icon16 i-home-4") "Home"))
-                (:li (:a :href "/admin/" "Admin"))
-                (:li :class "active" (:a :href "/admin/" "Dashboard"))))
+            (admin-breadcrumb (hunchentoot:script-name*) (hunchentoot:get-parameters*))
             (:div :class "container-fluid"
               ,@body))))
       (:footer :id "footer"
@@ -296,6 +328,12 @@
         "Welcome to REDSHIFTNET Admin.  This is a good place to put your favourite dashboard widgets.  There should probably be a list somewhere that is built through the interface, so users can customize it..."))))
 
 (defrequest rsn-admin (:vhost vhost-admin)
+  (admin-page ("REDSHIFTNET Admin :: Lander" #'admin-login
+               :styles admin-dashboard-styles
+               :scripts admin-dashboard-scripts)
+     (hunchentoot:redirect "/admin/dashboard/")))
+
+(defrequest rsn-admin/dashboard (:vhost vhost-admin)
   (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)

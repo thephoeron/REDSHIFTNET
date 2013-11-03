@@ -20,6 +20,29 @@
            (ironclad:pbkdf2-check-password testing-pass stored-pass)))
     (error () (push-error-msg "There was an error in validating your credentials."))))
 
+;; Convenience functions for logging in to accounts created with Django
+;; Sadly, not working... will have to look closer at how Django and Ironclad
+;; encode their salts and hashes
+(defun convert-django-password-to-ironclad (password)
+  (replace-all password "pbkdf2_sha256$" "PBKDF2$SHA256:" :test #'string=))
+
+(defun validate-django-credentials (username password)
+  (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    (handler-case
+      (let* ((stored-pass (postmodern:query (:select 'password :from 'auth-user
+                                                     :where (:= 'username username)) 
+                                            :single!))
+             (conv-pass (convert-django-password-to-ironclad stored-pass))
+             (test-pass (babel:string-to-octets password)))
+        (format t "~%stored-pass: ~A" stored-pass)
+        (format t "~%  conv-pass: ~A" conv-pass)
+        (format t "~%  test-pass: ~A" test-pass)
+        (and (postmodern:query (:select 'is-active :from 'auth-user
+                                        :where (:= 'username username)) 
+                               :single!)
+             (ironclad:pbkdf2-check-password test-pass conv-pass)))
+      (error () (format t "~%There was an error validating your django credentials")))))
+
 ;; validate new password
 (defun validate-new-password (new-pass new-pass-again)
   (handler-case

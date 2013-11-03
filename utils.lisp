@@ -32,6 +32,13 @@ is replaced with replacement."
             when pos do (write-string replacement out)
             while pos)))
 
+(defun inclusive-search-and-return-string (str tkn)
+  "Search a string for a subsequence token, and return the string upto the end of that token"
+  (let ((str-length (length str))
+        (tkn-length (length tkn))
+        (srch-reslt (search tkn str)))
+    (subseq str 0 (1+ (+ srch-reslt tkn-length)))))
+
 ;; DOCUTILS integration
 (defmacro read-and-return-html-from-rst ((&key file path))
     "Read, parse, and convert passed rST source file into HTML output for Hunchentoot."
