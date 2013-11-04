@@ -17,7 +17,7 @@
   (cl-who:with-html-output (hunchentoot::*standard-output*)
     (:nav :class "navbar navbar-default navbar-fixed-top" :role "navigation"
       (:a :class "navbar-brand" :href "/admin/"
-        (:img :src "/static/images/logo.png" :alt "REDSHIFTNET Admin" :class "img-responsive"))
+        (:img :src "/static/images/redshiftnet_text_logo.png" :alt "REDSHIFTNET Admin" :class "img-responsive" :style "height: 40px; width: auto;"))
       (:button :type "button" :class "navbar-toggle btn-danger" :data-toggle "collapse" :data-target ".navbar-to-collapse"
         (:span :class "sr-only" "Toggle Menu")
         (:i :class "icon16 i-arrow-8"))
