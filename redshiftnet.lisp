@@ -21,14 +21,14 @@
     ;(postmodern:connect-toplevel *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
     (hunchentoot:start vhost-web)
     (hunchentoot:start vhost-ssl)
-    (format t "REDSHIFTNET Started and Running:~%       WWW: ~W~%          SSL: ~W~%" vhost-web vhost-ssl))
+    (format t "~%REDSHIFTNET Started and Running:~%       WEB: ~W~%       SSL: ~W" vhost-web vhost-ssl))
 
 (defun rsn-stop ()
     "Server Stop function for REDSHIFTNET"
     (when (or vhost-web vhost-ssl)
       ;(postmodern:disconnect-toplevel)
-      (format t "REDSHIFTNET running on acceptors ~W and ~W~%" (hunchentoot:stop vhost-web) (hunchentoot:stop vhost-ssl)))
-    (format t "REDSHIFTNET Stopped successfully...~%"))
+      (format t "~%REDSHIFTNET running on acceptors ~W and ~W" (hunchentoot:stop vhost-web) (hunchentoot:stop vhost-ssl)))
+    (format t "~%REDSHIFTNET Stopped successfully..."))
 
 (defun rsn-restart ()
   "Restart Server function for REDSHIFTNET.  Caveat programmer: Assumes SBCL environment and Quicklisp installed."
@@ -36,6 +36,6 @@
   (ql:quickload "redshiftnet")
   (rsn-start)
   (sb-ext:gc :full t)
-  (format nil "REDSHIFTNET Restarted successfully...~%"))
+  (format t "~%REDSHIFTNET Restarted successfully..."))
 
 ;; EOF
