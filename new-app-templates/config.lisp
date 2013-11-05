@@ -9,11 +9,11 @@
 ;;;; PRIMARY DATABASE CONNECTION
 ;;;; Assumes Postmodern and PostgreSQL 9.1+
 
-(defvar *primary-db* "database-name")
-(defvar *primary-db-user* "database-user")
-(defvar *primary-db-pass* "database-password")
-(defvar *primary-db-host* "database-hostname")
-(defvar *primary-db-port* "5432")
+(setf rsn:*primary-db* "database-name"
+      rsn:*primary-db-user* "database-user"
+      rsn:*primary-db-pass* "database-password"
+      rsn:*primary-db-host* "database-hostname"
+      rsn:*primary-db-port* "5432")
 
 ;;;; DEFAULT ENVIRONMENT VARIABLES
 ;;;; For Hunchentoot, Parenscript, and CSS-Lite
@@ -60,7 +60,7 @@
 ;; Comment this setf form out if you want to disable the admin site for your web-app
 ;; or turn it into a new ssl acceptor if you want to run it from a different top-level
 ;; domain or sub-domain, such as https://admin.yoursite.org/
-(setf redshiftnet::vhost-admin ssl-vhost
+(setf ;redshiftnet::vhost-admin ssl-vhost ;; ghosting not working, see dispatch lists
       redshiftnet::*admin-header-logo* (string "/static/images/admin_header_logo.png")
       redshiftnet::*admin-login-logo* (string "/static/images/admin_login_logo.png"))
 
@@ -71,9 +71,10 @@
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)
         (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*)))
       (rsn::dispatch-table ssl-vhost)
-      (list
+      (lol:flatten (list
         'hunchentoot:dispatch-easy-handlers
+        (rsn::dispatch-table rsn::vhost-ssl) ; inject REDSHIFTNET Admin site
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)
-        (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*))))
+        (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*)))))
 
 ;; EOF
