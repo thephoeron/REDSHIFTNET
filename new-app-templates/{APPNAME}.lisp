@@ -8,7 +8,7 @@
     (ensure-directories-exist *www-msg-log*)
     (ensure-directories-exist *ssl-acc-log*)
     (ensure-directories-exist *ssl-msg-log*)
-    (postmodern:connect-toplevel *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    ;(postmodern:connect-toplevel *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
     (hunchentoot:start www-vhost)
     (hunchentoot:start ssl-vhost)
     (format t "~%~A started and running -- WWW: ~W SSL: ~W" (string-upcase "{APPNAME}") www-vhost ssl-vhost))
@@ -16,7 +16,7 @@
 (defun {APPNAME}-stop ()
     "Server Stop function for {APPNAME}"
     (when (or www-vhost ssl-vhost)
-      (postmodern:disconnect-toplevel)
+      ;(postmodern:disconnect-toplevel)
       (format t "~%~A running on acceptors ~W and ~W~%" (string-upcase "{APPNAME}") (hunchentoot:stop www-vhost) (hunchentoot:stop ssl-vhost)))
     (format t "~%~A stopped successfully...~%" (string-upcase "{APPNAME}")))
 

@@ -7,7 +7,7 @@
 ;; and served over HTTPS when needed
 (define-easy-handler ({APPNAME}-js :uri "/{APPNAME}.js") ()
   (setf (content-type*) "text/javascript")
-  (parenscript:ps
+  (ps
     ((@ ($ document) ready)
         (lambda ()
             ((@ ($ "#ajax-link") click)

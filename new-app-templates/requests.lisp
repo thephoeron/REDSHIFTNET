@@ -11,7 +11,7 @@
                                       "/static/js/app.js"))
 
 (defrequest www-index (:vhost www-vhost)
-  ({APPNAME}-app-page (:title "{APPNAME} :: Welcome"
+  (%{APPNAME}-app-page (:title "{APPNAME} :: Welcome"
                        :header #'rsn::admin-header :menu #'rsn::admin-menu
                        :footer #'rsn::admin-footer
                        :scripts www-index-scripts
@@ -27,7 +27,7 @@
                                       "/static/js/app.js"))
 
 (defrequest ssl-index (:vhost ssl-vhost)
-  ({APPNAME}-app-page (:title "{APPNAME} :: Welcome"
+  (%{APPNAME}-app-page (:title "{APPNAME} :: Welcome"
                        :header #'rsn::admin-header :menu #'rsn::admin-menu
                        :footer #'rsn::admin-footer
                        :scripts ssl-index-scripts
@@ -36,7 +36,7 @@
       (:div :class "content"
         (:h1 "Welcome to {APPNAME}, powered by REDSHIFTNET and SSL!")))))
 
-;; Optional splash page
+;; Optional splash page for all acceptors
 (define-easy-handler ({APPNAME}-splash-page :uri "/") ()
   (redirect "/index/"))
 

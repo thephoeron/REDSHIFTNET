@@ -45,21 +45,41 @@
         (:font-family "ProFont Windows tweaked"
          :color "#db0000"
          :font-size "18px"
-         :min-height "800px"
-         :min-width "1280px"
-         :height "100%"
-         :width "100%"
+         :min-height "1800px"
+         :min-width "2600px"
+         :height "120%"
+         :width "120%"
          :position "absolute"
          :top "0"
-         :left "0"))
+         :left "0"
+         :margin-top "-10%"
+         :margin-left "-10%"
+         :background "url(/static/images/pattern.png) repeat center center"
+         :opacity "0.4"))
     (("#logo")
         (:position "relative"
          :margin "auto"
-         :padding "auto"))
+         :padding "inherit"))
+    (("#starfield")
+        (:opacity "0.5"
+         :width "120%"
+         :height "auto"
+         :margin-top "-10%"
+         :margin-left "-10%"))
+    (("canvas:after")
+        (:content "''"
+         :display "block"
+         :position "absolute"
+         :top "0"
+         :right "0"
+         :bottom "0"
+         :left "0"
+         :background "url(/static/images/pattern.png) repeat center center"
+         :opacity "0.4"))
     (("#copyright")
         (:position "absolute"
          :width "100%"
-         :padding "auto"
+         :padding "inherit"
          :bottom "0"
          :left "0"
          :text-align "center")
@@ -69,9 +89,9 @@
              :font-size "18px")
             (("a, a:visited, a:active")
                 (:color "red"
-                 :text-decoration "underline"))
+                 :text-decoration "none"))
             (("a:hover")
-                (:text-decoration "none"))))))
+                (:text-decoration "underline"))))))
 
 ;; REDSHIFTNET Master jQuery functions
 (define-easy-handler (redshiftnet-js :uri "/redshiftnet.js") ()
@@ -92,35 +112,34 @@
       (:head 
         (:title "REDSHIFTNET")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
-        (:link :rel "stylesheet" :href "http://wagerfield.github.io/parallax/assets/styles/css/styles.css"))
-      (:body :style "border: 0; padding: 0; margin: 0; overflow: hidden;" :onLoad "init();"
+        (:link :rel "stylesheet" :href "/static/css/parallax.styles.css"))
+      (:body :style "border: 0; padding: 0; margin: 0; overflow: hidden;" ;:onLoad "init();"
         (:div :id "fullxy"
           (:ul :id "scene"
-               (:li :class "layer" :data-depth "0.20" (:img :src "/static/images/red-starfield-1920x1200.jpg" :style "opacity: 0.5;"))
+               (:li :class "layer" :data-depth "0.20" (:img :id "starfield" :src "/static/images/red-starfield-1920x1200.jpg"))
                (:li :class "layer" :data-depth "0.40"
                 (:canvas :id "theMatrix"))
                (:li :class "layer" :data-depth "0.60" 
-                (:table :style "width: 100%; height: 100%; display: block;"
+                (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
                     (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
-                      (:img :src "/static/images/RedShiftNet_Logo.png" :align "center" :style "height: 480px; width: auto; margin: auto; opacity: 0.5;")))))
+                      (:img :src "/static/images/sunburst.png" :align "center" :style "height: 400px; width: auto; margin: auto; opacity: 0.75;")))))
                (:li :class "layer" :data-depth "0.80"
-                (:table :style "width: 100%; height: 100%; display: block;"
+                (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
                     (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
                       (:img :src "/static/images/redshiftnet_text_logo_big.png" :align "center" :style "width: 960px; height: auto; margin: auto;")))))))
         (:div :id "copyright" :style "position: fixed; bottom: 0; height: 75px; width: 100%; color: #AF0000;"
           (:p :align "center"
-            (:a :href "http://common-lisp.net" :class "tip" :title "Crafted in Common Lisp" (str (format nil "( ~C )" #\GREEK_SMALL_LETTER_LAMDA))))
-          (:p :align "center"
+            (:a :href "http://common-lisp.net" :class "tip" :title "Crafted in Common Lisp" (str (format nil "( ~C )" #\GREEK_SMALL_LETTER_LAMDA))) :br
             "Copyright &copy; 2012 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved. "
             "Powered by "
             (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" "WebFaction") " "
             "(Smarter Web Hosting), "
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
             "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))
-        (:script :type "text/javascript" :src "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
-        (:script :type "text/javascript" :src "http://wagerfield.github.io/parallax/deploy/jquery.parallax.js")
+        (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+        (:script :type "text/javascript" :src "/static/js/jquery.parallax.min.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/static/js/redbinarymatrix.js")
         (:script :type "text/javascript"

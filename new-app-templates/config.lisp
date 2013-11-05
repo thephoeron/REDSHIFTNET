@@ -52,8 +52,8 @@
 ;;; DEFINE VHOST ACCEPTORS AND DISPATCH-TABLES
 ;;; Note: Easy-Handlers get pushed to every VHOST by default.  Useful for sharing resources between multiple toplevel and sub- domains.
 
-(defvar www-vhost (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
-(defvar ssl-vhost (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
+(defvar www-vhost (make-instance 'rsn::vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
+(defvar ssl-vhost (make-instance 'rsn::ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
                                       :ssl-privatekey-file *ssl-key* :ssl-certificate-file *ssl-cert*))
 
 ;; Ghost Admin vhost acceptor and admin config
@@ -65,12 +65,12 @@
       redshiftnet::*admin-login-logo* (string "/static/images/admin_login_logo.png"))
 
 
-(setf (dispatch-table www-vhost)
+(setf (rsn::dispatch-table www-vhost)
       (list
         'hunchentoot:dispatch-easy-handlers
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)
         (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*)))
-      (dispatch-table ssl-vhost)
+      (rsn::dispatch-table ssl-vhost)
       (list
         'hunchentoot:dispatch-easy-handlers
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)

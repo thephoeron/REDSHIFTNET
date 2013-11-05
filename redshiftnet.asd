@@ -79,7 +79,7 @@
   nil)
 
 (defmethod perform ((o make-app-op) (c (eql (find-system :redshiftnet))))
-  "Creates a new REDSHIFTNET application when (rsn:make-app 'name \"/path/to/target/\")
+  "Creates a new REDSHIFTNET application when (rsn-op:make-app 'name \"/path/to/target/\")
    is called."
   (let ((app-name (cadr (member :name (asdf::operation-original-initargs o))))
         (app-target (cadr (member :target (asdf::operation-original-initargs o)))))

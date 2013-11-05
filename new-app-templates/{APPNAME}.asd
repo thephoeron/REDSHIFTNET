@@ -20,6 +20,7 @@
                  (:file "db")
                  (:file "forms")
                  (:file "templates")
-                 (:file "requests")))
+                 (:file "requests")
+                 (:file "{APPNAME}")))
 
 ;; EOF

@@ -10,7 +10,7 @@
       (:head
         (:meta :http-equiv "Content-Type" :content "text/html;charset=utf-8")
         (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-        (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "/static/css/bootstrap/bootstrap.min.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :href "/{APPNAME}.css" :type "text/css" :media "screen")
         ,@(mapcar (lambda (file)
@@ -21,8 +21,8 @@
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
         ,@body
-        (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
-        (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
+        (:script :type "text/javascript" :src "/static/js/jquery-1.10.2.min.js")
+        (:script :type "text/javascript" :src "/static/js/bootstrap/bootstrap.min.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/{APPNAME}.js")
         ,@(mapcar (lambda (file)
@@ -32,13 +32,17 @@
 
 (defmacro %{APPNAME}-app-page ((&key (title "{APPNAME}") (styles nil) (scripts nil) header menu footer) &body body)
   "Standard app page template."
-  `(%basic-{APPNAME}-app-page (:title ,title :styles ,@(list styles) :scripts ,@(list scripts))
+  `(%basic-{APPNAME}-app-page (:title ,title :styles ,(eval styles) :scripts ,(eval scripts))
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:header :id "header"
         (funcall ,header ,title (hunchentoot:session-value 'token)))
       (:div :class "main"
         (:aside :id "sidebar" (funcall ,menu))
-        (:div :id "content" ,@body))
+        (:div :id "content"
+          (:div :class "wrapper"
+            (rsn::admin-breadcrumb (hunchentoot:script-name*) (hunchentoot:get-parameters*))
+            (:div :class "container-fluid" 
+              ,@body))))
       (:footer :id "footer"
         (funcall ,footer)))))
 

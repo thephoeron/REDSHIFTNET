@@ -19,7 +19,7 @@
   (cl-who:with-html-output (hunchentoot::*standard-output*)
     (:nav :class "navbar navbar-default navbar-fixed-top" :role "navigation"
       (:a :class "navbar-brand" :href "/admin/"
-        (:img :src (str *admin-header-logo*) :alt "REDSHIFTNET Admin" :class "img-responsive" :style "height: 40px; width: auto;"))
+        (:img :class "img-responsive" :src (str (format nil "~A" *admin-header-logo*)) :alt "REDSHIFTNET Admin" :style "height: 40px; width: auto;"))
       (:button :type "button" :class "navbar-toggle btn-danger" :data-toggle "collapse" :data-target ".navbar-to-collapse"
         (:span :class "sr-only" "Toggle Menu")
         (:i :class "icon16 i-arrow-8"))
@@ -201,7 +201,7 @@
       (:div :id "login"
         (:div :class "login-wrapper" :data-active "log"
           (:a :class "navbar-brand" :href "#"
-            (:img :class "image-responsive" :alt "REDSHIFTNET Admin" :src (str logo)))
+            (:img :class "image-responsive" :alt "REDSHIFTNET Admin" :src (str (format nil "~A" logo))))
           (:div :id "log"
             (:div :class "page-header"
               (:h3 :class "center" "Please Login"))
