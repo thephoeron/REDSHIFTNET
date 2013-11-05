@@ -384,9 +384,7 @@
   (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
-    (admin-dashboard)
-    (cl-who:with-html-output (hunchentoot::*standard-output*)
-      (:p "A test paragraph, just to see what the deal is... and more... and..."))))
+    (admin-dashboard)))
 
 (defrequest rsn-admin/webmail (:vhost vhost-admin)
   (admin-page ("REDSHIFTNET Admin :: Webmail" #'admin-login
