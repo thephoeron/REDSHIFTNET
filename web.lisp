@@ -22,7 +22,56 @@
          :transition "all .2s linear"))
       (("> .navbar .brand:hover")
         (:text-decoration "none"
-         :text-shadow "0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4)")))))
+         :text-shadow "0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4)")))
+    (("@font-face")
+        (:font-family "ProFont Windows tweaked"
+         :src "url('/static/css/fonts/ProFontWindows.ttf') format('opentype')"))
+    (("html, body")
+        (:background "#000"
+         :margin "0"
+         :padding "0"
+         :overflow "hidden"))
+    (("#fullxy")
+        (:position "absolute"
+         :top "0"
+         :left "0"
+         :background "transparent"
+         :width "100%"
+         :height "100%"
+         :max-height "100%"
+         :text-align "center"
+         :vertical-align "middle"))
+    (("canvas")
+        (:font-family "ProFont Windows tweaked"
+         :color "#db0000"
+         :font-size "18px"
+         :min-height "800px"
+         :min-width "1280px"
+         :height "100%"
+         :width "100%"
+         :position "absolute"
+         :top "0"
+         :left "0"))
+    (("#logo")
+        (:position "relative"
+         :margin "auto"
+         :padding "auto"))
+    (("#copyright")
+        (:position "absolute"
+         :width "100%"
+         :padding "auto"
+         :bottom "0"
+         :left "0"
+         :text-align "center")
+        (("p")
+            (:font-family "ProFont Windows tweaked"
+             :color "#db0000"
+             :font-size "18px")
+            (("a, a:visited, a:active")
+                (:color "red"
+                 :text-decoration "underline"))
+            (("a:hover")
+                (:text-decoration "none"))))))
 
 ;; REDSHIFTNET Master jQuery functions
 (define-easy-handler (redshiftnet-js :uri "/redshiftnet.js") ()
@@ -43,24 +92,53 @@
       (:head 
         (:title "REDSHIFTNET")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
-        (:script :type "text/javascript" :src "/redshiftnet.js"))
-      (:body :onLoad "init();"
-        (:canvas :id "theMatrix"
-          (:p "This site requires an HTML5, CSS3, and JavaScript compatible browser."))
+        (:link :rel "stylesheet" :href "http://wagerfield.github.io/parallax/assets/styles/css/styles.css"))
+      (:body :style "border: 0; padding: 0; margin: 0; overflow: hidden;" :onLoad "init();"
         (:div :id "fullxy"
-          (:table :id "logo" :cellpadding "0" :cellspacing "0" :width "100%" :height "100%"
-            (:tr
-              (:td :align "center" :valign "middle"
-                (:a :href "/index/" :target "_top"
-                  (:img :src "/static/img/rsn-logo.png" :border "0" :width "420" :height "420"))))))
-        (:div :id "copyright"
+          (:ul :id "scene"
+               (:li :class "layer" :data-depth "0.20" (:img :src "/static/images/red-starfield-1920x1200.jpg" :style "opacity: 0.5;"))
+               (:li :class "layer" :data-depth "0.40"
+                (:canvas :id "theMatrix"))
+               (:li :class "layer" :data-depth "0.60" 
+                (:table :style "width: 100%; height: 100%; display: block;"
+                  (:tr
+                    (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
+                      (:img :src "/static/images/RedShiftNet_Logo.png" :align "center" :style "height: 480px; width: auto; margin: auto; opacity: 0.5;")))))
+               (:li :class "layer" :data-depth "0.80"
+                (:table :style "width: 100%; height: 100%; display: block;"
+                  (:tr
+                    (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
+                      (:img :src "/static/images/redshiftnet_text_logo_big.png" :align "center" :style "width: 960px; height: auto; margin: auto;")))))))
+        (:div :id "copyright" :style "position: fixed; bottom: 0; height: 75px; width: 100%; color: #AF0000;"
           (:p :align "center"
-            "Copyright &copy; 2012 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved." :br
+            (:a :href "http://common-lisp.net" :class "tip" :title "Crafted in Common Lisp" (str (format nil "( ~C )" #\GREEK_SMALL_LETTER_LAMDA))))
+          (:p :align "center"
+            "Copyright &copy; 2012 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved. "
             "Powered by "
             (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" "WebFaction") " "
             "(Smarter Web Hosting), "
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
-            "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))))))
+            "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))
+        (:script :type "text/javascript" :src "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+        (:script :type "text/javascript" :src "http://wagerfield.github.io/parallax/deploy/jquery.parallax.js")
+        (:script :type "text/javascript" :src "/redshiftnet.js")
+        (:script :type "text/javascript" :src "/static/js/redbinarymatrix.js")
+        (:script :type "text/javascript"
+                 "$('#scene').parallax();")))))
+; <link rel="stylesheet" type="text/css" href="http://wagerfield.github.io/parallax/assets/styles/css/styles.css">
+; <script src="http://wagerfield.github.io/parallax/deploy/jquery.parallax.js"></script>
+; <script>
+; var scene = document.getElementById('scene');
+; var parallax = new Parallax(scene);
+; </script>
+; <ul id="scene">
+;   <li class="layer" data-depth="0.00"><img src="layer6.png"></li>
+;   <li class="layer" data-depth="0.20"><img src="layer5.png"></li>
+;   <li class="layer" data-depth="0.40"><img src="layer4.png"></li>
+;   <li class="layer" data-depth="0.60"><img src="layer3.png"></li>
+;   <li class="layer" data-depth="0.80"><img src="layer2.png"></li>
+;   <li class="layer" data-depth="1.00"><img src="layer1.png"></li>
+; </ul>
 
 ;; Standard app-page template...
 (defmacro app-page ((&key title) &body body)

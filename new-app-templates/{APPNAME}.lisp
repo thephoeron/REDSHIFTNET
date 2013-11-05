@@ -26,6 +26,6 @@
   (ql:quickload "{APPNAME}")
   ({APPNAME}-start)
   (sb-ext:gc :full t)
-  (format nil "~%{APPNAME} restarted successfully..."))
+  (format t "~%{APPNAME} restarted successfully..."))
 
 ;; EOF

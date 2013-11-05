@@ -10,6 +10,8 @@
 ;; - (get-username session-token)
 ;; plus ajax callback functions in js for notifications and messages
 ;; with authenticated json requests
+(defparameter *admin-header-logo* (string "/static/images/redshiftnet_header_logo.png"))
+(defparameter *admin-login-logo* (string "/static/images/redshiftnet_text_logo.png"))
 
 ;; Admin header, footer, and menu template elements
 (defun admin-header (title session-token)
@@ -17,7 +19,7 @@
   (cl-who:with-html-output (hunchentoot::*standard-output*)
     (:nav :class "navbar navbar-default navbar-fixed-top" :role "navigation"
       (:a :class "navbar-brand" :href "/admin/"
-        (:img :src "/static/images/redshiftnet_text_logo.png" :alt "REDSHIFTNET Admin" :class "img-responsive" :style "height: 40px; width: auto;"))
+        (:img :src (str *admin-header-logo*) :alt "REDSHIFTNET Admin" :class "img-responsive" :style "height: 40px; width: auto;"))
       (:button :type "button" :class "navbar-toggle btn-danger" :data-toggle "collapse" :data-target ".navbar-to-collapse"
         (:span :class "sr-only" "Toggle Menu")
         (:i :class "icon16 i-arrow-8"))
@@ -134,9 +136,12 @@
 (eval-when (:compile-toplevel :execute :load-toplevel)
   ;; Gotta make sure these parameters are available at macro expansion time
   ;; Login page
-  (defparameter admin-login-styles (list "/static/css/pages/login.css"))
+  (defparameter admin-login-styles (list "/static/css/app.css"
+                                         "/static/css/custom.css"
+                                         "/static/css/pages/login.css"))
   (defparameter admin-login-scripts (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
                                           "/static/js/plugins/forms/validation/jquery.validate.js"
+                                          "/static/js/app.js"
                                           "/static/js/pages/login.js"))
   ;; Admin Dashboard
   (defparameter admin-dashboard-styles
@@ -325,14 +330,14 @@
                                               :scripts ,@(list admin-login-scripts)
                                               :styles ,@(list admin-login-styles))
                         (show-all-messages)
-                        (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))
+                        (funcall ,lpf *admin-login-logo*)))))
                ((eql :get (hunchentoot:request-method*))
                 (progn (hunchentoot:start-session)
                        (%basic-admin-app-page (:title "Login"
                                                :scripts ,@(list admin-login-scripts)
                                                :styles ,@(list admin-login-styles))
                          (cl-who:with-html-output (hunchentoot::*standard-output*)
-                           (funcall ,lpf "/static/images/redshiftnet_text_logo.png")))))
+                           (funcall ,lpf *admin-login-logo*)))))
                (t (hunchentoot:redirect "/403/")))
          ;; else
          (let* ((token (hunchentoot:session-value 'token))
@@ -348,7 +353,7 @@
                                               :styles ,@(list admin-login-styles))
                         (show-all-messages)
                         (cl-who:with-html-output (hunchentoot::*standard-output*)
-                          (funcall ,lpf "/static/images/redshiftnet_text_logo.png"))))))))))
+                          (funcall ,lpf *admin-login-logo*))))))))))
 
 (defmacro admin-page ((title login-page-fun &key (styles nil) (scripts nil)) &body body)
   "Admin site page generator macro."

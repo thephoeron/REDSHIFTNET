@@ -55,11 +55,15 @@
 (defvar www-vhost (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
 (defvar ssl-vhost (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
                                       :ssl-privatekey-file *ssl-key* :ssl-certificate-file *ssl-cert*))
-;; Ghost Admin vhost acceptor
-;; Comment this out if you want to disable the admin site for your web-app
-;; or turn it into a new ssl acceptor if you want to run it from a completely
-;; different site, such as https://admin.yoursite.org/
-(setf redshiftnet::vhost-admin ssl-vhost)
+
+;; Ghost Admin vhost acceptor and admin config
+;; Comment this setf form out if you want to disable the admin site for your web-app
+;; or turn it into a new ssl acceptor if you want to run it from a different top-level
+;; domain or sub-domain, such as https://admin.yoursite.org/
+(setf redshiftnet::vhost-admin ssl-vhost
+      redshiftnet::*admin-header-logo* (string "/static/images/admin_header_logo.png")
+      redshiftnet::*admin-login-logo* (string "/static/images/admin_login_logo.png"))
+
 
 (setf (dispatch-table www-vhost)
       (list
