@@ -46,4 +46,16 @@
       (:footer :id "footer"
         (funcall ,footer)))))
 
+;; WWW-INDEX Styles & Scripts
+(defparameter www-index-styles (list "/static/css/custom.css"
+                                     "/static/css/app.css"))
+(defparameter www-index-scripts (list "/static/js/pages/dashboard.js"
+                                      "/static/js/app.js"))
+
+;; SSL-INDEX Styles & Scripts
+(defparameter ssl-index-styles (list "/static/css/custom.css"
+                                     "/static/css/app.css"))
+(defparameter ssl-index-scripts (list "/static/js/pages/dashboard.js"
+                                      "/static/js/app.js"))
+
 ;; EOF

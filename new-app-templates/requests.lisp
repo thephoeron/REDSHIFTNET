@@ -5,10 +5,6 @@
 ;; Define your request/return functions here
 
 ;; WWW-INDEX
-(defparameter www-index-styles (list "/static/css/custom.css"
-                                     "/static/css/app.css"))
-(defparameter www-index-scripts (list "/static/js/pages/dashboard.js"
-                                      "/static/js/app.js"))
 
 (defrequest www-index (:vhost www-vhost)
   (%{APPNAME}-app-page (:title "{APPNAME} :: Welcome"
@@ -21,10 +17,6 @@
         (:h1 "Welcome to {APPNAME}, powered by REDSHIFTNET!")))))
 
 ;; SSL-INDEX -- inner app-page macro should be wrapped in an auth-page
-(defparameter ssl-index-styles (list "/static/css/custom.css"
-                                     "/static/css/app.css"))
-(defparameter ssl-index-scripts (list "/static/js/pages/dashboard.js"
-                                      "/static/js/app.js"))
 
 (defrequest ssl-index (:vhost ssl-vhost)
   (%{APPNAME}-app-page (:title "{APPNAME} :: Welcome"
