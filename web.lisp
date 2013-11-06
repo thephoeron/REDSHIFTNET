@@ -123,7 +123,7 @@
                 (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
                     (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
-                      (:img :src "/static/images/sunburst.png" :align "center" :style "height: 400px; width: auto; margin: auto; opacity: 0.75;")))))
+                      (:img :id "logo" :src "/static/images/sunburst.png" :align "center" :style "height: 400px; width: auto; margin: auto; opacity: 0.75;")))))
                (:li :class "layer" :data-depth "0.80"
                 (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
@@ -131,7 +131,7 @@
                       (:img :src "/static/images/redshiftnet_text_logo_big.png" :align "center" :style "width: 960px; height: auto; margin: auto;")))))))
         (:div :id "copyright" :style "position: fixed; bottom: 0; height: 75px; width: 100%; color: #AF0000;"
           (:p :align "center"
-            (:a :href "http://common-lisp.net" :class "tip" :title "Crafted in Common Lisp" (str (format nil "( ~C )" #\GREEK_SMALL_LETTER_LAMDA))) :br
+            (:a :href "http://common-lisp.net" :class "tip" :title "Crafted in Common Lisp" (str (format nil "(~C)" #\GREEK_SMALL_LETTER_LAMDA))) :br
             "Copyright &copy; 2012 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved. "
             "Powered by "
             (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" "WebFaction") " "
@@ -139,11 +139,24 @@
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
             "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))
         (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+        (:script :type "text/javascript" :src "//jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js")
         (:script :type "text/javascript" :src "/static/js/jquery.parallax.min.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/static/js/redbinarymatrix.js")
         (:script :type "text/javascript"
-                 "$('#scene').parallax();")))))
+          "$('#scene').parallax();
+          var rotation = function (){
+             $(\"#logo\").rotate({
+                angle:0, 
+                animateTo:360, 
+                callback: rotation,
+                duration: 49000,
+                easing: function (x,t,b,c,d){ // t: current time, b: begInnIng value, c: change In value, d: duration
+                    return c*(t/d)+b;
+                }
+             });
+          }
+          rotation();")))))
 ; <link rel="stylesheet" type="text/css" href="http://wagerfield.github.io/parallax/assets/styles/css/styles.css">
 ; <script src="http://wagerfield.github.io/parallax/deploy/jquery.parallax.js"></script>
 ; <script>
