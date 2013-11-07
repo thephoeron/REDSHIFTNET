@@ -73,8 +73,8 @@
       (rsn::dispatch-table ssl-vhost)
       (lol:flatten (list
         'hunchentoot:dispatch-easy-handlers
-        (rsn::dispatch-table rsn::vhost-ssl) ; inject REDSHIFTNET Admin site
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)
+        (rsn::dispatch-table rsn::vhost-ssl) ; inject REDSHIFTNET Admin site
         (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*)))))
 
 ;; EOF
