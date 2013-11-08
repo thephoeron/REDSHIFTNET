@@ -51,7 +51,7 @@
              #:checkbox #:select #:radio-set #:checkbox-set #:multi-select
              #:*public-key* #:*private-key* #:recaptcha
              #:validate #:show #:post-value #:show-rsn-form #:define-rsn-form
-             #:longer-than? #:shorter-than? #:matches? #:mismatches?
+             #:longer-than? #:shorter-than? #:matches? #:mismatches? #:is-email?
              #:file-type? #:file-smaller-than?
              #:not-blank? #:same-as?
              #:picked-more-than? #:picked-fewer-than? #:picked-exactly?
