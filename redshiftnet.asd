@@ -47,6 +47,7 @@
                (:file "utils")
                (:file "db-utils")
                (:file "web")
+               (:file "templates")
                (:module "forms"
                 :serial t
                 :components ((:file "forms-utils")
