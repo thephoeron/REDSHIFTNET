@@ -13,16 +13,15 @@
 ;; Validate the passed session token and user attached to it
 (defun validate-session (token)
   "Validate session with passed token string."
-  (let* ((the-sesh (postmodern:get-dao 'public-session token))
-         (remote-addr (public-session-remote-addr token))
-         (user-agent (public-session-user-agent token))
-         (exp-date (local-time:parse-timestring (public-session-exp-date token)))
-         (username (public-session-user-id token))
-         (the-user (postmodern:get-dao 'public-user username)))
+  (let* ((sesh-id (get-session-id-by-token token))
+         (the-sesh (postmodern:get-dao 'rsn-auth-session sesh-id))
+         (exp-date (local-time:parse-timestring (expiry-date the-sesh)))
+         (user-id (user-id the-sesh))
+         (the-user (postmodern:get-dao 'rsn-auth-user user-id)))
     (handler-case
-      (if (and (public-user-is-active username) ; make sure the user is active
-               (string= remote-addr (hunchentoot:real-remote-addr)) ; make sure the real-remote-addr matches
-               (string= user-agent (hunchentoot:user-agent)) ; make sure the user agent matches
+      (if (and (is-active the-user) ; make sure the user is active
+               (string= (remote-address the-sesh) (hunchentoot:real-remote-addr)) ; make sure the real-remote-addr matches
+               (string= (user-agent the-sesh) (hunchentoot:user-agent)) ; make sure the user agent matches
                (local-time:timestamp<= (local-time:now) exp-date)) ; make sure the session is still valid
           t
           nil)
