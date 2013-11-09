@@ -28,18 +28,6 @@
              (ironclad:pbkdf2-check-password test-pass conv-pass)))
       (error () (format t "~%There was an error validating your django credentials")))))
 
-;; validate new password
-;; this function is obviated by validator predicates in RSN-FORMS
-;; slotted for removal
-(defun validate-new-password (new-pass new-pass-again)
-  (handler-case
-    (if (string= new-pass new-pass-again)
-        t
-        (progn
-          (push-error-msg "The passwords you entered don't match.")
-          nil))
-    (error () (push-error-msg "The new passwords you entered could not be validated."))))
-
 ;; generate a new guaranteed-unique session token with Isaac (from Doug Hoyte (y))
 (defun generate-new-session-token ()
   (let ((the-isaac-ctx (isaac:init-kernel-seed)))
