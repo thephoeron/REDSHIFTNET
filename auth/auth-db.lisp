@@ -113,6 +113,10 @@
   (!dao-def) ;; Import the existing info from the dao-class definition.
   (!foreign 'rsn-auth-user 'user-id :primary-key :on-delete :cascade :on-update :cascade))
 
+(defprepared get-session-id-by-token
+  (:select 'id :from 'rsn-auth-session :where (:= 'token '$1))
+  :single!)
+
 ; (defprepared public-session-id
 ;   (:select 'id :from 'public-session :where (:= 'id '$1))
 ;   :single)

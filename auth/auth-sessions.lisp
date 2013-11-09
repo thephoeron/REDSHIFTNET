@@ -137,36 +137,28 @@
       (error () (push-error-msg "Your session could not be validated.  Please sign in again.")))))
 
 ;; Create a new Session for the current user
-;; must add update-session and create-or-update-session
 (defun create-new-session (user)
-  (let ((the-token (generate-new-session-token)))
+  (let* ((the-token (generate-new-session-token))
+         (the-user (get-user-id-by-username user))
+         (the-expiry (local-time:format-timestring nil (local-time:adjust-timestamp (local-time:today) (offset :day 14))))
+         (the-remote-address (hunchentoot:real-remote-addr))
+         (the-user-agent (hunchentoot:user-agent))
+         (the-sesh (make-instance 'rsn-auth-session
+                                  :token the-token
+                                  :user-id the-user
+                                  :exp-date the-expiry
+                                  :remote-address the-remote-address
+                                  :user-agent the-user-agent)))
     (hunchentoot:start-session)
     (setf (hunchentoot:session-value 'token) the-token)
-    (postmodern:insert-dao
-      (make-instance 'public-session :id the-token
-                                     :user-id user
-                                     :exp-date (local-time:format-timestring nil (local-time:adjust-timestamp (local-time:today) (offset :day 14)))
-                                     :remote-addr (hunchentoot:real-remote-addr)
-                                     :user-agent (hunchentoot:user-agent)))))
+    (postmodern:insert-dao the-sesh)))
 
-;; Create a new user
-;; must add update-user and create-or-update-user
-(defun create-new-user (username password firstname lastname email group)
-  (let ((the-pass (hardened-password password)))
-    (postmodern:insert-dao
-      (make-instance 'public-user :username username
-                                  :password the-pass
-                                  :first-name firstname
-                                  :last-name lastname
-                                  :email email
-                                  :group group
-                                  :is-active t
-                                  :last-modified (local-time:format-timestring nil (local-time:now))))))
+(defun update-session ()
+  )
 
-(defun create-new-realm (name)
-  (postmodern:insert-dao (make-instance 'public-realms :name name :last-modified (local-time:format-timestring nil (local-time:now)))))
+(defun create-or-update-session ()
+  )
 
-(defun create-new-group (name realm)
-  (postmodern:insert-dao (make-instance 'public-groups :name name :realm realm)))
+
 
 ;; EOF

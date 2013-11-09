@@ -9,6 +9,15 @@
 ;; and define your users according to the areas of the web-app for which they
 ;; are meant to have access
 
-;; Still have to define the realm handling...
+;; Create a new realm
+(defun create-new-realm (name)
+  (let ((the-realm (make-instance 'rsn-auth-realm :name name)))
+    (postmodern:insert-dao the-realm)))
+
+(defun update-realm ()
+  )
+
+(defun create-or-update-realm ()
+  )
 
 ;; EOF

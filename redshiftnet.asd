@@ -56,8 +56,13 @@
                (:module "auth"
                 :serial t
                 :components ((:file "auth-db")
-                             (:file "auth-sessions")
                              (:file "auth-realms")
+                             (:file "auth-groups")
+                             (:file "auth-users")
+                             (:file "auth-sessions")
+                             (:file "auth-forms")
+                             (:file "auth-templates")
+                             (:file "auth-requests")
                              (:file "auth")))
                (:file "config")
                (:module "admin"
