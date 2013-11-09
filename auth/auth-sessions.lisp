@@ -28,7 +28,8 @@
   (handler-case
     (postmodern:with-connection
         (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-      (let* ((the-user (postmodern:get-dao 'rsn-auth-user (get-user-id-by-username username)))
+      (let* ((user-id (get-user-id-by-username username))
+             (the-user (postmodern:get-dao 'rsn-auth-user user-id))
              (the-pass (password the-user))
              (test-pass (babel:string-to-octets password)))
         (if (and (is-active the-user)
@@ -66,6 +67,8 @@
       (error () (format t "~%There was an error validating your django credentials")))))
 
 ;; validate new password
+;; this function is obviated by validator predicates in RSN-FORMS
+;; slotted for removal
 (defun validate-new-password (new-pass new-pass-again)
   (handler-case
     (if (string= new-pass new-pass-again)
@@ -77,13 +80,38 @@
 
 ;; UPDATE PASSWORD IN USER DAO
 ;; Confirm old-password is correct, new passwords match
-(defun update-password (username password new-pass new-pass-again)
-  (when (and (validate-new-password new-pass new-pass-again)
-             (validate-credentials username password))
-    (let ((the-user (postmodern:get-dao 'public-user username))
-          (the-pass (hardened-password new-pass)))
-      (setf (public-user-password username) the-pass)
-      (update-dao the-user))))
+
+;; old version -- dao integration pitiful
+; (defun update-password (username password new-pass new-pass-again)
+;   (when (and (validate-new-password new-pass new-pass-again)
+;              (validate-credentials username password))
+;     (let ((the-user (postmodern:get-dao 'public-user username))
+;           (the-pass (hardened-password new-pass)))
+;       (setf (public-user-password username) the-pass)
+;       (update-dao the-user))))
+
+;; new version, expects new-passwords to be pre-validated
+(defun update-password (username password new-pass)
+  (declare (string username password new-pass))
+  (handler-case
+    (postmodern:with-connection
+        (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+      (let* ((user-id (get-user-id-by-username username))
+             (the-user (postmodern:get-dao 'rsn-auth-user user-id))
+             (the-new-pass (hardened-password new-pass)))
+        (if (validate-credentials username password)
+            (progn
+              (setf (session-value 'success-msgs) nil)
+              (setf (password the-user) the-new-pass)
+              (postmodern:update-dao the-user)
+              (push-success-msg "Your password has been successfully updated.")
+              (return t))
+            (progn
+              (setf (session-value 'error-msgs) nil)
+              (push-error-msg "Validation failed.  Password not updated.")
+              (return nil)))))
+    (error ()
+      (push-error-msg "Your password could not be updated."))))
 
 ;; generate a new guaranteed-unique session token with Isaac (from Doug Hoyte (y))
 (defun generate-new-session-token ()
