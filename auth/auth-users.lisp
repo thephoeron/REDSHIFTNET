@@ -25,10 +25,10 @@
                  (ironclad:pbkdf2-check-password test-pass the-pass))
             (progn
               (push-success-msg "You have successfully logged in.")
-              (return t))
+              (return-from validate-credentials t))
             (progn
               (push-error-msg "Login Failed")
-              (return nil))))
+              (return-from validate-credentials nil)))))
     (error ()
       (push-error-msg "There was an error validating your credentials."))))
 
@@ -47,11 +47,11 @@
               (setf (password the-user) the-new-pass)
               (postmodern:update-dao the-user)
               (push-success-msg "Your password has been successfully updated.")
-              (return t))
+              (return-from update-password t))
             (progn
               (setf (session-value 'error-msgs) nil)
               (push-error-msg "Validation failed.  Password not updated.")
-              (return nil)))))
+              (return-from update-password nil)))))
     (error ()
       (push-error-msg "Your password could not be updated."))))
 

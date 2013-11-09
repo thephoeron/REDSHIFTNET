@@ -21,7 +21,7 @@
     (handler-case
       (if (and (is-active the-user) ; make sure the user is active
                (string= (remote-address the-sesh) (hunchentoot:real-remote-addr)) ; make sure the real-remote-addr matches
-               (string= (user-agent the-sesh) (hunchentoot:user-agent)) ; make sure the user agent matches
+               (string= (session-user-agent the-sesh) (hunchentoot:user-agent)) ; make sure the user agent matches
                (local-time:timestamp<= (local-time:now) exp-date)) ; make sure the session is still valid
           t
           nil)

@@ -61,7 +61,7 @@
    (USER-ID :col-type integer :initarg :user-id :accessor user-id)
    (EXPIRY-DATE :col-type date :initarg :exp-date :accessor expiry-date)
    (REMOTE-ADDRESS :col-type string :initarg :remote-addr :accessor remote-address)
-   (USER-AGENT :col-type string :initarg :user-agent :accessor user-agent))
+   (USER-AGENT :col-type string :initarg :user-agent :accessor session-user-agent))
   (:metaclass dao-class)
   (:keys id))
 
