@@ -12,13 +12,35 @@
     (ironclad:pbkdf2-hash-password-to-combined-string the-pass :salt the-salt :digest :sha256 :iterations 10000)))
 
 ;; validate user and password. they must be active as well
+
+;; old version, uses prepared statements commented out in auth-db.lisp
+; (defun validate-credentials (username password)
+;   (handler-case
+;     (let ((stored-pass (public-user-password username))
+;           (testing-pass (babel:string-to-octets password)))
+;       (and (public-user-is-active username)
+;            (ironclad:pbkdf2-check-password testing-pass stored-pass)))
+;     (error () (push-error-msg "There was an error in validating your credentials."))))
+
+;; new version, uses new DAO class and accessors, independent DB connection
 (defun validate-credentials (username password)
+  (declare (string username password))
   (handler-case
-    (let ((stored-pass (public-user-password username))
-          (testing-pass (babel:string-to-octets password)))
-      (and (public-user-is-active username)
-           (ironclad:pbkdf2-check-password testing-pass stored-pass)))
-    (error () (push-error-msg "There was an error in validating your credentials."))))
+    (postmodern:with-connection
+        (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+      (let* ((the-user (postmodern:get-dao 'rsn-auth-user (get-user-id-by-username username)))
+             (the-pass (password the-user))
+             (test-pass (babel:string-to-octets password)))
+        (if (and (is-active the-user)
+                 (ironclad:pbkdf2-check-password test-pass the-pass))
+            (progn
+              (push-success-msg "You have successfully logged in.")
+              (return t))
+            (progn
+              (push-error-msg "Login Failed")
+              (return nil))))
+    (error ()
+      (push-error-msg "There was an error validating your credentials."))))
 
 ;; Convenience functions for logging in to accounts created with Django
 ;; Sadly, not working... will have to look closer at how Django and Ironclad
