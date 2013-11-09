@@ -66,6 +66,10 @@
     (!dao-def)
     (!foreign 'rsn-auth-group 'group-id :primary-key :on-delete :cascade :on-update :cascade))
 
+(defprepared get-user-id-by-username
+  (:select 'id :from 'rsn-auth-user :where (:= 'username '$1))
+  :single!)
+
 ; (defprepared public-user-username
 ;   (:select 'username :from 'public-user :where (:= 'username '$1))
 ;   :single!)
