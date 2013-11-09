@@ -16,14 +16,6 @@
 (deftable rsn-auth-realm
   (!dao-def))
 
-; (defprepared public-realms-name
-;   (:select 'name :from 'public-realms :where (:= 'name '$1))
-;   :single!)
-; (defprepared public-realms-last-modified
-;   (:select 'last-modified :from 'public-realms :where (:= 'name '$1))
-;   :single!)
-; (create-table 'public-realms)
-
 ;;;; GROUP TABLE
 
 (defclass rsn-auth-group ()
@@ -36,15 +28,6 @@
 (deftable rsn-auth-group
   (!dao-def)
   (!foreign 'rsn-auth-realm 'realm-id :primary-key :on-delete :cascade :on-update :cascade))
-
-; (defprepared public-groups-name
-;   (:select 'name :from 'public-groups :where (:= 'name '$1))
-;   :single!)
-; (defprepared public-groups-realm
-;   (:select 'realm :from 'public-groups :where (:= 'name '$1))
-;   :single!)
-
-; (create-table 'public-groups)
 
 ;;;; USER TABLE (new, ignore the one further down...)
 
@@ -70,33 +53,6 @@
   (:select 'id :from 'rsn-auth-user :where (:= 'username '$1))
   :single!)
 
-; (defprepared public-user-username
-;   (:select 'username :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-first-name
-;   (:select 'first-name :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-last-name
-;   (:select 'last-name :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-email
-;   (:select 'email :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-group
-;   (:select 'group :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-password
-;   (:select 'password :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-is-active
-;   (:select 'is-active :from 'public-user :where (:= 'username '$1))
-;   :single!)
-; (defprepared public-user-last-modified
-;   (:select 'last-modified :from 'public-user :where (:= 'username '$1))
-;   :single!)
-
-; (create-table 'public-user)
-
 ;;;; SESSION TABLE
 
 (defclass rsn-auth-session ()
@@ -117,25 +73,9 @@
   (:select 'id :from 'rsn-auth-session :where (:= 'token '$1))
   :single!)
 
-; (defprepared public-session-id
-;   (:select 'id :from 'public-session :where (:= 'id '$1))
-;   :single)
-; (defprepared public-session-user-id
-;   (:select 'user-id :from 'public-session :where (:= 'id '$1))
-;   :single)
-; (defprepared public-session-exp-date
-;   (:select 'exp-date :from 'public-session :where (:= 'id '$1))
-;   :single)
-; (defprepared public-session-remote-addr
-;   (:select 'remote-addr :from 'public-session :where (:= 'id '$1))
-;   :single)
-; (defprepared public-session-user-agent
-;   (:select 'user-agent :from 'public-session :where (:= 'id '$1))
-;   :single)
-
 ;; Rewrite for DAO as generic function and method
-(defprepared update-public-session-exp-date
-	(:update 'public-session :set 'exp-date '$1 :where (:= 'id '$2)))
+; (defprepared update-public-session-exp-date
+;   (:update 'public-session :set 'exp-date '$1 :where (:= 'id '$2)))
 ;(query (:update 'countries :set 'text '$1 :where (:= 'id 284)) "now")
 ; (create-table 'public-session)
 
