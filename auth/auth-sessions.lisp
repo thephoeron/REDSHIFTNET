@@ -5,44 +5,6 @@
 
 (in-package :redshiftnet)
 
-;; PBKDF2--Sha256 Password salter and hasher.
-(defun hardened-password (password)
-  (let ((the-pass (babel:string-to-octets password))
-        (the-salt (ironclad:make-random-salt)))
-    (ironclad:pbkdf2-hash-password-to-combined-string the-pass :salt the-salt :digest :sha256 :iterations 10000)))
-
-;; validate user and password. they must be active as well
-
-;; old version, uses prepared statements commented out in auth-db.lisp
-; (defun validate-credentials (username password)
-;   (handler-case
-;     (let ((stored-pass (public-user-password username))
-;           (testing-pass (babel:string-to-octets password)))
-;       (and (public-user-is-active username)
-;            (ironclad:pbkdf2-check-password testing-pass stored-pass)))
-;     (error () (push-error-msg "There was an error in validating your credentials."))))
-
-;; new version, uses new DAO class and accessors, independent DB connection
-(defun validate-credentials (username password)
-  (declare (string username password))
-  (handler-case
-    (postmodern:with-connection
-        (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-      (let* ((user-id (get-user-id-by-username username))
-             (the-user (postmodern:get-dao 'rsn-auth-user user-id))
-             (the-pass (password the-user))
-             (test-pass (babel:string-to-octets password)))
-        (if (and (is-active the-user)
-                 (ironclad:pbkdf2-check-password test-pass the-pass))
-            (progn
-              (push-success-msg "You have successfully logged in.")
-              (return t))
-            (progn
-              (push-error-msg "Login Failed")
-              (return nil))))
-    (error ()
-      (push-error-msg "There was an error validating your credentials."))))
-
 ;; Convenience functions for logging in to accounts created with Django
 ;; Sadly, not working... will have to look closer at how Django and Ironclad
 ;; encode their salts and hashes
@@ -77,41 +39,6 @@
           (push-error-msg "The passwords you entered don't match.")
           nil))
     (error () (push-error-msg "The new passwords you entered could not be validated."))))
-
-;; UPDATE PASSWORD IN USER DAO
-;; Confirm old-password is correct, new passwords match
-
-;; old version -- dao integration pitiful
-; (defun update-password (username password new-pass new-pass-again)
-;   (when (and (validate-new-password new-pass new-pass-again)
-;              (validate-credentials username password))
-;     (let ((the-user (postmodern:get-dao 'public-user username))
-;           (the-pass (hardened-password new-pass)))
-;       (setf (public-user-password username) the-pass)
-;       (update-dao the-user))))
-
-;; new version, expects new-passwords to be pre-validated
-(defun update-password (username password new-pass)
-  (declare (string username password new-pass))
-  (handler-case
-    (postmodern:with-connection
-        (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-      (let* ((user-id (get-user-id-by-username username))
-             (the-user (postmodern:get-dao 'rsn-auth-user user-id))
-             (the-new-pass (hardened-password new-pass)))
-        (if (validate-credentials username password)
-            (progn
-              (setf (session-value 'success-msgs) nil)
-              (setf (password the-user) the-new-pass)
-              (postmodern:update-dao the-user)
-              (push-success-msg "Your password has been successfully updated.")
-              (return t))
-            (progn
-              (setf (session-value 'error-msgs) nil)
-              (push-error-msg "Validation failed.  Password not updated.")
-              (return nil)))))
-    (error ()
-      (push-error-msg "Your password could not be updated."))))
 
 ;; generate a new guaranteed-unique session token with Isaac (from Doug Hoyte (y))
 (defun generate-new-session-token ()
