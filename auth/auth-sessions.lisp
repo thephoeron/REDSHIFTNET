@@ -25,7 +25,8 @@
                (local-time:timestamp<= (local-time:now) exp-date)) ; make sure the session is still valid
           t
           nil)
-      (error () (push-error-msg "Your session could not be validated.  Please sign in again.")))))
+      (error ()
+        (push-error-msg "There was an error validating your session. Please sign in again.")))))
 
 ;; Create a new Session for the current user
 (defun create-new-session (user)
