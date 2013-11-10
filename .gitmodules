@@ -10,3 +10,6 @@
 [submodule "new-app-templates/static/js/plugins/charts/sparklines"]
 	path = new-app-templates/static/js/plugins/charts/sparklines
 	url = https://github.com/gwatts/jquery.sparkline.git
+[submodule "new-app-templates/static/js/plugins/charts/pie-chart"]
+	path = new-app-templates/static/js/plugins/charts/pie-chart
+	url = https://github.com/rendro/easy-pie-chart.git
