@@ -49,3 +49,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/select2"]
 	path = new-app-templates/static/js/plugins/forms/select2
 	url = https://github.com/ivaynberg/select2.git
+[submodule "new-app-templates/static/js/plugins/forms/spectrum"]
+	path = new-app-templates/static/js/plugins/forms/spectrum
+	url = https://github.com/bgrins/spectrum.git
