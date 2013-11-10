@@ -76,3 +76,6 @@
 [submodule "new-app-templates/static/js/plugins/misc/gmap"]
 	path = new-app-templates/static/js/plugins/misc/gmap
 	url = https://github.com/jbdemonte/gmap3.git
+[submodule "new-app-templates/static/js/plugins/misc/listnav"]
+	path = new-app-templates/static/js/plugins/misc/listnav
+	url = https://github.com/iHwy/jQuery-ListNav.git
