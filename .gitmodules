@@ -37,3 +37,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/datepicker"]
 	path = new-app-templates/static/js/plugins/forms/datepicker
 	url = https://github.com/eternicode/bootstrap-datepicker.git
+[submodule "new-app-templates/static/js/plugins/forms/globalize"]
+	path = new-app-templates/static/js/plugins/forms/globalize
+	url = https://github.com/jquery/globalize.git
