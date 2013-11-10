@@ -55,3 +55,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/switch"]
 	path = new-app-templates/static/js/plugins/forms/switch
 	url = https://github.com/nostalgiaz/bootstrap-switch.git
+[submodule "new-app-templates/static/js/plugins/forms/uniform"]
+	path = new-app-templates/static/js/plugins/forms/uniform
+	url = https://github.com/pixelmatrix/uniform.git
