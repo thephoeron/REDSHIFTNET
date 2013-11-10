@@ -46,3 +46,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/multiselect"]
 	path = new-app-templates/static/js/plugins/forms/multiselect
 	url = https://github.com/yanickrochon/jquery.uix.multiselect.git
+[submodule "new-app-templates/static/js/plugins/forms/select2"]
+	path = new-app-templates/static/js/plugins/forms/select2
+	url = https://github.com/ivaynberg/select2.git
