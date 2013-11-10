@@ -25,3 +25,6 @@
 [submodule "new-app-templates/static/js/plugins/core/nicescroll"]
 	path = new-app-templates/static/js/plugins/core/nicescroll
 	url = https://github.com/inuyaksa/jquery.nicescroll.git
+[submodule "new-app-templates/static/js/plugins/core/touch-punch"]
+	path = new-app-templates/static/js/plugins/core/touch-punch
+	url = https://github.com/furf/jquery-ui-touch-punch.git
