@@ -170,7 +170,7 @@
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/bootstrap/bootstrap-theme.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/icons.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/ui/jgrowl/jquery.jgrowl.css")
-        "<!--[if IE 8]><link href=\"css/ie8.css\" rel=\"stylesheet\" type=\"text/css\" /><![endif]-->"
+        "<!--[if IE 8]><link href=\"/static/css/ie8.css\" rel=\"stylesheet\" type=\"text/css\" /><![endif]-->"
         (:link :rel "apple-touch-icon-precomposed" :sizes "144x144" :href "/static/images/ico/apple-touch-icon-144-precomposed.png")
         (:link :rel "apple-touch-icon-precomposed" :sizes "114x114" :href "/static/images/ico/apple-touch-icon-114-precomposed.png")
         (:link :rel "apple-touch-icon-precomposed" :sizes "72x72" :href "/static/images/ico/apple-touch-icon-72-precomposed.png")
@@ -185,12 +185,12 @@
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
         ,@body
-        (:script :type "text/javascript" :src "/static/js/jquery-1.10.2.min.js")
+        (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
         (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js")
         (:script :type "text/javascript" :src "/static/js/bootstrap/bootstrap.min.js")
         (:script :type "text/javascript" :src "/static/js/conditionizr.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/nicescroll/jquery.nicescroll.min.js")
-        (:script :type "text/javascript" :src "/static/js/plugins/core/jrespond/jRespond.min.js")
+        (:script :type "text/javascript" :src "/static/js/plugins/core/jrespond/js/jRespond.min.js")
         (:script :type "text/javascript" :src "/static/js/jquery.redshiftnetAdmin.js")
         (:script :type "text/javascript" :src "/static/js/plugins/ui/jgrowl/jquery.jgrowl.min.js")
         ;(:script :type "text/javascript" :src "/redshiftnet.js")
