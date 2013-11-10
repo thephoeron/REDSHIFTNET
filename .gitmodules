@@ -4,3 +4,6 @@
 [submodule "new-app-templates/static/js/d3"]
 	path = new-app-templates/static/js/d3
 	url = https://github.com/mbostock/d3.git
+[submodule "new-app-templates/static/js/plugins/charts/flot"]
+	path = new-app-templates/static/js/plugins/charts/flot
+	url = https://github.com/flot/flot.git
