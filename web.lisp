@@ -138,9 +138,9 @@
             "(Smarter Web Hosting), "
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
             "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))
-        (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+        (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
         (:script :type "text/javascript" :src "//jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js")
-        (:script :type "text/javascript" :src "/static/js/jquery.parallax.min.js")
+        (:script :type "text/javascript" :src "/static/js/parallax/deploy/jquery.parallax.min.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/static/js/redbinarymatrix.js")
         (:script :type "text/javascript"
@@ -157,20 +157,6 @@
              });
           }
           rotation();")))))
-; <link rel="stylesheet" type="text/css" href="http://wagerfield.github.io/parallax/assets/styles/css/styles.css">
-; <script src="http://wagerfield.github.io/parallax/deploy/jquery.parallax.js"></script>
-; <script>
-; var scene = document.getElementById('scene');
-; var parallax = new Parallax(scene);
-; </script>
-; <ul id="scene">
-;   <li class="layer" data-depth="0.00"><img src="layer6.png"></li>
-;   <li class="layer" data-depth="0.20"><img src="layer5.png"></li>
-;   <li class="layer" data-depth="0.40"><img src="layer4.png"></li>
-;   <li class="layer" data-depth="0.60"><img src="layer3.png"></li>
-;   <li class="layer" data-depth="0.80"><img src="layer2.png"></li>
-;   <li class="layer" data-depth="1.00"><img src="layer1.png"></li>
-; </ul>
 
 ;; Standard app-page template...
 (defmacro app-page ((&key title) &body body)
