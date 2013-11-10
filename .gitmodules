@@ -13,3 +13,9 @@
 [submodule "new-app-templates/static/js/plugins/charts/pie-chart"]
 	path = new-app-templates/static/js/plugins/charts/pie-chart
 	url = https://github.com/rendro/easy-pie-chart.git
+[submodule "new-app-templates/static/js/plugins/charts/justgage"]
+	path = new-app-templates/static/js/plugins/charts/justgage
+	url = https://github.com/toorshia/justgage.git
+[submodule "new-app-templates/static/js/plugins/charts/raphael"]
+	path = new-app-templates/static/js/plugins/charts/raphael
+	url = https://github.com/DmitryBaranovskiy/raphael.git
