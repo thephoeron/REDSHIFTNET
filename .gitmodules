@@ -1,3 +1,6 @@
 [submodule "new-app-templates/static/js/d3-plugins"]
 	path = new-app-templates/static/js/d3-plugins
 	url = https://github.com/d3/d3-plugins.git
+[submodule "new-app-templates/static/js/d3"]
+	path = new-app-templates/static/js/d3
+	url = https://github.com/mbostock/d3.git
