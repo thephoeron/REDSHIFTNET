@@ -159,82 +159,82 @@
           rotation();")))))
 
 ;; Standard app-page template...
-(defmacro app-page ((&key title) &body body)
- "A default template for any application html page"
- `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
-    (:html :lang "en"
-    (:head 
-      (:meta :http-equiv "Content-Type" 
-            :content    "text/html;charset=utf-8")
-      (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-      (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
-      (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
-    (:title ,title))
-      (:body 
-        (:div :class "navbar navbar-inverse navbar-fixed-top"
-          (:div :class "navbar-inner"
-            (:div :class "container"
-              (:a :class "brand" :href "/" ,title)
-              (:div :class "nav-collapse collapse"
-                (:ul :class "nav"
-                  (:li (:a :href "/index" "Home"))
-                  (:li (:a :href "/dev" "Development"))
-                  (:li (:a :href "/books" "Books"))
-                  (:li (:a :href "/music" "Music"))
-                  (:li (:a :href "/art" "Art"))
-                  (:li (:a :href "/linguistics" "Linguistics"))
-                  (:li (:a :href "/occult" "Occultism"))
-                  (:li :class "dropdown" 
-                    (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown" 
-                      "About"
-                      (:b :class "caret"))
-                    (:ul :class "dropdown-menu"
-                      (:li (:a :href "/impressum" "Impressum"))
-                      (:li (:a :href "/portfolio" "Web Portfolio")))))))))
-        (:div :id "wrap" ,@body
-          (:div :id "push"))
-        (:hr)
-        (:div :id "footer"
-          (:div :class "container"
-            (:p :class "muted credit" 
-              (fmt "Copyright &copy; 2004 &ndash; 2013 \"the Phoeron\" (//thephoeron.com/).  Powered by ~A v~A and ~A v~A."
-                  (lisp-implementation-type)
-                  (lisp-implementation-version)
-                  (server-type)
-                  (server-version)))))
-        (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
-        (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
-        (:script :type "text/javascript" :src "/redshiftnet.js")))))
+; (defmacro app-page ((&key title) &body body)
+;  "A default template for any application html page"
+;  `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
+;     (:html :lang "en"
+;     (:head 
+;       (:meta :http-equiv "Content-Type" 
+;             :content    "text/html;charset=utf-8")
+;       (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
+;       (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
+;       (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
+;     (:title ,title))
+;       (:body 
+;         (:div :class "navbar navbar-inverse navbar-fixed-top"
+;           (:div :class "navbar-inner"
+;             (:div :class "container"
+;               (:a :class "brand" :href "/" ,title)
+;               (:div :class "nav-collapse collapse"
+;                 (:ul :class "nav"
+;                   (:li (:a :href "/index" "Home"))
+;                   (:li (:a :href "/dev" "Development"))
+;                   (:li (:a :href "/books" "Books"))
+;                   (:li (:a :href "/music" "Music"))
+;                   (:li (:a :href "/art" "Art"))
+;                   (:li (:a :href "/linguistics" "Linguistics"))
+;                   (:li (:a :href "/occult" "Occultism"))
+;                   (:li :class "dropdown" 
+;                     (:a :href "#" :class "dropdown-toggle" :data-toggle "dropdown" 
+;                       "About"
+;                       (:b :class "caret"))
+;                     (:ul :class "dropdown-menu"
+;                       (:li (:a :href "/impressum" "Impressum"))
+;                       (:li (:a :href "/portfolio" "Web Portfolio")))))))))
+;         (:div :id "wrap" ,@body
+;           (:div :id "push"))
+;         (:hr)
+;         (:div :id "footer"
+;           (:div :class "container"
+;             (:p :class "muted credit" 
+;               (fmt "Copyright &copy; 2004 &ndash; 2013 \"the Phoeron\" (//thephoeron.com/).  Powered by ~A v~A and ~A v~A."
+;                   (lisp-implementation-type)
+;                   (lisp-implementation-version)
+;                   (server-type)
+;                   (server-version)))))
+;         (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
+;         (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
+;         (:script :type "text/javascript" :src "/redshiftnet.js")))))
 
-;; basic app-page template wrapper suitable for logins and status messages
-(defmacro basic-app-page ((&key title) &body body)
-  "A bare bones bootstrap-powered page useful for logins and status messages."
-  `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
-        (:html :lang "en"
-            (:head 
-                 (:meta :http-equiv "Content-Type" 
-                        :content    "text/html;charset=utf-8")
-                 (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-                 (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
-                 (:link :rel "stylesheet" :href "/rsn-auth.css" :type "text/css" :media "screen")
-                 (:title ,title))
-            (:body 
-                (:div :class "container"
-                    (:h1 ,title)
-                    (:div :id "wrap" ,@body)
-                    (:div :id "push"))
-                (:hr)
-                (:div :id "footer"
-                    (:div :class "container"
-                        (:p :class "muted credit" 
-                            (fmt "Copyright &copy; 2004 &ndash; 2013 \"the Phoeron\" (//thephoeron.com/).  Powered by ~A v~A and ~A v~A."
-                                (lisp-implementation-type)
-                                (lisp-implementation-version)
-                                (server-type)
-                                (server-version)))))
-                (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
-                (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
-                (:script :type "text/javascript" :src "/redshiftnet.js")))))
+; ;; basic app-page template wrapper suitable for logins and status messages
+; (defmacro basic-app-page ((&key title) &body body)
+;   "A bare bones bootstrap-powered page useful for logins and status messages."
+;   `(cl-who:with-html-output-to-string (hunchentoot::*standard-output* nil :prologue t :indent t)
+;         (:html :lang "en"
+;             (:head 
+;                  (:meta :http-equiv "Content-Type" 
+;                         :content    "text/html;charset=utf-8")
+;                  (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
+;                  (:link :rel "stylesheet" :href "/static/css/bootstrap.min.css" :type "text/css" :media "screen")
+;                  (:link :rel "stylesheet" :href "/rsn-auth.css" :type "text/css" :media "screen")
+;                  (:title ,title))
+;             (:body 
+;                 (:div :class "container"
+;                     (:h1 ,title)
+;                     (:div :id "wrap" ,@body)
+;                     (:div :id "push"))
+;                 (:hr)
+;                 (:div :id "footer"
+;                     (:div :class "container"
+;                         (:p :class "muted credit" 
+;                             (fmt "Copyright &copy; 2004 &ndash; 2013 \"the Phoeron\" (//thephoeron.com/).  Powered by ~A v~A and ~A v~A."
+;                                 (lisp-implementation-type)
+;                                 (lisp-implementation-version)
+;                                 (server-type)
+;                                 (server-version)))))
+;                 (:script :type "text/javascript" :src "/static/js/jquery-1.9.1.min.js")
+;                 (:script :type "text/javascript" :src "/static/js/bootstrap.min.js")
+;                 (:script :type "text/javascript" :src "/redshiftnet.js")))))
 
 ;; jQuery convenience macro for Parenscript
 (defmacro $$ ((selector event-binding) &body body)
