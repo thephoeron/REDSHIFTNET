@@ -20,8 +20,11 @@
     (:shadowing-import-from :parenscript #:%)
     (:export #:rsn-start #:rsn-stop #:rsn-restart
              #:server-type #:server-version
-             ;; REDSHIFTNET Web
-             #:app-page #:basic-app-page
+             ;; REDSHIFTNET Templates
+             #:login-styles #:login-scripts
+             #:*header-logo* #:*login-logo*
+             #:%app-header #:%app-menu #:%app-footer #:%breadcrumb
+             #:%app-page #:%basic-app-page
              ;; REDSHIFTNET Utilities
              #:defrequest #:define-constant
              #:read-and-return-html-from-rst
@@ -36,15 +39,18 @@
              #:*acceptor* #:*ssl-acceptor*
              #:*rsn-version*
              ;; REDSHIFTNET Auth
-             #:public-realms #:public-realms-name #:public-realms-last-modified
-             #:public-groups #:public-groups-name #:public-groups-realm
-             #:public-user #:public-user-username #:public-user-first-name #:public-user-last-name
-             #:public-user-email #:public-user-group #:public-user-password
-             #:public-user-is-active #:public-user-last-modified
-             #:public-session #:update-public-session-exp-date
+             #:rsn-auth-realm #:get-realm-id-by-name
+             #:rsn-auth-group #:get-group-id-by-name
+             #:rsn-auth-user #:get-user-id-by-name
+             #:rsn-auth-session #:get-session-id-by-token
+             #:create-new-realm #:update-realm #:create-or-update-realm
+             #:create-new-group #:update-group #:create-or-update-group
              #:hardened-password #:validate-credentials #:update-password
-             #:generate-new-session-token #:validate-session #:create-new-session
-             #:create-new-user #:create-new-realms #:create-new-group
+             #:create-new-user #:update-user #:create-or-update-user
+             #:generate-new-session-token #:validate-session
+             #:create-new-session #:update-session #:create-or-update-session
+             #:auth-login-form #:auth-forgot-password-form
+             #:auth-login #:%auth-page #:auth-page
              ;; REDSHIFTNET Forms
              #:rsn-form #:rsn-form-field 
              #:hidden #:text #:textarea #:password #:file
