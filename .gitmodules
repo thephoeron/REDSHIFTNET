@@ -82,3 +82,6 @@
 [submodule "new-app-templates/static/js/plugins/tables/datatables"]
 	path = new-app-templates/static/js/plugins/tables/datatables
 	url = https://github.com/DataTables/DataTables.git
+[submodule "new-app-templates/static/js/plugins/ui/jgrowl"]
+	path = new-app-templates/static/js/plugins/ui/jgrowl
+	url = https://github.com/stanlemon/jGrowl.git
