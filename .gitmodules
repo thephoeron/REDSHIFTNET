@@ -85,3 +85,6 @@
 [submodule "new-app-templates/static/js/plugins/ui/jgrowl"]
 	path = new-app-templates/static/js/plugins/ui/jgrowl
 	url = https://github.com/stanlemon/jGrowl.git
+[submodule "new-app-templates/static/js/plugins/ui/range-slider"]
+	path = new-app-templates/static/js/plugins/ui/range-slider
+	url = https://github.com/ghusse/jQRangeSlider.git
