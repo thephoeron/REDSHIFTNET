@@ -79,3 +79,6 @@
 [submodule "new-app-templates/static/js/plugins/misc/listnav"]
 	path = new-app-templates/static/js/plugins/misc/listnav
 	url = https://github.com/iHwy/jQuery-ListNav.git
+[submodule "new-app-templates/static/js/plugins/tables/datatables"]
+	path = new-app-templates/static/js/plugins/tables/datatables
+	url = https://github.com/DataTables/DataTables.git
