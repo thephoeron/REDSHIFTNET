@@ -12,7 +12,9 @@
 
 (defparameter login-scripts
     (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
-          "/static/js/plugins/forms/validation/jquery.validate.js"
+          "/static/js/plugins/forms/validation/src/core.js"
+          "/static/js/plugins/forms/validation/src/ajax.js"
+          "/static/js/plugins/forms/validation/src/delegate.js"
           "/static/js/app.js"
           "/static/js/pages/login.js"))
 
