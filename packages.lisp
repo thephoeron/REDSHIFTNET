@@ -62,7 +62,7 @@
              #:not-blank? #:same-as?
              #:picked-more-than? #:picked-fewer-than? #:picked-exactly?
              ;; REDSHIFTNET Admin
-             #:%basic-admin-app-page #:%admin-app-page
+             ;#:%basic-admin-app-page #:%admin-app-page
              #:admin-page #:admin-header #:admin-menu #:admin-footer
              #:admin-login #:admin-login-styles #:admin-login-scripts
              #:admin-login-form #:admin-forgot-password-form
