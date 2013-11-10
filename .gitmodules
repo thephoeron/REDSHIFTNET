@@ -88,3 +88,6 @@
 [submodule "new-app-templates/static/js/plugins/ui/range-slider"]
 	path = new-app-templates/static/js/plugins/ui/range-slider
 	url = https://github.com/ghusse/jQRangeSlider.git
+[submodule "new-app-templates/static/js/plugins/upload/elfinder"]
+	path = new-app-templates/static/js/plugins/upload/elfinder
+	url = https://github.com/Studio-42/elFinder.git
