@@ -8,7 +8,7 @@
 ;;;; REALM TABLE
 
 (defclass rsn-auth-realm ()
-  ((ID :col-type integer :initarg :id :accessor id)
+  ((ID :col-type serial :initarg :id :reader id)
    (NAME :col-type string :initarg :name :accessor name))
   (:metaclass dao-class)
   (:keys id))
@@ -16,12 +16,16 @@
 (deftable rsn-auth-realm
   (!dao-def))
 
+(defprepared get-realm-id-by-name
+  (:select 'id :from 'rsn-auth-realm :where (:= 'name '$1))
+  :single!)
+
 ;;;; GROUP TABLE
 
 (defclass rsn-auth-group ()
-  ((ID :col-type integer :initarg :id :accessor id)
+  ((ID :col-type serial :initarg :id :reader id)
    (NAME :col-type string :initarg :name :accessor name)
-   (REALM-ID :col-type integer :initarg :realm :accessor realm-id))
+   (REALM-ID :col-type integer :initarg :realm-id :accessor realm-id))
   (:metaclass dao-class)
   (:keys id))
 
@@ -29,15 +33,19 @@
   (!dao-def)
   (!foreign 'rsn-auth-realm 'realm-id :primary-key :on-delete :cascade :on-update :cascade))
 
+(defprepared get-group-id-by-name
+  (:select 'id :from 'rsn-auth-group :where (:= 'name '$1))
+  :single!)
+
 ;;;; USER TABLE (new, ignore the one further down...)
 
 (defclass rsn-auth-user ()
-  ((ID :col-type integer :initarg :id :accessor id)
+  ((ID :col-type serial :initarg :id :reader id)
    (USERNAME :col-type string :initarg :username :accessor username)
    (FIRST-NAME :col-type string :initarg :first-name :accessor first-name)
    (LAST-NAME :col-type string :initarg :last-name :accessor last-name)
    (EMAIL :col-type string :initarg :email :accessor email)
-   (GROUP-ID :col-type integer :initarg :group :accessor group-id)
+   (GROUP-ID :col-type integer :initarg :group-id :accessor group-id)
    (PASSWORD :col-type string :initarg :password :accessor password)
    (IS-ACTIVE :col-type boolean :initarg :is-active :accessor is-active)
    (IS-ADMIN :col-type boolean :initarg :is-admin :accessor is-admin)
@@ -56,11 +64,11 @@
 ;;;; SESSION TABLE
 
 (defclass rsn-auth-session ()
-  ((ID :col-type integer :initarg :id :accessor id)
+  ((ID :col-type serial :initarg :id :reader id)
    (TOKEN :col-type string :initarg :token :accessor token)
    (USER-ID :col-type integer :initarg :user-id :accessor user-id)
-   (EXPIRY-DATE :col-type date :initarg :exp-date :accessor expiry-date)
-   (REMOTE-ADDRESS :col-type string :initarg :remote-addr :accessor remote-address)
+   (EXPIRY-DATE :col-type timestamp :initarg :expiry-date :accessor expiry-date)
+   (REMOTE-ADDRESS :col-type string :initarg :remote-address :accessor remote-address)
    (USER-AGENT :col-type string :initarg :user-agent :accessor session-user-agent))
   (:metaclass dao-class)
   (:keys id))

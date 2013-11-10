@@ -15,7 +15,7 @@
   "Validate session with passed token string."
   (let* ((sesh-id (get-session-id-by-token token))
          (the-sesh (postmodern:get-dao 'rsn-auth-session sesh-id))
-         (exp-date (local-time:parse-timestring (expiry-date the-sesh)))
+         (exp-date (local-time:universal-to-timestamp (expiry-date the-sesh)))
          (user-id (user-id the-sesh))
          (the-user (postmodern:get-dao 'rsn-auth-user user-id)))
     (handler-case
@@ -23,8 +23,12 @@
                (string= (remote-address the-sesh) (hunchentoot:real-remote-addr)) ; make sure the real-remote-addr matches
                (string= (session-user-agent the-sesh) (hunchentoot:user-agent)) ; make sure the user agent matches
                (local-time:timestamp<= (local-time:now) exp-date)) ; make sure the session is still valid
-          t
-          nil)
+          (progn
+            (push-success-msg "Your session has been validated.")
+            (return-from validate-session t))
+          (progn
+            (push-error-msg "Your session could not be validated.")
+            (return-from validate-session nil)))
       (error ()
         (push-error-msg "There was an error validating your session. Please sign in again.")))))
 
@@ -38,7 +42,7 @@
          (the-sesh (make-instance 'rsn-auth-session
                                   :token the-token
                                   :user-id the-user
-                                  :exp-date the-expiry
+                                  :expiry-date the-expiry
                                   :remote-address the-remote-address
                                   :user-agent the-user-agent)))
     (hunchentoot:start-session)

@@ -56,17 +56,19 @@
       (push-error-msg "Your password could not be updated."))))
 
 ;; Create a new user
-(defun create-new-user (username password firstname lastname email group)
-  (let ((the-pass (hardened-password password)))
+(defun create-new-user (username password firstname lastname email group &key (is-admin nil))
+  (let* ((the-pass (hardened-password password))
+  		 (the-group-id (get-group-id-by-name group)))
     (postmodern:insert-dao
-      (make-instance 'public-user :username username
-                                  :password the-pass
-                                  :first-name firstname
-                                  :last-name lastname
-                                  :email email
-                                  :group group
-                                  :is-active t
-                                  :last-modified (local-time:format-timestring nil (local-time:now))))))
+      (make-instance 'rsn-auth-user :username username
+                                    :password the-pass
+                                    :first-name firstname
+                                    :last-name lastname
+                                    :email email
+                                    :group-id the-group-id
+                                    :is-active t
+                                    :is-admin is-admin
+                                    :last-modified (local-time:format-timestring nil (local-time:now))))))
 
 (defun update-user ()
   )

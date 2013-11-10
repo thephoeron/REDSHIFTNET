@@ -64,6 +64,7 @@
                (progn
                  (setf (expiry-date the-sesh)
                        (local-time:format-timestring nil (local-time:now)))
+                 (postmodern:update-dao the-sesh)
                  (create-new-session (username the-user))
                  (cl-who:with-html-output (hunchentoot::*standard-output*)
                    ,@body))

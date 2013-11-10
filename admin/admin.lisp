@@ -341,11 +341,14 @@
                (t (hunchentoot:redirect "/403/")))
          ;; else
          (let* ((token (hunchentoot:session-value 'token))
+                (sesh-id (get-session-id-by-token token))
                 (the-sesh (postmodern:get-dao 'public-session token))
                 (the-user (public-session-user-id token)))
            (if (validate-session token)
-               (progn (update-public-session-exp-date (local-time:format-timestring nil (local-time:now)) token)
-                      (create-new-session the-user)
+               (progn
+                (setf (expiry-date the-sesh)
+                      (local-time:format-timestring nil (local-time:now)))
+                      (create-new-session (username the-user))
                       (cl-who:with-html-output (hunchentoot::*standard-output*)
                         ,@body))
                (progn (%basic-admin-app-page (:title "Error: Validation Failure"
@@ -357,10 +360,10 @@
 
 (defmacro admin-page ((title login-page-fun &key (styles nil) (scripts nil)) &body body)
   "Admin site page generator macro."
-  `(%admin-auth-page (title ,login-page-fun)
-     (%admin-app-page (:title ,title :header #'admin-header
-                       :menu #'admin-menu :footer #'admin-footer
-                       :scripts ,scripts :styles ,styles)
+  `(%auth-page (title ,login-page-fun)
+     (%app-page (:title ,title :header #'admin-header
+                 :menu #'admin-menu :footer #'admin-footer
+                 :scripts ,scripts :styles ,styles)
       (cl-who:with-html-output (hunchentoot::*standard-output*)
         ,@body))))
 
@@ -372,7 +375,7 @@
       (:h1 (:i :class "icon20 i-dashboard") " Dashboard"))
     (:div :class "row"
       (:p :class "lead"
-        "Welcome to REDSHIFTNET Admin.  This is a good place to put your favourite dashboard widgets.  There should probably be a list somewhere that is built through the interface, so users can customize it..."))))
+        "Welcome to REDSHIFTNET Admin. This is a good place to put your favourite dashboard widgets. There should probably be a list somewhere that is built through the interface, so users can customize it..."))))
 
 (defrequest rsn-admin (:vhost vhost-admin)
   (admin-page ("REDSHIFTNET Admin :: Lander" #'admin-login
@@ -381,7 +384,7 @@
      (hunchentoot:redirect "/admin/dashboard/")))
 
 (defrequest rsn-admin/dashboard (:vhost vhost-admin)
-  (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
+  (admin-page ("[REDSHIFTNET Admin :: Dashboard]" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
     (admin-dashboard)))
