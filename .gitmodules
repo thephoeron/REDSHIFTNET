@@ -19,3 +19,6 @@
 [submodule "new-app-templates/static/js/plugins/charts/raphael"]
 	path = new-app-templates/static/js/plugins/charts/raphael
 	url = https://github.com/DmitryBaranovskiy/raphael.git
+[submodule "new-app-templates/static/js/plugins/core/jrespond"]
+	path = new-app-templates/static/js/plugins/core/jrespond
+	url = https://github.com/ten1seven/jRespond.git
