@@ -1,7 +1,11 @@
 REDSHIFTNET
 ===========
 
-Common Lisp Web Application Framework for enterprise data-driven apps that require hardened security and high performance.
+Common Lisp Web Application Framework for enterprise data-driven apps that require hardened security, high performance, and web-facing admin access.
+
+REDSHIFTNET was designed to replace large-scale web frameworks such as Django, Joomla, Drupal, Ruby-on-Rails, ASP.NET, and even blogging platforms such as WordPress, keeping shared-hosts such as WebFaction in mind.
+
+REDSHIFTNET is built on top of the Hunchentoot web server, so your REDSHIFTNET app will compile and run as a standalone executable without needing to configure Apache, nginx, or other HTTP/S web server.
 
 Features
 --------
@@ -12,7 +16,8 @@ Features
 * VHOST support for HTTP and HTTPS, to deploy web-apps across multiple top-level and sub- domains
 * Improved session handling over Hunchentoot, with database-tracked session info
 * Secured pages with user authentication, session validation, and forced re-login on session expiry
-* Full PostgreSQL integration
+* Separate Admin and End-user front ends
+* Full PostgreSQL integration, with database introspection and automatic table views
 * Ironclad powered PBKDF2-SHA256 password hashing
 * CL-ISAAC powered random session token generation
 * Form-generation with integrated validation
@@ -20,16 +25,16 @@ Features
 * Easy integration of shell commands to leverage the full power of linux in your web-apps
 * JSON and XML serialization of data
 * Template-based document generation in multiple export formats
+* Ready-to-use live-updating graphs and widgets
+* Calendars and scheduling tools
 
 
 Upcoming Features
 -----------------
 
-* Separate Admin and End-user front ends
-* Front-end source code editing, database and server management
+* Automatically generated edit forms for database table views
+* Front-end source code editing and server management
 * Userspaces separated into realms, in addition to groups
-* Ready-to-use live-updating graphs and widgets
-* Calendars and scheduling tools
 
 
 Installation and Use
@@ -53,12 +58,12 @@ You can then run your app simply by calling (for example):
 
     $ ./my-new-app --swank-port=33798 --www-port=8080 --ssl-port=8090
 
-Your web-app runs as a background process, all output being logged in the files specified in your app's config.lisp file.  It can be added to your crontab so that if it crashes or the server is restarted, it will be restarted automatically.
+Your web-app runs as a background process, all output being logged in the files specified in your app's config.lisp file.  Add it to your crontab so that if the process or server crashes or is restarted, it will be restarted automatically.
 
 Dependencies
 ------------
 
-REDSHIFTNET was designed to replace the AMP of the LAMP stack, and with shared-hosts such as WebFaction in mind.  It should theoretically run anywhere SBCL runs, but has only been tested on Linux and OS X.
+REDSHIFTNET should theoretically run anywhere SBCL runs, but has only been tested on Linux and OS X.
 
 * Linux x86_64 or OS X Server
 * SBCL 1.1.7+
