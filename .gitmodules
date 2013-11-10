@@ -91,3 +91,6 @@
 [submodule "new-app-templates/static/js/plugins/upload/elfinder"]
 	path = new-app-templates/static/js/plugins/upload/elfinder
 	url = https://github.com/Studio-42/elFinder.git
+[submodule "new-app-templates/static/js/plugins/upload/plupload"]
+	path = new-app-templates/static/js/plugins/upload/plupload
+	url = https://github.com/moxiecode/plupload.git
