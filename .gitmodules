@@ -34,3 +34,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/bootstrap-wysihtml5"]
 	path = new-app-templates/static/js/plugins/forms/bootstrap-wysihtml5
 	url = https://github.com/jhollingworth/bootstrap-wysihtml5.git
+[submodule "new-app-templates/static/js/plugins/forms/datepicker"]
+	path = new-app-templates/static/js/plugins/forms/datepicker
+	url = https://github.com/eternicode/bootstrap-datepicker.git
