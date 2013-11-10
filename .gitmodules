@@ -67,3 +67,6 @@
 [submodule "new-app-templates/static/js/plugins/misc/codeview"]
 	path = new-app-templates/static/js/plugins/misc/codeview
 	url = https://github.com/stden/prettify.git
+[submodule "new-app-templates/static/js/plugins/misc/fullcalendar"]
+	path = new-app-templates/static/js/plugins/misc/fullcalendar
+	url = https://github.com/arshaw/fullcalendar.git
