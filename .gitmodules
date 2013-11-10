@@ -61,3 +61,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/validation"]
 	path = new-app-templates/static/js/plugins/forms/validation
 	url = https://github.com/jzaefferer/jquery-validation.git
+[submodule "new-app-templates/static/js/plugins/forms/wizard"]
+	path = new-app-templates/static/js/plugins/forms/wizard
+	url = https://github.com/thecodemine/formwizard.git
