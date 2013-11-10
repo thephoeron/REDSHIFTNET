@@ -94,3 +94,6 @@
 [submodule "new-app-templates/static/js/plugins/upload/plupload"]
 	path = new-app-templates/static/js/plugins/upload/plupload
 	url = https://github.com/moxiecode/plupload.git
+[submodule "new-app-templates/static/images/patterns"]
+	path = new-app-templates/static/images/patterns
+	url = https://github.com/subtlepatterns/SubtlePatterns.git
