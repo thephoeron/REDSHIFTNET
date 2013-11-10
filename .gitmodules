@@ -28,3 +28,6 @@
 [submodule "new-app-templates/static/js/plugins/core/touch-punch"]
 	path = new-app-templates/static/js/plugins/core/touch-punch
 	url = https://github.com/furf/jquery-ui-touch-punch.git
+[submodule "new-app-templates/static/js/plugins/forms/autosize"]
+	path = new-app-templates/static/js/plugins/forms/autosize
+	url = https://github.com/jackmoore/autosize.git
