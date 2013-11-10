@@ -73,3 +73,6 @@
 [submodule "new-app-templates/static/js/plugins/misc/gallery"]
 	path = new-app-templates/static/js/plugins/misc/gallery
 	url = https://github.com/dimsemenov/Magnific-Popup.git
+[submodule "new-app-templates/static/js/plugins/misc/gmap"]
+	path = new-app-templates/static/js/plugins/misc/gmap
+	url = https://github.com/jbdemonte/gmap3.git
