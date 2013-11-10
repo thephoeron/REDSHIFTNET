@@ -40,3 +40,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/globalize"]
 	path = new-app-templates/static/js/plugins/forms/globalize
 	url = https://github.com/jquery/globalize.git
+[submodule "new-app-templates/static/js/plugins/forms/mask"]
+	path = new-app-templates/static/js/plugins/forms/mask
+	url = https://github.com/igorescobar/jQuery-Mask-Plugin.git
