@@ -43,3 +43,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/mask"]
 	path = new-app-templates/static/js/plugins/forms/mask
 	url = https://github.com/igorescobar/jQuery-Mask-Plugin.git
+[submodule "new-app-templates/static/js/plugins/forms/multiselect"]
+	path = new-app-templates/static/js/plugins/forms/multiselect
+	url = https://github.com/yanickrochon/jquery.uix.multiselect.git
