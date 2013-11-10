@@ -52,3 +52,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/spectrum"]
 	path = new-app-templates/static/js/plugins/forms/spectrum
 	url = https://github.com/bgrins/spectrum.git
+[submodule "new-app-templates/static/js/plugins/forms/switch"]
+	path = new-app-templates/static/js/plugins/forms/switch
+	url = https://github.com/nostalgiaz/bootstrap-switch.git
