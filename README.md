@@ -97,3 +97,15 @@ Other Dependencies (clone into ``~/quicklisp/local-projects``):
 * LET-OVER-LAMBDA <https://github.com/thephoeron/let-over-lambda>
 * UBER-SHELL <https://github.com/thephoeron/uber-shell>
 
+Additional Configuration
+------------------------
+
+Some of the included submodule repos require additional configuration, dependencies, installation, or compilation.  See the original repos for instructions.
+
+These include:
+
+* jQuery FullCalendar
+* jQuery DataTables
+* jGrowl
+
+You can find them under `new-app-templates/static/js/plugins/`.
