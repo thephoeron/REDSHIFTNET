@@ -145,12 +145,12 @@
                                           "/static/js/pages/login.js"))
   ;; Admin Dashboard
   (defparameter admin-dashboard-styles
-    (list "/static/js/plugins/tables/datatables/jquery.dataTables.css"
+    (list "/static/js/plugins/tables/datatables/media/css/jquery.dataTables.css"
           "/static/css/app.css"
           "/static/css/custom.css"))
   (defparameter admin-dashboard-scripts 
     (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"
-          "/static/js/plugins/tables/datatables/jquery.dataTables.min.js"
+          "/static/js/plugins/tables/datatables/media/js/jquery.dataTables.js"
           "/static/js/pages/data-tables.js"
           "/static/js/app.js"
           "/static/js/pages/dashboard.js"))
@@ -375,7 +375,7 @@
       (:h1 (:i :class "icon20 i-dashboard") " Dashboard"))
     (:div :class "row"
       (:p :class "lead"
-        "Welcome to REDSHIFTNET Admin. This is a good place to put your favourite dashboard widgets. There should probably be a list somewhere that is built through the interface, so users can customize it..."))))
+        "Welcome to REDSHIFTNET Admin. This is a good place to put your favourite dashboard widgets. There should probably be a list somewhere that is built through the interface, so users can customize it... Some dependencies need to be rebuilt."))))
 
 (defrequest rsn-admin (:vhost vhost-admin)
   (admin-page ("REDSHIFTNET Admin :: Lander" #'admin-login
