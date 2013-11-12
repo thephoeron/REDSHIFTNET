@@ -162,7 +162,7 @@ body {display: inline-block; overflow-x: hidden;}
 			border-color: rgba(114, 177, 16, 0);
 			border-right-color: #72b110;
 		}
-		.notification.gree:before{
+		.notification.green:before{
 			border-color: rgba(88, 137, 11, 0);
 			border-right-color: #58890b;
 		}
