@@ -68,7 +68,13 @@
                (:file "config")
                (:module "admin"
                 :serial t
-                :components ((:file "admin")))
+                :components ((:file "admin-db")
+                             (:file "admin-styles")
+                             (:file "admin-scripts")
+                             (:file "admin-forms")
+                             (:file "admin-templates")
+                             (:file "admin-requests")
+                             (:file "admin")))
                (:file "redshiftnet")
                (:file "make-new-app"))
   :in-order-to ((make-app-op (load-op "redshiftnet"))))

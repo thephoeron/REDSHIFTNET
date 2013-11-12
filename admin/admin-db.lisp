@@ -5,4 +5,7 @@
 
 (in-package :redshiftnet)
 
+;; If there ever needs to be any Admin specific tables, they should go here
+;; Separate Admin area activity tracking would be useful, for example
+
 ;; EOF

@@ -10,7 +10,7 @@
 (define-easy-handler (redshiftnet-css :uri "/css/pages/dashboard.css") ()
   (setf (content-type*) "text/css")
   (css-lite:css
-    
+    ;; Admin Dashboard specific styles
     ))
 
 ;; EOF
