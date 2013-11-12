@@ -6,7 +6,7 @@
 (in-package :redshiftnet)
 
 ;; REDSHIFTNET Master Stylesheet
-(define-easy-handler (redshiftnet-css :uri "/redshiftnet.css") ()
+(define-easy-handler (splash-page-css :uri "/rsn-splash-page.css") ()
   (setf (content-type*) "text/css")
   (css-lite:css
     (("body")
@@ -60,6 +60,12 @@
         (:position "relative"
          :margin "auto"
          :padding "inherit"))
+    (("#emblem")
+      (:height "15px"
+       :max-height "15px"
+       :width "80px"
+       :max-width "80px"
+       :display "inline-block"))
     (("#starfield")
         (:opacity "0.5"
          :width "120%"
@@ -111,8 +117,8 @@
     (:html 
       (:head 
         (:title "REDSHIFTNET")
-        (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
-        (:link :rel "stylesheet" :href "/static/css/parallax.styles.css"))
+        (:link :rel "stylesheet" :href "/static/css/parallax.styles.css")
+        (:link :rel "stylesheet" :href "/rsn-splash-page.css" :type "text/css" :media "screen"))
       (:body :style "border: 0; padding: 0; margin: 0; overflow: hidden;" ;:onLoad "init();"
         (:div :id "fullxy"
           (:ul :id "scene"
@@ -137,7 +143,9 @@
             (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" "WebFaction") " "
             "(Smarter Web Hosting), "
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
-            "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version))))
+            "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version)) :br
+            (:a :href "http://www.catb.org/hacker-emblem/" (:img :src "http://www.catb.org/hacker-emblem/hacker.png" :alt "hacker emblem" :id "emblem"))
+            ))
         (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
         (:script :type "text/javascript" :src "//jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js")
         (:script :type "text/javascript" :src "/static/js/parallax/deploy/jquery.parallax.min.js")
