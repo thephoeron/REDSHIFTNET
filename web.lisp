@@ -131,7 +131,7 @@
                 (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
                     (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
-                      (:img :id "logo" :src "/static/images/sunburst.png" :align "center" :style "height: 400px; width: auto; margin: auto; opacity: 0.75;")))))
+                      (:img :id "logo" :src "/static/images/brilliant-sun.png" :align "center" :style "height: 640px; width: auto; margin: auto; opacity: 0.75;")))))
                (:li :class "layer" :data-depth "0.80"
                 (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
