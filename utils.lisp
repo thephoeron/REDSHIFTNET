@@ -84,126 +84,126 @@ is replaced with replacement."
 ;;; These macros to define url handlers were initially taken, and then
 ;;; modified from: http://www.adampetersen.se/articles/lispweb.htm
 ;;; Thank you Adam Petersen.
-(defmacro define-url-fn (name &body body)
-  `(progn
-     (defun ,name ()
-       (let ((the-user (get-user-obj (session-value 'username))))
-         ;; It could happen that the user was not found but the session
-         ;; has the 'authenticated value set if the user was deleted from
-         ;; the database.
-         (unless (and the-user (string= (session-value 'authenticated) "yes"))
-           (setf (session-value 'authenticated) nil)
-           (redirect "/"))
-         ;;
-         ;; Yay, we have a valid user, let's set the time zone.
-         ;; TODO: Why are we setfing the user-time-zone?
-         (let ((time-zone (setf (user-time-zone the-user)
-                                (session-value 'timezone))))
-           (declare (ignorable time-zone))
-           (no-cache) ; Prevent caching on most browsers.
-           ,@body)))
-     (push (create-prefix-dispatcher ,(format nil "/~(~a~)/" name)
-                                     ',name)
-           *dispatch-table*)))
+; (defmacro define-url-fn (name &body body)
+;   `(progn
+;      (defun ,name ()
+;        (let ((the-user (get-user-obj (session-value 'username))))
+;          ;; It could happen that the user was not found but the session
+;          ;; has the 'authenticated value set if the user was deleted from
+;          ;; the database.
+;          (unless (and the-user (string= (session-value 'authenticated) "yes"))
+;            (setf (session-value 'authenticated) nil)
+;            (redirect "/"))
+;          ;;
+;          ;; Yay, we have a valid user, let's set the time zone.
+;          ;; TODO: Why are we setfing the user-time-zone?
+;          (let ((time-zone (setf (user-time-zone the-user)
+;                                 (session-value 'timezone))))
+;            (declare (ignorable time-zone))
+;            (no-cache) ; Prevent caching on most browsers.
+;            ,@body)))
+;      (push (create-prefix-dispatcher ,(format nil "/~(~a~)/" name)
+;                                      ',name)
+;            *dispatch-table*)))
 
 ;;; TODO: there should be a way to combine these `define-*-fn` macros
 ;;;       into a single one.
-(defmacro define-open-url-fn (name &body body)
-  "This macro is like `define-url-fn` macro but does not enforce a valid
-session. The variables `the-user` and `time-zone` are still being inserted
-into the lexical context but their values may be nil.
-BE CAREFUL."
-  `(progn
-     (defun ,name ()
-       ;; TODO: We could probably use a macrolet so that accesses to the
-       ;; variables the-user & time-zone signal an error when a session is
-       ;; not valid and authenticated.
-       (let* ((the-user (and (string= (session-value 'authenticated) "yes")
-                             (session-value 'username)
-                             (get-user-obj (session-value 'username))))
-              (time-zone (and the-user (session-value 'timezone))))
-         (declare (ignorable the-user time-zone))
-         (no-cache) ; Prevent caching on most browsers.
-         ,@body))
-     (push (create-prefix-dispatcher ,(format nil "/~(~a~)/" name) ',name)
-           *dispatch-table*)))
+; (defmacro define-open-url-fn (name &body body)
+;   "This macro is like `define-url-fn` macro but does not enforce a valid
+; session. The variables `the-user` and `time-zone` are still being inserted
+; into the lexical context but their values may be nil.
+; BE CAREFUL."
+;   `(progn
+;      (defun ,name ()
+;        ;; TODO: We could probably use a macrolet so that accesses to the
+;        ;; variables the-user & time-zone signal an error when a session is
+;        ;; not valid and authenticated.
+;        (let* ((the-user (and (string= (session-value 'authenticated) "yes")
+;                              (session-value 'username)
+;                              (get-user-obj (session-value 'username))))
+;               (time-zone (and the-user (session-value 'timezone))))
+;          (declare (ignorable the-user time-zone))
+;          (no-cache) ; Prevent caching on most browsers.
+;          ,@body))
+;      (push (create-prefix-dispatcher ,(format nil "/~(~a~)/" name) ',name)
+;            *dispatch-table*)))
 
-(defmacro define-index-fn (&body body)
-  (let ((index-fn (gensym)))
-    `(progn
-       (defun ,index-fn ()
-         (let (the-user time-zone)
-           (declare (ignorable the-user time-zone))
-           ,@body))
-       (setf hunchentoot::*default-handler* #',index-fn))))
+; (defmacro define-index-fn (&body body)
+;   (let ((index-fn (gensym)))
+;     `(progn
+;        (defun ,index-fn ()
+;          (let (the-user time-zone)
+;            (declare (ignorable the-user time-zone))
+;            ,@body))
+;        (setf hunchentoot::*default-handler* #',index-fn))))
 
 
 ;;; CAUTION, We expect to capture the free variable `the-user`.
-(defmacro standard-page ((&key (title "")
-                               (show-banner t)
-                               css-files js-files
-                               active-tab)
-                         &body body)
-  `(with-html-output-to-string (*standard-output* nil :prologue t :indent nil)
-     (:html
-       (:head
-         (:meta :charset "utf-8")
-         (:title (esc ,title))
-         ;;
-         ;; CSS files
-         ;;
-         (:link :type "text/css"
-                :rel "stylesheet"
-                :media "screen, projection"
-                :href "/static/css/html5reset-1.4.1.css")
-         (:link :type "text/css"
-                :rel "stylesheet"
-                :media "screen, projection"
-                :href "/static/css/styles.css?v=20100814")
-         ,@(mapcar (lambda (file)
-                     `(:link :type "text/css" :rel "stylesheet"
-                             :media "screen, projection"
-                             :href ,(format nil"/static/css/~a" file)))
-                   css-files)
-         ;;
-         ;; JavaScript files
-         ;;
-         ,@(mapcar (lambda (file)
-                     `(:script :type "text/javascript"
-                               :src ,(format nil "/static/js/~a" file)))
-                   js-files)
-         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
-       (:body
-         (:div :id "body-container"
-           ,(when show-banner
-              `(:header :role "banner" :class "banner"
-                 (:nav
-                   (:ul
-                     (:li ,@(when (eql active-tab :listing) `(:class "current"))
-                          (:a :href "/listing/" "Listings"))
-                     (:li ,@(when (eql active-tab :reports) `(:class "current"))
-                          (:a :href "/reports/" "Reports"))
-                     (:li ,@(when (eql active-tab :community) `(:class "current"))
-                          (:a :href "/community/" "Community"))
-                     (:li ,@(when (eql active-tab :account) `(:class "current"))
-                          (:a :href "/account/" "Account"))
-                     (when the-user
-                       (htm
-                         (:li :class "notab"
-                              (:span "Welcome "
-                                     (esc (or (trim-or-nil
-                                                (user-full-name the-user))
-                                              (user-username the-user)))))
-                         (:li :class "notab"
-                              (:a :href "/logout/" "Logout"))))))))
-           (:div :id "content"
-                 ,@body)
-           (:footer
-             (:p
-               (:a :href "/updates/" "UPDATES") " | "
-               (:a :href "/about/" "About this") " | "
-               (:a :href "/credits/" "Credits") " | "
-               "Powered by Common Lisp")))))))
+; (defmacro standard-page ((&key (title "")
+;                                (show-banner t)
+;                                css-files js-files
+;                                active-tab)
+;                          &body body)
+;   `(with-html-output-to-string (*standard-output* nil :prologue t :indent nil)
+;      (:html
+;        (:head
+;          (:meta :charset "utf-8")
+;          (:title (esc ,title))
+;          ;;
+;          ;; CSS files
+;          ;;
+;          (:link :type "text/css"
+;                 :rel "stylesheet"
+;                 :media "screen, projection"
+;                 :href "/static/css/html5reset-1.4.1.css")
+;          (:link :type "text/css"
+;                 :rel "stylesheet"
+;                 :media "screen, projection"
+;                 :href "/static/css/styles.css?v=20100814")
+;          ,@(mapcar (lambda (file)
+;                      `(:link :type "text/css" :rel "stylesheet"
+;                              :media "screen, projection"
+;                              :href ,(format nil"/static/css/~a" file)))
+;                    css-files)
+;          ;;
+;          ;; JavaScript files
+;          ;;
+;          ,@(mapcar (lambda (file)
+;                      `(:script :type "text/javascript"
+;                                :src ,(format nil "/static/js/~a" file)))
+;                    js-files)
+;          "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
+;        (:body
+;          (:div :id "body-container"
+;            ,(when show-banner
+;               `(:header :role "banner" :class "banner"
+;                  (:nav
+;                    (:ul
+;                      (:li ,@(when (eql active-tab :listing) `(:class "current"))
+;                           (:a :href "/listing/" "Listings"))
+;                      (:li ,@(when (eql active-tab :reports) `(:class "current"))
+;                           (:a :href "/reports/" "Reports"))
+;                      (:li ,@(when (eql active-tab :community) `(:class "current"))
+;                           (:a :href "/community/" "Community"))
+;                      (:li ,@(when (eql active-tab :account) `(:class "current"))
+;                           (:a :href "/account/" "Account"))
+;                      (when the-user
+;                        (htm
+;                          (:li :class "notab"
+;                               (:span "Welcome "
+;                                      (esc (or (trim-or-nil
+;                                                 (user-full-name the-user))
+;                                               (user-username the-user)))))
+;                          (:li :class "notab"
+;                               (:a :href "/logout/" "Logout"))))))))
+;            (:div :id "content"
+;                  ,@body)
+;            (:footer
+;              (:p
+;                (:a :href "/updates/" "UPDATES") " | "
+;                (:a :href "/about/" "About this") " | "
+;                (:a :href "/credits/" "Credits") " | "
+;                "Powered by Common Lisp")))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; QUEUE AND SHOW ERROR/SUCCESS MESSAGES TO THE USER
