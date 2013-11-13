@@ -14,7 +14,7 @@
 
 (in-package :redshiftnet-asd)
 
-(defparameter *rsn-version* "0.1 alpha")
+(defparameter *rsn-version* "0.1.0")
 
 (export '*rsn-version*)
 

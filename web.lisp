@@ -60,12 +60,14 @@
         (:position "relative"
          :margin "auto"
          :padding "inherit"))
-    (("#emblem")
+    ((".emblem")
       (:height "15px"
        :max-height "15px"
        :width "80px"
        :max-width "80px"
-       :display "inline-block"))
+       :display "inline-block"
+       :border "0"
+       :margin-left "2px"))
     (("#starfield")
         (:opacity "0.5"
          :width "120%"
@@ -140,11 +142,10 @@
             (:a :href "http://common-lisp.net" :class "tip" :title "Crafted in Common Lisp" (str (format nil "(~C)" #\GREEK_SMALL_LETTER_LAMDA))) :br
             "Copyright &copy; 2012 &mdash; 2013, \"the Phoeron\" (//thephoeron.com/) &mdash; All Rights Reserved. "
             "Powered by "
-            (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" "WebFaction") " "
-            "(Smarter Web Hosting), "
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
             "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version)) :br
-            (:a :href "http://www.catb.org/hacker-emblem/" (:img :src "http://www.catb.org/hacker-emblem/hacker.png" :alt "hacker emblem" :id "emblem"))
+            (:a :href "http://www.catb.org/hacker-emblem/" (:img :src "/static/images/hacker.png" :alt "hacker emblem" :class "emblem"))
+            (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" (:img :src "/static/images/webfaction.png" :class "emblem" :alt "WebFaction -- Smarter Web Hosting"))
             ))
         (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
         (:script :type "text/javascript" :src "//jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js")
