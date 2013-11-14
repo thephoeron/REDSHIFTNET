@@ -40,23 +40,29 @@ Upcoming Features
 Installation and Use
 --------------------
 
-Clone this project into ``~/quicklisp/local-projects/``
+Clone this project into `~/quicklisp/local-projects/`
 
 From the SBCL REPL:
 
-    * (ql:quickload "redshiftnet")
+```lisp
+* (ql:quickload "redshiftnet")
 
-    * (rsn:make-app 'my-new-app "~/quicklisp/local-projects/")
+* (rsn:make-app 'my-new-app "~/quicklisp/local-projects/")
+```
 
-Your new REDSHIFTNET project will then be available under ``~/quicklisp/local-projects/my-new-app/`` ready to be loaded with ASDF or Quicklisp.
+Your new REDSHIFTNET project will then be available under `~/quicklisp/local-projects/my-new-app/` ready to be loaded with ASDF or Quicklisp.
 
-For best performance, use the ``make.lisp`` script in the project directory to compile your completed web-app on the deployment server:
+For best performance, use the `make.lisp` script in the project directory to compile your completed web-app on the deployment server:
 
-    $ CC=gcc sbcl --script make.lisp
+```sh
+$ CC=gcc sbcl --script make.lisp
+```
 
 You can then run your app simply by calling (for example):
 
-    $ ./my-new-app --swank-port=33798 --www-port=8080 --ssl-port=8090
+```sh
+$ ./my-new-app --swank-port=33798 --www-port=8080 --ssl-port=8090
+```
 
 Your web-app runs as a background process, all output being logged in the files specified in your app's config.lisp file.  Add it to your crontab so that if the process or server crashes or is restarted, it will be restarted automatically.
 
@@ -91,11 +97,11 @@ Lisp libraries available through Quicklisp:
 * CLON: The Command-Line Options Nuker
 * CL-FAD
 
-Other Dependencies (clone into ``~/quicklisp/local-projects``):
+Other Dependencies (clone into `~/quicklisp/local-projects`):
 
-* CL-ISAAC <https://github.com/thephoeron/cl-isaac>
-* LET-OVER-LAMBDA <https://github.com/thephoeron/let-over-lambda>
-* UBER-SHELL <https://github.com/thephoeron/uber-shell>
+* [CL-ISAAC](https://github.com/thephoeron/cl-isaac)
+* [LET-OVER-LAMBDA](https://github.com/thephoeron/let-over-lambda)
+* [UBER-SHELL](https://github.com/thephoeron/uber-shell)
 
 Additional Configuration
 ------------------------
