@@ -46,6 +46,8 @@
                (:file "vhost")
                (:file "utils")
                (:file "db-utils")
+               (:file "scripts")
+               (:file "styles")
                (:file "web")
                (:file "templates")
                (:module "forms"
