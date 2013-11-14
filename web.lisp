@@ -124,10 +124,10 @@
       (:body :style "border: 0; padding: 0; margin: 0; overflow: hidden;" ;:onLoad "init();"
         (:div :id "fullxy"
           (:ul :id "scene"
-               (:li :class "layer" :data-depth "0.20" (:img :id "starfield" :src "/static/images/red-starfield-1920x1200.jpg"))
+               (:li :class "layer" :data-depth "0.10" (:img :id "starfield" :src "/static/images/red-starfield-1920x1200.jpg"))
                (:li :class "layer" :data-depth "0.40"
                 (:canvas :id "theMatrix"))
-               (:li :class "layer" :data-depth "0.60" 
+               (:li :class "layer" :data-depth "0.50" 
                 (:table :style "width: 100%; height: 100%; display: block; margin-top: 10%; margin-left: 0;"
                   (:tr
                     (:td :style "width: 100%; height: 100%; text-align: center; vertical-align: middle;"
