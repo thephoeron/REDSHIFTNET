@@ -84,7 +84,8 @@
        :max-width "80px"
        :display "inline-block"
        :border "0"
-       :margin-left "2px"))
+       :margin-left "4px"
+       :margin-top "4px"))
     (("#starfield")
         (:opacity "0.5"
          :width "120%"

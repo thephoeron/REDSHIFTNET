@@ -36,7 +36,9 @@
             "Powered by "
             (:a :href "http://www.sbcl.org/" :target "_blank" (fmt "~A" (lisp-implementation-type))) " " (fmt "v~A, " (lisp-implementation-version))
             "and " (:a :href "http://redshiftnet.com/" :target "_blank" (fmt "~A" (server-type))) " " (fmt "v~A." (server-version)) :br
-            (:a :href "http://www.catb.org/hacker-emblem/" (:img :src "/static/images/hacker.png" :alt "hacker emblem" :class "emblem"))
+            (:a :href "http://www.catb.org/hacker-emblem/" (:img :src "/static/images/hacker.png" :alt "hacker emblem web badge" :class "emblem"))
+            (:a :href "http://www.lisp.org/" (:img :src "/static/images/lambda-lisp.png" :alt "lambda lisp web badge" :class "emblem"))
+            (:a :href "http://www.common-lisp.org/" (:img :src "/static/images/lisp-lizard.png" :alt "lizard lisp web badge" :class "emblem"))
             (:a :href "http://www.webfaction.com/?affiliate=thephoeron" :target "_blank" (:img :src "/static/images/webfaction.png" :class "emblem" :alt "WebFaction -- Smarter Web Hosting"))
             ))
         (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
