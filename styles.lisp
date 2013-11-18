@@ -120,12 +120,12 @@
                 (:text-decoration "underline"))))))
 
 ;;;; REDSHIFTNET Main App Stylesheet
-(define-easy-handler (redshiftnet-css :uri "/css/app.css") ()
+(define-easy-handler (rsn-app-css :uri "/css/app.css") ()
   (setf (content-type*) "text/css")
   (css-lite:css
     ;; Shared styles
     (("html")
-      (:background "url(/static/images/patterns/debut_light.png) repeat"
+      (:background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
        :height "100%"))
     (("body")
       (:min-height "100%"
@@ -144,6 +144,9 @@
     ;; Plugin custom styles
     ;; CSS Animations
     ;; Login Page
+    (("html.loginPage")
+      (:background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
+       :height "auto"))
     ;; Error & Offline pages
     ;; Media Queries
     ))

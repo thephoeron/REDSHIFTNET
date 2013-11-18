@@ -7,6 +7,7 @@
 
 (defparameter login-styles 
     (list "/static/css/app.css"
+          "/css/app.css"
           "/static/css/custom.css"
           "/static/css/pages/login.css"))
 
