@@ -127,7 +127,7 @@
 (defun %breadcrumb (script-name &optional get-parameters)
   "Creates bootstrapped navigation breadcrumbs from current request's script-name* and optional get-parameters"
   (let* ((script-list (split-sequence #\/ script-name :remove-empty-subseqs t)))
-    (html-to-stout
+    (cl-who:with-html-output (hunchentoot::*standard-output*)
       (:div :class "crumb"
         (:ul :class "breadcrumb"
           (:li (:a :href "/" (:i :class "icon16 i-home-4") "Home"))
