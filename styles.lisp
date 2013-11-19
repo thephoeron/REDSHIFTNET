@@ -147,6 +147,29 @@
     (("html.loginPage")
       (:background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
        :height "auto"))
+    (("#login")
+      (:width "480px"
+       :margin-left "-240px"
+       :padding-bottom "20px"
+       :margin-top "-200px"
+       :position "absolute"
+       :left "50%"
+       :top "50%"
+       :border "1px solid #c9c9c9"
+       :background "white"
+       :-webkit-box-shadow "1px 1px 0px 0px rgba(255,255,255,1)"
+       :box-shadow "1px 1px 0px 0px rgba(255,255,255,1)")
+      ((".navbar-brand")
+        (:padding "5px 8px 5px"
+         :width "100%"
+         :float "left"
+         :margin-top "-140px" ;; was -90px
+         :text-align "center"
+         :font-size "24px"
+         :font-weight "200"
+         :margin-bottom "15px"
+         :text-decoration "none"
+         :color "#666")))
     ;; Error & Offline pages
     ;; Media Queries
     ))
