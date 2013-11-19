@@ -169,7 +169,12 @@
          :font-weight "200"
          :margin-bottom "15px"
          :text-decoration "none"
-         :color "#666")))
+         :color "#666"))
+      ((".login-wrapper")
+        (:width "320px"
+         :margin-left "auto"
+         :margin-right "auto"
+         :position "relative")))
     ;; Error & Offline pages
     ;; Media Queries
     ))
