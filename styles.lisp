@@ -174,7 +174,54 @@
         (:width "320px"
          :margin-left "auto"
          :margin-right "auto"
-         :position "relative")))
+         :position "relative")
+        (("#avatar")
+          (:width "90px"
+           :height "90px"
+           :border "1px solid #c9c9c9"
+           :background "white"
+           :position "absolute"
+           :left "-125px"
+           :top "-50px"
+           :float "left"
+           :padding "5px")
+          (("img")
+            (:float "left")))
+        (("form")
+          ()
+          ((".form-group")
+            (:border-bottom "none"
+             :margin-bottom "10px"
+             :position "relative")
+            (("input.form-control")
+              (:padding-left "46px !important")))
+          (("label")
+            (:margin-bottom "0")))
+        ((".icon")
+          (:position "absolute"
+           :top "1px"
+           :left "1px"
+           :height "34px"
+           :width "36px"
+           :border-right "1px solid #c9c9c9")
+          (("i")
+            (:margin-left "8px"
+             :margin-top "6px")))
+        ((".or")
+          ()
+          (("strong")
+            (:background "white"
+             :padding-left "10px"
+             :padding-right "10px")))
+        ((".seperator")
+          (:margin-top "-10px")))
+      (("#bar")
+        (:position "absolute"
+         :right "-43px"
+         :top "-1px")
+        (("a")
+          (:border-radius "0"
+           :width "43px"))))
     ;; Error & Offline pages
     ;; Media Queries
     ))
