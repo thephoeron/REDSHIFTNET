@@ -49,13 +49,13 @@
         "Welcome to REDSHIFTNET Admin. This is a good place to put your favourite dashboard widgets. There should probably be a list somewhere that is built through the interface, so users can customize it... Some dependencies need to be rebuilt."))))
 
 (defrequest rsn-admin (:vhost vhost-admin)
-  (admin-page ("REDSHIFTNET Admin :: Lander" #'admin-login
+  (admin-page ("REDSHIFTNET Admin :: Admin" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
      (hunchentoot:redirect "/admin/dashboard/")))
 
 (defrequest rsn-admin/dashboard (:vhost vhost-admin)
-  (admin-page ("[REDSHIFTNET Admin :: Dashboard]" #'admin-login
+  (admin-page ("REDSHIFTNET Admin :: Dashboard" #'admin-login
                :styles admin-dashboard-styles
                :scripts admin-dashboard-scripts)
     (admin-dashboard)))
