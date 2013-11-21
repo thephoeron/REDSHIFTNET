@@ -155,10 +155,12 @@
        :position "absolute"
        :left "50%"
        :top "50%"
-       :border "1px solid #c9c9c9"
-       :background "white"
-       :-webkit-box-shadow "1px 1px 0px 0px rgba(255,255,255,1)"
-       :box-shadow "1px 1px 0px 0px rgba(255,255,255,1)")
+       :border "1px solid rgba(0,0,0,.5)"
+       :border-radius "6px"
+       :border-top-right-radius "0"
+       :background "rgba(0,0,0,.5)"
+       :-webkit-box-shadow "1px 1px 0px 0px rgba(0,0,0,.5)"
+       :box-shadow "1px 1px 0px 0px rgba(0,0,0,.5)")
       ((".navbar-brand")
         (:padding "5px 8px 5px"
          :width "100%"
@@ -208,7 +210,7 @@
              :margin-top "6px")))
         ((".or") ()
           (("strong")
-            (:background "white"
+            (:background "rgba(0,0,0,.75)"
              :padding-left "10px"
              :padding-right "10px")))
         ((".seperator")
@@ -225,24 +227,26 @@
          :top "-1px")
         (("a")
           (:border-radius "0"
+           :border "1px solid rgba(0,0,0,.75)"
+           :background "rgba(18,18,18,.5)"
            :width "43px")))
       (("#bar[data-active=\"log\"]") ()
         (("a#log")
-          (:background "white"
+          (:background "rgba(0,0,0,.5)"
            :border-left "1px solid transparent"
            :box-shadow "none"
            :margin-left "0"
            :border-bottom-left-radius "0")))
       (("#bar[data-active=\"reg\"]") ()
         (("a#reg")
-          (:background "white"
+          (:background "rgba(0,0,0,.5)"
            :border-left "1px solid transparent"
            :box-shadow "none"
            :margin-left "0"
            :border-bottom-left-radius "0")))
       (("#bar[data-active=\"forgot\"]") ()
         (("a#forgot")
-          (:background "white"
+          (:background "rgba(0,0,0,.5)"
            :border-left "1px solid transparent"
            :box-shadow "none"
            :margin-left "0"

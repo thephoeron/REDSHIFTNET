@@ -99,7 +99,7 @@
             for e in errors
             for v in values
             do (str (show a-field v (when (and e (not error-messages)) e))))
-          (:div :class "form-group relative" (:span :class "label") (:button :type "submit" :class "btn btn-primary pull-right col-lg-5" (str (submit rsn-form)))))))))
+          (:div :class "form-group relative" (:span :class "label") (:button :type "submit" :class "btn btn-inverse pull-right col-lg-5" (str (submit rsn-form)))))))))
 
 (defmethod show ((field hidden) &optional value error)
   (html-to-str (:input :name (name field) :value value :type "hidden")))
