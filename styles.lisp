@@ -187,8 +187,7 @@
            :padding "5px")
           (("img")
             (:float "left")))
-        (("form")
-          ()
+        (("form") ()
           ((".form-group")
             (:border-bottom "none"
              :margin-bottom "10px"
@@ -207,21 +206,56 @@
           (("i")
             (:margin-left "8px"
              :margin-top "6px")))
-        ((".or")
-          ()
+        ((".or") ()
           (("strong")
             (:background "white"
              :padding-left "10px"
              :padding-right "10px")))
         ((".seperator")
-          (:margin-top "-10px")))
+          (:margin-top "-10px"))
+        (("#log")
+          (:display "none"))
+        (("#reg")
+          (:display "none"))
+        (("#forgot")
+          (:display "none")))
       (("#bar")
         (:position "absolute"
          :right "-43px"
          :top "-1px")
         (("a")
           (:border-radius "0"
-           :width "43px"))))
+           :width "43px")))
+      (("#bar[data-active=\"log\"]") ()
+        (("a#log")
+          (:background "white"
+           :border-left "1px solid transparent"
+           :box-shadow "none"
+           :margin-left "0"
+           :border-bottom-left-radius "0")))
+      (("#bar[data-active=\"reg\"]") ()
+        (("a#reg")
+          (:background "white"
+           :border-left "1px solid transparent"
+           :box-shadow "none"
+           :margin-left "0"
+           :border-bottom-left-radius "0")))
+      (("#bar[data-active=\"forgot\"]") ()
+        (("a#forgot")
+          (:background "white"
+           :border-left "1px solid transparent"
+           :box-shadow "none"
+           :margin-left "0"
+           :border-bottom-left-radius "0")))
+      ((".login-wrapper[data-active=\"log\"]") ()
+        (("#log")
+          (:display "block")))
+      ((".login-wrapper[data-active=\"reg\"]") ()
+        (("#reg")
+          (:display "block")))
+      ((".login-wrapper[data-active=\"forgot\"]") ()
+        (("#forgot")
+          (:display "block"))))
     ;; Error & Offline pages
     ;; Media Queries
     ))
