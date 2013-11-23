@@ -165,7 +165,7 @@
         (:padding "5px 8px 5px"
          :width "100%"
          :float "left"
-         :margin-top "-140px" ;; was -90px
+         :margin-top "-120px" ;; was -90px
          :text-align "center"
          :font-size "24px"
          :font-weight "200"

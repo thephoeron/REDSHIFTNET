@@ -26,14 +26,15 @@ Features
 * Three-tiered notification system for alerting users through inline messages, ajax popups, and email
 * Easy integration of shell commands to leverage the full power of linux in your web-apps
 * JSON and XML serialization of data
-* Template-based document generation in multiple export formats
 * Ready-to-use live-updating graphs and widgets
-* Calendars and scheduling tools
 
 
 Upcoming Features
 -----------------
 
+* Template-based document generation in multiple export formats
+* Calendars and scheduling tools
+* AJAX jGrowl notifications for system messages
 * Automatically generated edit forms for database table views
 * Front-end source code editing and server management
 * Userspaces separated into realms, in addition to groups
@@ -59,6 +60,10 @@ For best performance, use the ``make.lisp`` script in the project directory to c
 You can then run your app simply by calling (for example):
 
     $ ./my-new-app --swank-port=33798 --www-port=8080 --ssl-port=8090
+
+Alternatively, you can install the binary to a directory on your path:
+
+    $ install -t ~/bin ./my-new-app
 
 Your web-app runs as a background process, all output being logged in the files specified in your app's config.lisp file.  Add it to your crontab so that if the process or server crashes or is restarted, it will be restarted automatically.
 
