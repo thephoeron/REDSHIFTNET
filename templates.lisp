@@ -20,7 +20,7 @@
           "/static/js/pages/login.js"))
 
 (defparameter *header-logo* (string "/static/images/redshiftnet_header_logo.png"))
-(defparameter *login-logo* (string "/static/images/redshiftnet_header_logo.png"))
+(defparameter *login-logo* (string "/static/images/redshiftnet_text_logo.png"))
 
 ;; Admin header, footer, and menu template elements
 (defun %app-header (title session-token)
