@@ -261,6 +261,38 @@
         (("#forgot")
           (:display "block"))))
     ;; Error & Offline pages
+    (("html.errorPage")
+      (:background "url(/static/images/patterns/debut_light.png) repeat"))
+    ((".errorContainer")
+      (:width "480px"
+       :margin-left "-240px"
+       :padding-bottom "20px"
+       :margin-top "-200px"
+       :position "absolute"
+       :left "50%"
+       :top "50%"
+       :border "1px solid #c9c9c9"
+       :background "white"
+       :-webkit-box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
+       :box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
+       :display "none")
+      (("form")
+        (:margin-bottom "10px"))
+      ((".page-header") ()
+        (("h1")
+          (:font-size "128px"
+           :line-height "150px"
+           :text-shadow "4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15)"))
+        (("h1.offline")
+          (:font-size "100px"
+           :line-height "124px")))
+      ((".or") ()
+        (("strong")
+          (:background "white"
+           :padding-left "10px"
+           :padding-right "10px")))
+      ((".seperator")
+        (:margin-top "-10px")))
     ;; Media Queries
     ))
 
