@@ -122,20 +122,20 @@
 ;;;; REDSHIFTNET Main App Stylesheet
 (define-easy-handler (rsn-app-css :uri "/css/app.css") ()
   (setf (content-type*) "text/css")
-  (css-lite:css
+  (cl-css:css
     ;; Shared styles
-    (("html")
-      (:background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
-       :height "100%"))
-    (("body")
-      (:min-height "100%"
+    '(("html"
+       :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
+       :height "100%")
+      ("body"
+       :min-height "100%"
        :display "inline-block"
-       :overflow-x "hidden"))
-    (("*")
-      (:-webkit-box-sizing "border-box"
+       :overflow-x "hidden")
+      ("*"
+       :-webkit-box-sizing "border-box"
        :-moz-box-sizing "border-box"
        :box-sizing "border-box"
-       :outline "0 !important"))
+       :outline "0 !important")
     ;; Typography
     ;; Bootstrap custom styles
     ;; Page structure
@@ -144,156 +144,130 @@
     ;; Plugin custom styles
     ;; CSS Animations
     ;; Login Page
-    (("html.loginPage")
-      (:background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
-       :height "auto"))
-    (("#login")
-      (:width "480px"
-       :margin-left "-240px"
-       :padding-bottom "20px"
-       :margin-top "-200px"
-       :position "absolute"
-       :left "50%"
-       :top "50%"
-       :border "1px solid rgba(0,0,0,.5)"
-       :border-radius "6px"
-       :border-top-right-radius "0"
-       :background "rgba(0,0,0,.5)"
-       :-webkit-box-shadow "1px 1px 0px 0px rgba(0,0,0,.5)"
-       :box-shadow "1px 1px 0px 0px rgba(0,0,0,.5)")
-      ((".navbar-brand")
-        (:padding "5px 8px 5px"
-         :width "100%"
-         :float "left"
-         :margin-top "-140px" ;; was -90px
-         :text-align "center"
-         :font-size "24px"
-         :font-weight "200"
-         :margin-bottom "15px"
-         :text-decoration "none"
-         :color "#666"))
-      ((".login-wrapper")
-        (:width "320px"
-         :margin-left "auto"
-         :margin-right "auto"
-         :position "relative")
-        (("#avatar")
-          (:width "90px"
-           :height "90px"
-           :border "1px solid #c9c9c9"
-           :background "white"
-           :position "absolute"
-           :left "-125px"
-           :top "-50px"
-           :float "left"
-           :padding "5px")
-          (("img")
-            (:float "left")))
-        (("form") ()
-          ((".form-group")
-            (:border-bottom "none"
-             :margin-bottom "10px"
-             :position "relative")
-            (("input.form-control")
-              (:padding-left "46px !important")))
-          (("label")
-            (:margin-bottom "0")))
-        ((".icon")
-          (:position "absolute"
-           :top "1px"
-           :left "1px"
-           :height "34px"
-           :width "36px"
-           :border-right "1px solid #c9c9c9")
-          (("i")
-            (:margin-left "8px"
-             :margin-top "6px")))
-        ((".or") ()
-          (("strong")
-            (:background "rgba(0,0,0,.75)"
-             :padding-left "10px"
-             :padding-right "10px")))
-        ((".seperator")
-          (:margin-top "-10px"))
-        (("#log")
-          (:display "none"))
-        (("#reg")
-          (:display "none"))
-        (("#forgot")
-          (:display "none")))
-      (("#bar")
-        (:position "absolute"
-         :right "-43px"
-         :top "-1px")
-        (("a")
-          (:border-radius "0"
-           :border "1px solid rgba(0,0,0,.75)"
-           :background "rgba(18,18,18,.5)"
-           :width "43px")))
-      (("#bar[data-active=\"log\"]") ()
-        (("a#log")
-          (:background "rgba(0,0,0,.5)"
-           :border-left "1px solid transparent"
-           :box-shadow "none"
-           :margin-left "0"
-           :border-bottom-left-radius "0")))
-      (("#bar[data-active=\"reg\"]") ()
-        (("a#reg")
-          (:background "rgba(0,0,0,.5)"
-           :border-left "1px solid transparent"
-           :box-shadow "none"
-           :margin-left "0"
-           :border-bottom-left-radius "0")))
-      (("#bar[data-active=\"forgot\"]") ()
-        (("a#forgot")
-          (:background "rgba(0,0,0,.5)"
-           :border-left "1px solid transparent"
-           :box-shadow "none"
-           :margin-left "0"
-           :border-bottom-left-radius "0")))
-      ((".login-wrapper[data-active=\"log\"]") ()
-        (("#log")
-          (:display "block")))
-      ((".login-wrapper[data-active=\"reg\"]") ()
-        (("#reg")
-          (:display "block")))
-      ((".login-wrapper[data-active=\"forgot\"]") ()
-        (("#forgot")
-          (:display "block"))))
+      ("html.loginPage"
+        :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
+        :height "auto")
+      ("#login"
+        :width "480px"
+        :margin-left "-240px"
+        :padding-bottom "20px"
+        :margin-top "-200px"
+        :position "absolute"
+        :left "50%"
+        :top "50%"
+        :border "1px solid rgba(0,0,0,.5)"
+        :border-radius "6px"
+        :border-top-right-radius "0"
+        :background "rgba(0,0,0,.5)"
+        :-webkit-box-shadow "1px 1px 0px 0px rgba(0,0,0,.5)"
+        :box-shadow "1px 1px 0px 0px rgba(0,0,0,.5)")
+      ("#login .navbar-brand"
+        :padding "5px 8px 5px"
+        :width "100%"
+        :float "left"
+        :margin-top "-140px" ;; was -90px
+        :text-align "center"
+        :font-size "24px"
+        :font-weight "200"
+        :margin-bottom "15px"
+        :text-decoration "none"
+        :color "#666")
+      ("#login .login-wrapper"
+        :width "320px"
+        :margin-left "auto"
+        :margin-right "auto"
+        :position "relative")
+      ("#login .login-wrapper #avatar"
+        :width "90px"
+        :height "90px"
+        :border "1px solid #c9c9c9"
+        :background "white"
+        :position "absolute"
+        :left "-125px"
+        :top "-50px"
+        :float "left"
+        :padding "5px")
+      ("#login .login-wrapper #avatar img"
+        :float "left")
+      ("#login .login-wrapper form .form-group"
+        :border-bottom "none"
+        :margin-bottom "10px"
+        :position "relative")
+      ("#login .login-wrapper form input.form-control"
+        :padding-left "46px !important")
+      ("#login .login-wrapper form label"
+        :margin-bottom "0")
+      ("#login .login-wrapper .icon"
+        :position "absolute"
+        :top "1px"
+        :left "1px"
+        :height "34px"
+        :width "36px"
+        :border-right "1px solid #c9c9c9")
+      ("#login .login-wrapper .icon i"
+        :margin-left "8px"
+        :margin-top "6px")
+      ("#login .login-wrapper .or strong"
+        :background "rgba(0,0,0,.75)"
+        :padding-left "10px"
+        :padding-right "10px")
+      ("#login .login-wrapper .seperator"
+        :margin-top "-10px")
+      ("#login .login-wrapper #log, #login .login-wrapper #reg, #login .login-wrapper #forgot"
+        :display "none")
+      ("#login #bar"
+        :position "absolute"
+        :right "-43px"
+        :top "-1px")
+      ("#login #bar a"
+        :border-radius "0"
+        :border "1px solid rgba(0,0,0,.75)"
+        :background "rgba(18,18,18,.5)"
+        :width "43px")
+      ("#login #bar[data-active=\"log\"] a#log,
+        #login #bar[data-active=\"reg\"] a#reg,
+        #login #bar[data-active=\"forgot\"] a#forgot"
+        :background "rgba(0,0,0,.5)"
+        :border-left "1px solid transparent"
+        :box-shadow "none"
+        :margin-left "0"
+        :border-bottom-left-radius "0")
+      ("#login .login-wrapper[data-active=\"log\"] #log,
+        #login .login-wrapper[data-active=\"reg\"] #reg,
+        #login .login-wrapper[data-active=\"forgot\"] #forgot"
+        :display "block")
     ;; Error & Offline pages
-    (("html.errorPage")
-      (:background "url(/static/images/patterns/debut_light.png) repeat"))
-    ((".errorContainer")
-      (:width "480px"
-       :margin-left "-240px"
-       :padding-bottom "20px"
-       :margin-top "-200px"
-       :position "absolute"
-       :left "50%"
-       :top "50%"
-       :border "1px solid #c9c9c9"
-       :background "white"
-       :-webkit-box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
-       :box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
-       :display "none")
-      (("form")
-        (:margin-bottom "10px"))
-      ((".page-header") ()
-        (("h1")
-          (:font-size "128px"
-           :line-height "150px"
-           :text-shadow "4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15)"))
-        (("h1.offline")
-          (:font-size "100px"
-           :line-height "124px")))
-      ((".or") ()
-        (("strong")
-          (:background "white"
-           :padding-left "10px"
-           :padding-right "10px")))
-      ((".seperator")
-        (:margin-top "-10px")))
+    ("html.errorPage"
+      :background "url(/static/images/patterns/debut_light.png) repeat")
+    (".errorContainer"
+      :width "480px"
+      :margin-left "-240px"
+      :padding-bottom "20px"
+      :margin-top "-200px"
+      :position "absolute"
+      :left "50%"
+      :top "50%"
+      :border "1px solid #c9c9c9"
+      :background "white"
+      :-webkit-box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
+      :box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
+      :display "none")
+    (".errorContainer form"
+      :margin-bottom "10px")
+    (".errorContainer .page-header h1"
+      :font-size "128px"
+      :line-height "150px"
+      :text-shadow "4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15)")
+    (".errorContainer .page-header h1.offline"
+      :font-size "100px"
+      :line-height "124px")
+    (".errorContainer .or strong"
+      :background "white"
+      :padding-left "10px"
+      :padding-right "10px")
+    (".errorContainer .seperator"
+      :margin-top "-10px")
     ;; Media Queries
-    ))
+    )))
 
 ;; EOF

@@ -9,7 +9,7 @@
     (:nicknames #:rsn)
     (:use :cl
           :cl-who
-          :css-lite
+          :cl-css
           :parenscript
           :cl-fad
           :split-sequence
@@ -17,7 +17,7 @@
           :local-time
           :postmodern
           :hunchentoot)
-    (:shadowing-import-from :parenscript #:%)
+    ;(:shadowing-import-from :parenscript #:%)
     (:export #:rsn-start #:rsn-stop #:rsn-restart
              #:server-type #:server-version
              ;; REDSHIFTNET Templates

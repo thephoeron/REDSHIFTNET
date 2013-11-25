@@ -70,6 +70,8 @@ Your web-app runs as a background process, all output being logged in the files 
 Dependencies
 ------------
 
+Note (11/25/2013): *CSS-Lite in process of being replaced by CL-CSS, for better CSS3 support*.
+
 REDSHIFTNET should theoretically run anywhere SBCL runs, but has only been tested on Linux and OS X.
 
 * Linux x86_64 or OS X Server
@@ -82,7 +84,7 @@ Lisp libraries available through Quicklisp:
 
 * Hunchentoot
 * CL-WHO
-* CSS-LITE
+* CL-CSS
 * Parenscript
 * Postmodern
 * Submarine

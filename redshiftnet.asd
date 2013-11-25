@@ -31,6 +31,7 @@
                :cl-smtp
                :cl-who
                :css-lite
+               :cl-css
                :parenscript
                :yason
                :split-sequence
