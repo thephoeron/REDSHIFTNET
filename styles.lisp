@@ -143,6 +143,11 @@
     ;; Custom panels
     ;; Plugin custom styles
     ;; CSS Animations
+      ("@-webkit-keyframes rotateIn"
+        ("0%" :-webkit-transform-origin "center center"
+              :-webkit-tranform "rotate(-180deg)")
+        ("100%" :-webkit-transform-origin "center center"
+                :-webkit-tranform "rotate(0)"))
     ;; Login Page
       ("html.loginPage"
         :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
