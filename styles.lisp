@@ -148,6 +148,26 @@
               :-webkit-tranform "rotate(-180deg)")
         ("100%" :-webkit-transform-origin "center center"
                 :-webkit-tranform "rotate(0)"))
+      ("@-moz-keyframes rotateIn"
+        ("0%" :-moz-transform-origin "center center"
+              :-moz-tranform "rotate(-180deg)")
+        ("100%" :-moz-transform-origin "center center"
+                :-moz-tranform "rotate(0)"))
+      ("@-o-keyframes rotateIn"
+        ("0%" :-o-transform-origin "center center"
+              :-o-tranform "rotate(-180deg)")
+        ("100%" :-o-transform-origin "center center"
+                :-o-tranform "rotate(0)"))
+      ("@keyframes rotateIn"
+        ("0%" :transform-origin "center center"
+              :tranform "rotate(-180deg)")
+        ("100%" :transform-origin "center center"
+                :tranform "rotate(0)"))
+      (".rotateIn"
+        :-webkit-animation-name "rotateIn"
+        :-moz-animation-name "rotateIn"
+        :-o-animation-name "rotateIn"
+        :animation-name "rotateIn")
     ;; Login Page
       ("html.loginPage"
         :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
