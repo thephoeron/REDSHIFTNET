@@ -199,6 +199,36 @@
         :-moz-animation-name "bounceInUp"
         :-o-animation-name "bounceInUp"
         :animation-name "bounceInUp")
+      ; bounceInDown
+      ("@-webkit-keyframes bounceInDown"
+        ("0%" :-webkit-transform "translateY(-20px)")
+        ("30%" :-webkit-transform "translateY(20px)")
+        ("60%" :-webkit-transform "translateY(10px)")
+        ("80%" :-webkit-transform "translateY(-10px)")
+        ("100%" :-webkit-transform "translateY(0)"))
+      ("@-moz-keyframes bounceInDown"
+        ("0%" :-moz-transform "translateY(-20px)")
+        ("30%" :-moz-transform "translateY(20px)")
+        ("60%" :-moz-transform "translateY(10px)")
+        ("80%" :-moz-transform "translateY(-10px)")
+        ("100%" :-moz-transform "translateY(0)"))
+      ("@-o-keyframes bounceInDown"
+        ("0%" :-o-transform "translateY(-20px)")
+        ("30%" :-o-transform "translateY(20px)")
+        ("60%" :-o-transform "translateY(10px)")
+        ("80%" :-o-transform "translateY(-10px)")
+        ("100%" :-o-transform "translateY(0)"))
+      ("@keyframes bounceInDown"
+        ("0%" :transform "translateY(-20px)")
+        ("30%" :transform "translateY(20px)")
+        ("60%" :transform "translateY(10px)")
+        ("80%" :transform "translateY(-10px)")
+        ("100%" :transform "translateY(0)"))
+      (".bounceInDown"
+        :-webkit-animation-name "bounceInDown"
+        :-moz-animation-name "bounceInDown"
+        :-o-animation-name "bounceInDown"
+        :animation-name "bounceInDown")
     ;; Login Page
       ("html.loginPage"
         :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
