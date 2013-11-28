@@ -2687,54 +2687,6 @@ ol.linenums li { padding-left: 12px; color: #bebec5; line-height: 20px; text-sha
    Animation effects thanks to animate.css
 ----------------------------------------- */
 
-@-webkit-keyframes rotateIn {
-	0% {-webkit-transform-origin: center center;-webkit-transform: rotate(-180deg);}
-	100% {-webkit-transform-origin: center center;-webkit-transform: rotate(0);}
-}
-@-moz-keyframes rotateIn {
-	0% {-moz-transform-origin: center center;-moz-transform: rotate(-180deg);}
-	100% {-moz-transform-origin: center center;-moz-transform: rotate(0);}
-}
-@-o-keyframes rotateIn {
-	0% {-o-transform-origin: center center;-o-transform: rotate(-180deg);}
-	100% {-o-transform-origin: center center;-o-transform: rotate(0);}
-}
-@keyframes rotateIn {
-	0% {transform-origin: center center;transform: rotate(-180deg);}
-	100% {transform-origin: center center;transform: rotate(0);}
-}
-.rotateIn {-webkit-animation-name: rotateIn;-moz-animation-name: rotateIn;-o-animation-name: rotateIn;animation-name: rotateIn;}
-
-@-webkit-keyframes bounceInUp {
-	0% {-webkit-transform: translateY(15px);}
-	30% {-webkit-transform: translateY(-15px);}
-	60% {-webkit-transform: translateY(-10px);}
-	80% {-webkit-transform: translateY(10px);}
-	100% {-webkit-transform: translateY(0);}
-}
-@-moz-keyframes bounceInUp {
-	0% {-moz-transform: translateY(15px);}
-	30% {-moz-transform: translateY(-15px);}
-	60% {-moz-transform: translateY(-10px);}
-	80% {-moz-transform: translateY(10px);}
-	100% {-moz-transform: translateY(0);}
-}
-@-o-keyframes bounceInUp {
-	0% {-o-transform: translateY(15px);}
-	30% {-o-transform: translateY(-15px);}
-	60% {-o-transform: translateY(-10px);}
-	80% {-o-transform: translateY(10px);}
-	100% {-o-transform: translateY(0);}
-}
-@keyframes bounceInUp {
-	0% {transform: translateY(15px);}
-	30% {transform: translateY(-15px);}
-	60% {transform: translateY(-10px);}
-	80% {transform: translateY(10px);}
-	100% {transform: translateY(0);}
-}
-.bounceInUp {-webkit-animation-name: bounceInUp;-moz-animation-name: bounceInUp;-o-animation-name: bounceInUp;animation-name: bounceInUp;}
-
 @-webkit-keyframes bounceInDown {
 	0% {-webkit-transform: translateY(-20px);}
 	30% {-webkit-transform: translateY(20px);}

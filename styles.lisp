@@ -143,31 +143,62 @@
     ;; Custom panels
     ;; Plugin custom styles
     ;; CSS Animations
+      ; rotateIn
       ("@-webkit-keyframes rotateIn"
         ("0%" :-webkit-transform-origin "center center"
-              :-webkit-tranform "rotate(-180deg)")
+              :-webkit-transform "rotate(-180deg)")
         ("100%" :-webkit-transform-origin "center center"
-                :-webkit-tranform "rotate(0)"))
+                :-webkit-transform "rotate(0)"))
       ("@-moz-keyframes rotateIn"
         ("0%" :-moz-transform-origin "center center"
-              :-moz-tranform "rotate(-180deg)")
+              :-moz-transform "rotate(-180deg)")
         ("100%" :-moz-transform-origin "center center"
-                :-moz-tranform "rotate(0)"))
+                :-moz-transform "rotate(0)"))
       ("@-o-keyframes rotateIn"
         ("0%" :-o-transform-origin "center center"
-              :-o-tranform "rotate(-180deg)")
+              :-o-transform "rotate(-180deg)")
         ("100%" :-o-transform-origin "center center"
-                :-o-tranform "rotate(0)"))
+                :-o-transform "rotate(0)"))
       ("@keyframes rotateIn"
         ("0%" :transform-origin "center center"
-              :tranform "rotate(-180deg)")
+              :transform "rotate(-180deg)")
         ("100%" :transform-origin "center center"
-                :tranform "rotate(0)"))
+                :transform "rotate(0)"))
       (".rotateIn"
         :-webkit-animation-name "rotateIn"
         :-moz-animation-name "rotateIn"
         :-o-animation-name "rotateIn"
         :animation-name "rotateIn")
+      ; bounceInUp
+      ("@-webkit-keyframes bounceInUp"
+        ("0%" :-webkit-transform "translateY(15px)")
+        ("30%" :-webkit-transform "translateY(-15px)")
+        ("60%" :-webkit-transform "translateY(-10px)")
+        ("80%" :-webkit-transform "translateY(10px)")
+        ("100%" :-webkit-transform "translateY(0)"))
+      ("@-moz-keyframes bounceInUp"
+        ("0%" :-moz-transform "translateY(15px)")
+        ("30%" :-moz-transform "translateY(-15px)")
+        ("60%" :-moz-transform "translateY(-10px)")
+        ("80%" :-moz-transform "translateY(10px)")
+        ("100%" :-moz-transform "translateY(0)"))
+      ("@-o-keyframes bounceInUp"
+        ("0%" :-o-transform "translateY(15px)")
+        ("30%" :-o-transform "translateY(-15px)")
+        ("60%" :-o-transform "translateY(-10px)")
+        ("80%" :-o-transform "translateY(10px)")
+        ("100%" :-o-transform "translateY(0)"))
+      ("@keyframes bounceInUp"
+        ("0%" :transform "translateY(15px)")
+        ("30%" :transform "translateY(-15px)")
+        ("60%" :transform "translateY(-10px)")
+        ("80%" :transform "translateY(10px)")
+        ("100%" :transform "translateY(0)"))
+      (".bounceInUp"
+        :-webkit-animation-name "bounceInUp"
+        :-moz-animation-name "bounceInUp"
+        :-o-animation-name "bounceInUp"
+        :animation-name "bounceInUp")
     ;; Login Page
       ("html.loginPage"
         :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"
