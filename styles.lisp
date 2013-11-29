@@ -136,6 +136,28 @@
        :-moz-box-sizing "border-box"
        :box-sizing "border-box"
        :outline "0 !important")
+      (".clear" :clear "both")
+      (".center" :text-align "center")
+      (".white" :color "#fff")
+      (".dark" :color "#6f7a8a")
+      (".red" :color "#f40a0a")
+      (".red-smooth" :color "#d8605f")
+      (".blue" :color "#62aeef")
+      (".green" :color "#72b110")
+      (".yellow" :color "#f7cb38")
+      (".orange" :color "#f88c00")
+      (".tshadow"
+        :text-shadow "0px 1px 0px #fff"
+        :filter "dropshadow(color=#ffffff, offx=0, offy=1)")
+      (".tshadow1"
+        :text-shadow "0px 1px 0px #000"
+        :filter "dropshadow(color=#000000, offx=0, offy=1)")
+      (".bshadow"
+        :-webkit-box-shadow "0px 1px 0px 0px rgba(255,255,255,1)"
+        :box-shadow "0px 1px 0px 0px rgba(255,255,255,1)")
+      (".bshadow2"
+        :-webkit-box-shadow "inset 0px 1px 0px 0px rgba(255,255,255,1), 0px 1px 0px 0px rgba(255,255,255,1)"
+        :box-shadow "inset 0px 1px 0px 0px rgba(255,255,255,1), 0px 1px 0px 0px rgba(255,255,255,1)")
     ;; Typography
     ;; Bootstrap custom styles
     ;; Page structure
