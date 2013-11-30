@@ -78,6 +78,12 @@
                              (:file "admin-templates")
                              (:file "admin-requests")
                              (:file "admin")))
+               (:module "blog"
+                :serial t
+                :components ((:file "blog-db")
+                             (:file "blog-requests")
+                             (:file "blog-admin")
+                             (:file "blog")))
                (:file "redshiftnet")
                (:file "make-new-app"))
   :in-order-to ((make-app-op (load-op "redshiftnet"))))
