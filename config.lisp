@@ -42,9 +42,9 @@
 
 ;;;; Default SSL keys/certificates
 
-(defvar *ssl-key* (merge-pathnames "auth/key.pem" *default-directory*))
-(defvar *ssl-cert* (merge-pathnames "auth/certificate.pem" *default-directory*))
-(defvar *ssl-req* "1234")
+(defparameter *ssl-key* (merge-pathnames "auth/key.pem" *default-directory*))
+(defparameter *ssl-cert* (merge-pathnames "auth/certificate.pem" *default-directory*))
+(defparameter *ssl-req* "1234")
 
 ; (setf hunchentoot:*dispatch-table*
 ;     (list
@@ -52,17 +52,28 @@
 ;         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)))
 
 ;; Define Hunchentoot log files
-(defvar *www-acc-log* (merge-pathnames "log/www-access.log" *default-directory*))
-(defvar *www-msg-log* (merge-pathnames "log/www-message.log" *default-directory*))
-(defvar *ssl-acc-log* (merge-pathnames "log/ssl-access.log" *default-directory*))
-(defvar *ssl-msg-log* (merge-pathnames "log/ssl-message.log" *default-directory*))
+(defparameter *www-acc-log* (merge-pathnames "log/www-access.log" *default-directory*))
+(defparameter *www-msg-log* (merge-pathnames "log/www-message.log" *default-directory*))
+(defparameter *ssl-acc-log* (merge-pathnames "log/ssl-access.log" *default-directory*))
+(defparameter *ssl-msg-log* (merge-pathnames "log/ssl-message.log" *default-directory*))
+
+(defparameter *error-page-dir* (merge-pathnames "errors/" *default-directory*))
 
 ;;; DEFINE VHOST ACCEPTORS AND DISPATCH-TABLES
 ;;; Note: Easy-Handlers get pushed to every VHOST by default.  Useful for sharing resources between toplevel domains.
 
-(defvar vhost-web (make-instance 'vhost :address "localhost" :port 8080 :access-log-destination *www-acc-log* :message-log-destination *www-msg-log*))
-(defvar vhost-ssl (make-instance 'ssl-vhost :address "localhost" :port 8090 :access-log-destination *ssl-acc-log* :message-log-destination *ssl-msg-log*
-                                			:ssl-privatekey-file *ssl-key* :ssl-certificate-file *ssl-cert*))
+(defparameter vhost-web (make-instance 'vhost
+                                       :address "0.0.0.0" :port 8080
+                                       :access-log-destination *www-acc-log*
+                                       :message-log-destination *www-msg-log*
+                                       :error-template-directory *error-page-dir*))
+(defparameter vhost-ssl (make-instance 'ssl-vhost
+                                       :address "0.0.0.0" :port 8090
+                                       :access-log-destination *ssl-acc-log*
+                                       :message-log-destination *ssl-msg-log*
+                                       :error-template-directory *error-page-dir*
+                                       :ssl-privatekey-file *ssl-key*
+                                       :ssl-certificate-file *ssl-cert*))
 ;; Ghost Admin vhost acceptor
 (defparameter vhost-admin vhost-ssl)
 
