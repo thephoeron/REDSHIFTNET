@@ -54,6 +54,23 @@ is replaced with replacement."
      (push (hunchentoot:create-regex-dispatcher ,(format nil "^/~(~a~)/$" (subseq (string name) 4 (length (string name)))) ',name) 
                                                  (dispatch-table ,vhost))))
 
+;; example dynamic top-level function generator from stack-overflow
+; (defmacro generate-echoers (list)
+;   `(progn ,@(loop :for var :in list
+;                :collect `(defun ,(intern (format nil "~:@(~A~)" var)) ()
+;                            (format t ,(concatenate 'string var "~&"))))))
+
+;; REQUEST-GEN MACRO
+(defmacro request-gen (requests (&key vhost) &body body)
+  "REQUEST-GEN macro for generating top-level view functions and vhost dispatchers from a list of *requests*.  Each item in *requests* should be a string matching the NAME parameter to DEFREQUEST, i.e., \"ssl-admin/tables/user\".  *body* should be a function that pulls content conditionally from a file or database and renders it as HTML based on the dispatcher uri, such as in the blog module."
+  `(progn
+     ,@(loop for req in requests
+             collect `(progn
+                        (defun ,(intern (format nil "~:@(~A~)" req)) ()
+                          ,@body)
+                        (push (hunchentoot:create-regex-dispatcher ,(format nil "^/~(~A~)/$" (subseq (string req) 4 (length (string req)))) ',(intern (format nil "~:@(~A~)" req)))
+                              (dispatch-table ,vhost))))))
+
 ;; modified from http://compgroups.net/comp.lang.lisp/format-and-ordinal-numbers/703451
 (defun ordnum (n)
   (format nil "~A~A" n
