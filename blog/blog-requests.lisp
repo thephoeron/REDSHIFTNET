@@ -15,9 +15,8 @@
         (post-content the-post)))))
 
 (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-  (request-gen ((postmodern:query 
-                  (:select 'permalinks :from 'rsn-blog-post))
-               :vhost vhost-web)
+  (request-gen ((postmodern:query (:select 'permalinks :from 'rsn-blog-post))
+                :vhost vhost-web)
     (generate-blog-page-for-post)))
 
 ;; EOF
