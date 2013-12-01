@@ -358,8 +358,7 @@
       :border "1px solid #c9c9c9"
       :background "white"
       :-webkit-box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
-      :box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
-      :display "none")
+      :box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)")
     (".errorContainer form"
       :margin-bottom "10px")
     (".errorContainer .page-header h1"
