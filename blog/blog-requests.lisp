@@ -5,4 +5,19 @@
 
 (in-package :redshiftnet)
 
+(defun generate-blog-page-for-post ()
+  "Automatically generates a blog post page from a database record based on the current uri."
+  (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    (let* ((permalink (hunchentoot:script-name*))
+           (post-id (get-post-id-by-permalink permalink))
+           (the-post (postmodern:get-dao 'rsn-blog-post post-id)))
+      (blog-page ((title the-post) :template "Default")
+        (post-content the-post)))))
+
+(postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+  (request-gen ((postmodern:query 
+                  (:select 'permalinks :from 'rsn-blog-post))
+               :vhost vhost-web)
+    (generate-blog-page-for-post)))
+
 ;; EOF

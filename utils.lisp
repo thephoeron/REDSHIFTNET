@@ -61,7 +61,7 @@ is replaced with replacement."
 ;                            (format t ,(concatenate 'string var "~&"))))))
 
 ;; REQUEST-GEN MACRO
-(defmacro request-gen (requests (&key vhost) &body body)
+(defmacro request-gen ((requests &key vhost) &body body)
   "REQUEST-GEN macro for generating top-level view functions and vhost dispatchers from a list of *requests*.  Each item in *requests* should be a string matching the NAME parameter to DEFREQUEST, i.e., \"ssl-admin/tables/user\".  *body* should be a function that pulls content conditionally from a file or database and renders it as HTML based on the dispatcher uri, such as in the blog module."
   `(progn
      ,@(loop for req in requests
