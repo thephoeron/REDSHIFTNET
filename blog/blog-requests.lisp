@@ -5,6 +5,14 @@
 
 (in-package :redshiftnet)
 
+(defmacro blog-page ((title &key (template nil)) &body body)
+  "Blog Page generator macro."
+  (%app-page (:title ,title :header #'%app-header
+              :menu #'%app-menu :footer #'%app-footer
+              :scripts nil :styles nil)
+    (cl-who:with-html-output (hunchentoot::*standard-output*)
+      ,@body)))
+
 (defun generate-blog-page-for-post ()
   "Automatically generates a blog post page from a database record based on the current uri."
   (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
