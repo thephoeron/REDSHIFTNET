@@ -9,7 +9,8 @@
   "Blog Page generator macro."
   (%app-page (:title ,title :header #'%app-header
               :menu #'%app-menu :footer #'%app-footer
-              :scripts nil :styles nil)
+              :scripts ,(intern (format nil "~:@(~A~)-SCRIPTS" template))
+              :styles ,(intern (format nil "~:@(~A~)-STYLES" template)))
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       ,@body)))
 
@@ -19,7 +20,7 @@
     (let* ((permalink (hunchentoot:script-name*))
            (post-id (get-post-id-by-permalink permalink))
            (the-post (postmodern:get-dao 'rsn-blog-post post-id)))
-      (blog-page ((title the-post) :template "Default")
+      (blog-page ((title the-post) :template "default")
         (post-content the-post)))))
 
 (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
