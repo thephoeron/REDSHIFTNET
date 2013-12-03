@@ -12,13 +12,13 @@
     (ironclad:pbkdf2-hash-password-to-combined-string the-pass :salt the-salt :digest :sha256 :iterations 10000)))
 
 ;; validate user and password. they must be active as well
-(defun validate-credentials (username password)
+(defun validate-credentials (username password &key (user-table 'rsn-auth-user))
   (declare (string username password))
   (handler-case
     (postmodern:with-connection
         (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-      (let* ((user-id (get-user-id-by-username username))
-             (the-user (postmodern:get-dao 'rsn-auth-user user-id))
+      `(let* ((user-id (get-user-id-by-username username))
+             (the-user (postmodern:get-dao ,user-table user-id))
              (the-pass (password the-user))
              (test-pass (babel:string-to-octets password)))
         (if (and (is-active the-user)

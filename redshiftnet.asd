@@ -33,6 +33,7 @@
                :css-lite
                :cl-css
                :parenscript
+               :cl-json
                :yason
                :split-sequence
                :cl-ppcre
