@@ -5,9 +5,13 @@
 
 (in-package :redshiftnet)
 
+(eval-when (:compile-toplevel :execute :load-toplevel)
+  (defparameter default-scripts (list "/js/app.js"))
+  (defparameter default-styles (list "/css/app.css")))
+
 (defmacro blog-page ((title &key (template nil)) &body body)
   "Blog Page generator macro."
-  (%app-page (:title ,title :header #'%app-header
+  `(%app-page (:title ,title :header #'%app-header
               :menu #'%app-menu :footer #'%app-footer
               :scripts ,(intern (format nil "~:@(~A~)-SCRIPTS" template))
               :styles ,(intern (format nil "~:@(~A~)-STYLES" template)))
@@ -24,7 +28,7 @@
         (post-content the-post)))))
 
 (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-  (request-gen ((postmodern:query (:select 'permalinks :from 'rsn-blog-post))
+  (request-gen ((postmodern:query (:select 'permalink :from 'rsn-blog-post) :column)
                 :vhost vhost-web)
     (generate-blog-page-for-post)))
 
