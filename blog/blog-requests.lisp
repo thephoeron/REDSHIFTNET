@@ -28,8 +28,8 @@
         (post-content the-post)))))
 
 (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
-  (request-gen ((postmodern:query (:select 'permalink :from 'rsn-blog-post) :column)
-                :vhost vhost-web)
-    (generate-blog-page-for-post)))
+  (let ((reqs (postmodern:query (:select 'permalink :from 'rsn-blog-post) :column)))
+    `(request-gen (,reqs :vhost vhost-web)
+      (generate-blog-page-for-post))))
 
 ;; EOF
