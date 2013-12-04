@@ -138,6 +138,7 @@
        :outline "0 !important")
       (".clear" :clear "both")
       (".center" :text-align "center")
+      ; Colours
       (".white" :color "#fff")
       (".dark" :color "#6f7a8a")
       (".red" :color "#f40a0a")
@@ -146,6 +147,7 @@
       (".green" :color "#72b110")
       (".yellow" :color "#f7cb38")
       (".orange" :color "#f88c00")
+      ; Shadows
       (".tshadow"
         :text-shadow "0px 1px 0px #fff"
         :filter "dropshadow(color=#ffffff, offx=0, offy=1)")
@@ -158,6 +160,12 @@
       (".bshadow2"
         :-webkit-box-shadow "inset 0px 1px 0px 0px rgba(255,255,255,1), 0px 1px 0px 0px rgba(255,255,255,1)"
         :box-shadow "inset 0px 1px 0px 0px rgba(255,255,255,1), 0px 1px 0px 0px rgba(255,255,255,1)")
+      ; Gaps
+      (".gap0" :margin "0")
+      (".gap5" :margin "5px")
+      (".gap10" :margin "10px")
+      (".gap15" :margin "15px")
+      (".gap20" :margin "20px")
     ;; Typography
     ;; Bootstrap custom styles
     ;; Page structure
