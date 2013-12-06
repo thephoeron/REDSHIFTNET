@@ -33,11 +33,13 @@
   ((value-set :accessor value-set :initarg :value-set :initform nil))
   (:documentation "This class is for fields that show the user a list of options"))
 (defclass select (rsn-form-field-set) ())
+(defclass filter-select (rsn-form-field-set) ())
 (defclass radio-set (rsn-form-field-set) ())
 
 (defclass rsn-form-field-return-set (rsn-form-field-set) ()
   (:documentation "This class is specifically for fields that return multiple values from the user"))
 (defclass multi-select (rsn-form-field-return-set) ())
+(defclass filter-multi-select (rsn-form-field-return-set) ())
 (defclass checkbox-set (rsn-form-field-return-set) ())
 
 ;; METHODS
@@ -123,9 +125,15 @@
 (define-show file (:input :name (name field) :type "file" :placeholder (symbol-to-label field) :class "file"))
 
 (define-show select 
-  (:select :name (name field)
+  (:select :name (name field) :id (name field) :class "form-control"
        (loop for v in (value-set field) 
          do (htm (:option :value v :selected (when (string= v value) "selected") (str v))))))
+
+(define-show filter-select
+  (:select :name (name field) :id (name field) :class "select2"
+    (:option :value "" (fmt "<em>Select ~A...</em>" (symbol-to-label field)))
+    (loop for v in (value-set field)
+          do (htm (:option :value v :selected (when (string= v value) "selected") (str v))))))
 
 (define-show checkbox
   (:input :type "checkbox" :name (name field) :value (name field) 
@@ -139,11 +147,20 @@
                   (str v)))))
 
 (define-show multi-select
-  (:select :name (name field) :multiple "multiple" :size 5
-       (loop for v in (value-set field)
-         do (htm (:option :value v 
-                  :selected (when (member v value :test #'string=) "selected")
-                        (str v))))))
+  (:select :name (name field) :multiple "multiple" :class "form-control"
+    (loop for v in (value-set field)
+          do (htm 
+               (:option :value v 
+                        :selected (when (member v value :test #'string=) "selected")
+                 (str v))))))
+
+(define-show filter-multi-select
+  (:select :name (name field) :multiple "multiple" :class "select2"
+    (loop for v in (value-set field)
+          do (htm
+               (:option :value v
+                        :selected (when (member v value :test #'string=) "selected")
+                 (str v))))))
 
 (define-show checkbox-set
   (loop for v in (value-set field)

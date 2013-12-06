@@ -305,6 +305,25 @@
         :-moz-animation-name "bounceInDown"
         :-o-animation-name "bounceInDown"
         :animation-name "bounceInDown")
+    ;; Search Page
+      ("#search #search-wrapper form .form-group"
+        :border-bottom "none"
+        :margin-bottom "10px"
+        :position "relative")
+      ("#search #search-wrapper form input.form-control"
+        :padding-left "46px !important")
+      ("#search #search-wrapper form label"
+        :margin-bottom "0")
+      ("#search #search-wrapper .icon"
+        :position "absolute"
+        :top "1px"
+        :left "1px"
+        :height "34px"
+        :width "36px"
+        :border-right "1px solid #c9c9c9")
+      ("#search #search-wrapper .icon i"
+        :margin-left "8px"
+        :margin-top "6px")
     ;; Login Page
       ("html.loginPage"
         :background "url(/static/images/patterns/carbon_fibre_v2.png) repeat"

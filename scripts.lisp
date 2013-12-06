@@ -37,10 +37,11 @@
   (ps
     ((@ ($ document) ready)
         (lambda ()
-            ((@ ($ "#ajax-link") click)
-                (lambda ()
-                    ((@ ($ "#ajax-box") load) "/ajax-page")
-                    (return false)))
-            (return false)))))
+          ((@ ($ ".select2") select2))
+          ((@ ($ "#ajax-link") click)
+              (lambda ()
+                ((@ ($ "#ajax-box") load) "/ajax-page")
+                (return false)))
+          (return false)))))
 
 ;; EOF

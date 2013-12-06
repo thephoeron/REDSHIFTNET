@@ -54,7 +54,8 @@
              ;; REDSHIFTNET Forms
              #:rsn-form #:rsn-form-field 
              #:hidden #:text #:textarea #:password #:file
-             #:checkbox #:select #:radio-set #:checkbox-set #:multi-select
+             #:checkbox #:select #:filter-select #:radio-set #:checkbox-set 
+             #:multi-select #:filter-multi-select
              #:*public-key* #:*private-key* #:recaptcha
              #:validate #:show #:post-value #:show-rsn-form #:define-rsn-form
              #:longer-than? #:shorter-than? #:matches? #:mismatches? #:is-email?
