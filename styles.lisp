@@ -212,6 +212,42 @@
       (".pad-bottom10" :padding-bottom "10px")
       (".pad-bottom15" :padding-bottom "15px")
       (".pad-bottom20" :padding-bottom "20px")
+      ; borders
+      (".bt" :border-top "1px solid #c9c9c9")
+      (".br" :border-right "1px solid #c9c9c9")
+      (".bb" :border-bottom "1px solid #c9c9c9")
+      (".bl" :border-left "1px solid #c9c9c9")
+      ; jGrowl Notifications
+      (".notification"
+        :-webkit-border-radius "3px"
+        :border-radius "3px"
+        :border "1px solid #5b6779"
+        :background "#6f7a8a"
+        :padding "0px 6px"
+        :position "relative"
+        :color "#f2f2f2"
+        :font-weight "bold"
+        :font-size "12px")
+      (".notification:after, .notification:before"
+        :right "100%"
+        :border "solid transparent"
+        :content " "
+        :height "0"
+        :width "0"
+        :position "absolute"
+        :pointer-events "none")
+      (".notification:after"
+        :border-color "rgba(111,122,138,0)"
+        :border-right-color "#6f7a8a"
+        :border-width "6px"
+        :top "50%"
+        :margin-top "-6px")
+      (".notification:before"
+        :border-color "rgba(182,119,9,0)"
+        :border-right-color "#5b6779"
+        :border-width "7px"
+        :top "50%"
+        :margin-top "-7px")
     ;; Typography
     ;; Bootstrap custom styles
     ;; Page structure

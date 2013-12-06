@@ -20,12 +20,6 @@
    Shared Styles
 ----------------------------------------- */
 
-/* Borders */
-.bt {border-bottom: 1px solid #c9c9c9;}
-.br {border-right: 1px solid #c9c9c9;}
-.bb {border-bottom: 1px solid #c9c9c9;}
-.bl {border-left: 1px solid #c9c9c9;}
-
 /*Notification styles*/
 .notification {
 	-webkit-border-radius:3px;
