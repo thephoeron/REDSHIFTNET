@@ -248,6 +248,36 @@
         :border-width "7px"
         :top "50%"
         :margin-top "-7px")
+      (".notification.green"
+        :border-color "#58890b"
+        :background "#72b110"
+        :color "#f2f2f2")
+      (".notification.green:after"
+        :border-color "rgba(114,177,16,0)"
+        :border-right-color "#72b110")
+      (".notification.green:before"
+        :border-color "rgba(88,137,11,0)"
+        :border-right-color "#58890b")
+      (".notification.red"
+        :border-color "#be3d3c"
+        :background "#d8605f"
+        :color "#f2f2f2")
+      (".notification.red:after"
+        :border-color "rgba(216,96,95,0)"
+        :border-right-color "#d8605f")
+      (".notification.red:before"
+        :border-color "rgba(190,61,60,0)"
+        :border-right-color "#be3d3c")
+      (".notification.blue"
+        :border-color "#3693e2"
+        :background "#62aeef"
+        :color "#f2f2f2")
+      (".notification.blue:after"
+        :border-color "rgba(98,174,239,0)"
+        :border-right-color "#62aeef")
+      (".notification.blue:before"
+        :border-color "rgba(54,147,226,0)"
+        :border-right-color "#3693e2")
     ;; Typography
     ;; Bootstrap custom styles
     ;; Page structure

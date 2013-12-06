@@ -3,7 +3,6 @@
 /* -------------------------------------------------- 
    Table of Contents
 -----------------------------------------------------
-:: Shared Styles
 :: Typography
 :: Bootstrap custom styles
 :: Page structure
@@ -15,74 +14,6 @@
 :: Error pages & offline page
 :: Media Queries
 */
-
-/* -----------------------------------------
-   Shared Styles
------------------------------------------ */
-
-/*Notification styles*/
-.notification {
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	border: 1px solid #5b6779;
-	background: #6f7a8a;
-	padding: 0px 6px;
-	position: relative;
-	color: #f2f2f2;
-	font-weight: bold;
-	font-size: 12px;
-}
-	.notification:after, .notification:before {
-		right: 100%;
-		border: solid transparent;
-		content: " ";
-		height: 0;
-		width: 0;
-		position: absolute;
-		pointer-events: none;
-	}
-	.notification:after {
-		border-color: rgba(111, 122, 138, 0);
-		border-right-color: #6f7a8a;
-		border-width: 6px;
-		top: 50%;
-		margin-top: -6px;
-	}
-	.notification:before{
-		border-color: rgba(182, 119, 9, 0);
-		border-right-color: #5b6779;
-		border-width: 7px;
-		top: 50%;
-		margin-top: -7px;
-	}
-
-	.notification.green {border-color: #58890b;background: #72b110;color: #f2f2f2;}
-		.notification.green:after {
-			border-color: rgba(114, 177, 16, 0);
-			border-right-color: #72b110;
-		}
-		.notification.green:before{
-			border-color: rgba(88, 137, 11, 0);
-			border-right-color: #58890b;
-		}
-	.notification.red {border-color: #be3d3c;background: #d8605f;color: #f2f2f2;}
-		.notification.red:after {
-			border-color: rgba(216, 96, 95, 0);
-			border-right-color: #d8605f;
-		}
-		.notification.red:before{
-			border-color: rgba(190, 61, 60, 0);
-			border-right-color: #be3d3c;
-		}
-	.notification.blue {border-color: #3693e2;background: #62aeef;color: #f2f2f2;}
-		.notification.blue:after {
-			border-color: rgba(98, 174, 239, 0);
-			border-right-color: #62aeef;
-		}
-		.notification.blue:before{
-			border-color: rgba(54, 147, 226, 0);
-			border-right-color: #3693e2;
-		}
 
 /* -----------------------------------------
    Typography
