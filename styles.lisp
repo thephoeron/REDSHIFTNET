@@ -7,12 +7,12 @@
 
 ;;;; Contents
 
-;;;; Default Splash Page Stylesheet -- 24
+;;;; Default Splash Page Stylesheet -- 25
 
-;;;; Main App Stylesheet -- 121
-;;;; * Shared Styles -- 125
-;;;; * Typography
-;;;; * Bootstrap custom styles
+;;;; Main App Stylesheet -- 122
+;;;; * Shared Styles -- 126
+;;;; * Typography -- 281
+;;;; * Bootstrap custom styles -- 329
 ;;;; * Page structure
 ;;;; * Off-canvas styles
 ;;;; * Custom Panels
@@ -279,6 +279,53 @@
         :border-color "rgba(54,147,226,0)"
         :border-right-color "#3693e2")
     ;; Typography
+    ("li" :margin-bottom "7px")
+    ("a"
+      :color "#7090c8"
+      :-webkit-transition "0.25s all ease-in"
+      :-moz-transition "0.25s all ease-in"
+      :-o-transition "0.25s all ease-in"
+      :transition "0.25s all ease-in")
+    ("a:hover" :color "#2f93d7")
+    ("a:focus" :outline "none")
+    ("body"
+      :font-family "'Droid Sans', Helvetica, Arial, sans-serif"
+      :color "#686866"
+      :-webkit-font-smoothing "antialiased"
+      :-webkit-text-size-adjust "100%"
+      :font-size-adjust "100%"
+      :font-weight "400"
+      :width "100%"
+      :background "none")
+    ("p"
+      :margin "0 0 9px"
+      :font-family "'Droid Sans', Helvetica, Arial, sans-serif"
+      :font-size "13px"
+      :line-height "22px"
+      :font-weight "400")
+    ("p small" :font-size "11px" :color "#999999")
+    ("h1,h2,h3,h4,h5,h6"
+      :margin "0"
+      :font-family "'Open Sans', sans-serif"
+      :font-weight "700"
+      :color "inherit"
+      :text-rendering "optimizelegibility"
+      :margin-bottom "10px")
+    ("h1 small,h2 small,h3 small,h4 small,h5 small,h6 small"
+      :font-weight "normal"
+      :color "#999999")
+    ("h1" :font-size "30px" :line-height "45px")
+    ("h1 small" :font-size "18px")
+    ("h2" :font-size "24px" :line-height "36px")
+    ("h2 small" :font-size "18px")
+    ("h3" :font-size "18px" :line-height "27px")
+    ("h3 small" :font-size "14px")
+    ("h4,h5,h6" :line-height "18px")
+    ("h4" :font-size "14px")
+    ("h4 small" :font-size "12px")
+    ("h5" :font-size "12px")
+    ("h6" :font-size "11px" :color "#999999" :text-transform "uppercase")
+    (".list-unstyled" :padding-left "0" :list-style "none")
     ;; Bootstrap custom styles
     ;; Page structure
     ;; Off-canvas styles
