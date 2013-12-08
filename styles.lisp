@@ -327,6 +327,34 @@
     ("h6" :font-size "11px" :color "#999999" :text-transform "uppercase")
     (".list-unstyled" :padding-left "0" :list-style "none")
     ;; Bootstrap custom styles
+    ; tooltips
+    (".tooltip" :font-size "12px")
+    (".tooltip.in" :opacity "1" :filter "alpha(opacity=100)")
+    (".tooltip-inner"
+      :background "#4e525d"
+      :background "-moz-linear-gradient(top, #4e525d 0%, #363840 100%)"
+      :background "-webkit-gradient(linear, left top, left bottom, color-stop(0%,#4e525d), color-stop(100%,#363840))"
+      :background "-webkit-linear-gradient(top, #4e525d 0%,#363840 100%)"
+      :background "-o-linear-gradient(top, #4e525d 0%,#363840 100%)"
+      :background "-ms-linear-gradient(top, #4e525d 0%,#363840 100%)"
+      :background "linear-gradient(to bottom, #4e525d 0%,#363840 100%)"
+      :filter "progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e525d', endColorstr='#363840',GradientType=0 )"
+      :-webkit-border-radius "3px"
+      :-moz-border-radius "3px"
+      :border-radius "3px")
+    (".tooltip.top .tooltip-arrow" :border-top-color "#4e525d")
+    (".tooltip.right .tooltip-arrow" :border-right-color "#4e525d")
+    (".tooltip.left .tooltip-arrow" :border-left-color "#4e525d")
+    (".tooltip.bottom .tooltip-arrow" :border-bottom-color "#4e525d")
+    ;navbars and headers
+    (".navbar-fixed-top, .navbar-fixed-bottom" :z-index "1020")
+    (".page-header"
+      :padding-bottom "0"
+      :margin-top "9px"
+      :border-color "#c9c9c9"
+      :-webkit-box-shadow "0 1px 0px rgba(255, 255, 255, 1)"
+      :-moz-box-shadow "0 1px 0px rgba(255, 255, 255, 1)"
+      :box-shadow "0 1px 0px rgba(255, 255, 255, 1)")
     ;; Page structure
     ;; Off-canvas styles
     ;; Custom panels
