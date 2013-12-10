@@ -28,6 +28,7 @@
 (defclass password (rsn-form-field) ())
 (defclass file (rsn-form-field) ())
 (defclass checkbox (rsn-form-field) ())
+(defclass tag-set (rsn-form-field) ())
 
 (defclass rsn-form-field-set (rsn-form-field)
   ((value-set :accessor value-set :initarg :value-set :initform nil))
@@ -123,6 +124,8 @@
 (define-show textarea (:textarea :name (name field) :placeholder (symbol-to-label field) (str value)))
 (define-show password (:input :name (name field) :type "password" :placeholder (symbol-to-label field) :class "form-control"))
 (define-show file (:input :name (name field) :type "file" :placeholder (symbol-to-label field) :class "file"))
+
+(define-show tag-set (:input :name (name field) :type "text" :value value :class "tags" :placeholder (symbol-to-label field)))
 
 (define-show select 
   (:select :name (name field) :id (name field) :class "form-control"

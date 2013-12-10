@@ -53,7 +53,7 @@
              #:auth-login #:%auth-page #:auth-page
              ;; REDSHIFTNET Forms
              #:rsn-form #:rsn-form-field 
-             #:hidden #:text #:textarea #:password #:file
+             #:hidden #:text #:textarea #:password #:file #:tag-set
              #:checkbox #:select #:filter-select #:radio-set #:checkbox-set 
              #:multi-select #:filter-multi-select
              #:*public-key* #:*private-key* #:recaptcha
