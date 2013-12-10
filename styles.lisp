@@ -356,10 +356,10 @@
       :-moz-box-shadow "0 1px 0px rgba(255, 255, 255, 1)"
       :box-shadow "0 1px 0px rgba(255, 255, 255, 1)")
     ;alerts
-    (".alert")
-    (".alert i")
-    (".alert, .alert h4")
-    (".alert-danger, .alert-error")
+    ; (".alert")
+    ; (".alert i")
+    ; (".alert, .alert h4")
+    ; (".alert-danger, .alert-error")
     ;; Page structure
     ;; Off-canvas styles
     ;; Custom panels
