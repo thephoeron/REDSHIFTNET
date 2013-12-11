@@ -360,6 +360,8 @@
     ; (".alert i")
     ; (".alert, .alert h4")
     ; (".alert-danger, .alert-error")
+    (".select2-container"
+      :margin-bottom "0 !important")
     ;; Page structure
     ;; Off-canvas styles
     ;; Custom panels
