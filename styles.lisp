@@ -565,8 +565,7 @@
         #login .login-wrapper[data-active=\"forgot\"] #forgot"
         :display "block")
     ;; Error & Offline pages
-    ("html.errorPage"
-      :background "url(/static/images/patterns/debut_light.png) repeat")
+    ("html.errorPage" :background "url(/static/images/patterns/debut_light.png) repeat")
     (".errorContainer"
       :width "480px"
       :margin-left "-240px"
@@ -579,8 +578,7 @@
       :background "white"
       :-webkit-box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)"
       :box-shadow "1px 1px 0px 0px rgba(255, 255, 255, 1)")
-    (".errorContainer form"
-      :margin-bottom "10px")
+    (".errorContainer form" :margin-bottom "10px")
     (".errorContainer .page-header h1"
       :font-size "128px"
       :line-height "150px"
@@ -592,8 +590,7 @@
       :background "white"
       :padding-left "10px"
       :padding-right "10px")
-    (".errorContainer .seperator"
-      :margin-top "-10px")
+    (".errorContainer .seperator" :margin-top "-10px")
     ;; Media Queries
     )))
 
