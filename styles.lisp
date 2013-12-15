@@ -357,8 +357,8 @@
       :box-shadow "0 1px 0px rgba(255, 255, 255, 1)")
     ;alerts
     ; (".alert")
-    ; (".alert i")
-    ; (".alert, .alert h4")
+    (".alert i" :margin-top "-3px")
+    (".alert, .alert h4" :color "#745f1d")
     ; (".alert-danger, .alert-error")
     (".select2-container" :margin-bottom "0 !important")
     ;; Page structure
