@@ -356,7 +356,11 @@
       :-moz-box-shadow "0 1px 0px rgba(255, 255, 255, 1)"
       :box-shadow "0 1px 0px rgba(255, 255, 255, 1)")
     ;alerts
-    ; (".alert")
+    (".alert"
+      :padding "12px 14px 11px 14px"
+      :margin-bottom "20px"
+      :text-shadow "0 1px 0 rgba(255,255,255,0.5)"
+      :border "1px solid #d3b85a")
     (".alert i" :margin-top "-3px")
     (".alert, .alert h4" :color "#745f1d")
     ; (".alert-danger, .alert-error")
