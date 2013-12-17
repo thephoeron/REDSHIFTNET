@@ -30,7 +30,9 @@
             (push-error-msg "Your session could not be validated.")
             (return-from validate-session nil)))
       (error ()
-        (push-error-msg "There was an error validating your session. Please sign in again.")))))
+        (progn
+          (push-error-msg "There was an error validating your session. Please sign in again.")
+          (return-from validate-session nil))))))
 
 ;; Create a new Session for the current user
 (defun create-new-session (user)
