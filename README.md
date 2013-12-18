@@ -99,11 +99,11 @@ Lisp libraries available through Quicklisp:
 * SWANK
 * CLON: The Command-Line Options Nuker
 * CL-FAD
+* CL-ISAAC
+* LET-OVER-LAMBDA
 
 Other Dependencies (clone into ``~/quicklisp/local-projects``):
 
-* CL-ISAAC <https://github.com/thephoeron/cl-isaac>
-* LET-OVER-LAMBDA <https://github.com/thephoeron/let-over-lambda>
 * UBER-SHELL <https://github.com/thephoeron/uber-shell>
 
 Additional Configuration
