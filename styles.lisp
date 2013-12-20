@@ -368,7 +368,12 @@
       :background "linear-gradient(to bottom, #fff1c4 0%,#ede1b4 100%)")
     (".alert i" :margin-top "-3px")
     (".alert, .alert h4" :color "#745f1d")
-    ; (".alert-danger, .alert-error")
+    (".alert-danger, .alert-error"
+      :color "#8d313d"
+      :border-color "#ceabab"
+      :background "#f3dfdf"
+      :background "linear-gradient(to bottom,  #f3dfdf 0%,#e2cece 100%)")
+    ; (".alert-success")
     (".select2-container" :margin-bottom "0 !important")
     ;; Page structure
     ;; Off-canvas styles
