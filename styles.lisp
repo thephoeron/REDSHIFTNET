@@ -378,6 +378,17 @@
       :border-color "#9dc286"
       :background "#e0f1d6"
       :background "linear-gradient(to bottom, #e0f1d6 0%,#cfe0c6 100%)")
+    (".alert-info"
+      :color "#23485a"
+      :border-color "#9ec5dc"
+      :background "#daecf8"
+      :background "linear-gradient(to bottom, #daecf8 0%,#c9dce8 100%)")
+    (".alert .close" :opacity "0.5")
+    ; Labels
+    (".label"
+      :padding "4px 6px"
+      :-webkit-border-radius "1px"
+      :border-radius "1px")
     (".select2-container" :margin-bottom "0 !important")
     ;; Page structure
     ;; Off-canvas styles
