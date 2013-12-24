@@ -18,6 +18,8 @@
     (cl-who:with-html-output (hunchentoot::*standard-output*)
       ,@body)))
 
+;; Should redirect to 404 (not found) if can't find database record
+;; for current permalink
 (defun generate-blog-page-for-post ()
   "Automatically generates a blog post page from a database record based on the current uri."
   (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
@@ -27,9 +29,18 @@
       (blog-page ((title the-post) :template "default")
         (post-content the-post)))))
 
+;; REQUEST-GEN macro does not work as expected
+;; replacing with regex dispatcher that matches expected blog post uri's
+
 ; (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
 ;   (let ((reqs (postmodern:query (:select 'permalink :from 'rsn-blog-post) :column)))
 ;     `(request-gen (,reqs :vhost vhost-web)
 ;       (generate-blog-page-for-post))))
+
+;; Regex dispatcher matches any formatted blog post uri, such as:
+;; /2013/12/23/slug-of-blog-post/ and then creates the post page
+;; with generate-blog-page-for-post
+(push (hunchentoot:create-regex-dispatcher "^/\d{4}/\d{2}/\d{2}/[\w-]+/$" 'generate-blog-page-for-post)
+      (dispatch-table vhost-web))
 
 ;; EOF
