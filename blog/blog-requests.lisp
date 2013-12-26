@@ -40,6 +40,8 @@
 ;; Regex dispatcher matches any formatted blog post uri, such as:
 ;; /2013/12/23/slug-of-blog-post/ and then creates the post page
 ;; with generate-blog-page-for-post
+;; This should be copied to the new-app-templates/config.lisp with
+;; a note that it activates the blog module
 (push (hunchentoot:create-regex-dispatcher "^/\d{4}/\d{2}/\d{2}/[\w-]+/$" 'generate-blog-page-for-post)
       (dispatch-table vhost-web))
 
