@@ -389,6 +389,9 @@
       :padding "4px 6px"
       :-webkit-border-radius "1px"
       :border-radius "1px")
+    (".label, .badge" :background-color "#6f7a8a")
+    (".label-success, .badge-success" :background-color "#72b110")
+    ; Form styles
     (".select2-container" :margin-bottom "0 !important")
     ;; Page structure
     ;; Off-canvas styles
