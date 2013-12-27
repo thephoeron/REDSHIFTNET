@@ -42,7 +42,7 @@
 ;; with generate-blog-page-for-post
 ;; This should be copied to the new-app-templates/config.lisp with
 ;; a note that it activates the blog module
-(push (hunchentoot:create-regex-dispatcher "^/\d{4}/\d{2}/\d{2}/[\w-]+/$" 'generate-blog-page-for-post)
-      (dispatch-table vhost-web))
+; (push (hunchentoot:create-regex-dispatcher "^/\d{4}/\d{2}/\d{2}/[\w-]+/$" 'generate-blog-page-for-post)
+;       (dispatch-table vhost-web))
 
 ;; EOF

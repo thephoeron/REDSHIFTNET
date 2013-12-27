@@ -64,12 +64,18 @@
       redshiftnet::*admin-header-logo* (string "/static/images/admin_header_logo.png")
       redshiftnet::*admin-login-logo* (string "/static/images/admin_login_logo.png"))
 
+;; Activate blog module
+(push (hunchentoot:create-regex-dispatcher "^/\d{4}/\d{2}/\d{2}/[\w-]+/$" 'rsn::generate-blog-page-for-post)
+      (rsn::dispatch-table www-vhost))
 
+;; Define dispatch tables for app acceptors
 (setf (rsn::dispatch-table www-vhost)
-      (list
+      (lol:flatten (list
         'hunchentoot:dispatch-easy-handlers
         (hunchentoot:create-folder-dispatcher-and-handler "/static/" *static-folder*)
-        (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*)))
+        (create-static-file-dispatcher-and-handler "/favicon.ico" (make-pathname :name "favicon" :type "png" :version nil :defaults *this-file*))
+        ;; Inject front-end REDSHIFTNET pages, such as blog pages
+        (rsn::dispatch-table rsn::vhost-web)))
       (rsn::dispatch-table ssl-vhost)
       (lol:flatten (list
         'hunchentoot:dispatch-easy-handlers
