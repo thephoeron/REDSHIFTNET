@@ -22,7 +22,7 @@ Features
 * Full PostgreSQL integration, with database introspection and automatic table views
 * Ironclad powered PBKDF2-SHA256 password hashing
 * CL-ISAAC powered random session token generation
-* Form-generation with integrated validation
+* Form-generation with integrated validation (based on [Formlets](http://github.com/Inaimathi/formlets))
 * Three-tiered notification system for alerting users through inline messages, ajax popups, and email
 * Easy integration of shell commands to leverage the full power of linux in your web-apps
 * JSON and XML serialization of data
