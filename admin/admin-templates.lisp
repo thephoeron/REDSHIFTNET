@@ -22,6 +22,7 @@
 (defparameter admin-dashboard-styles
   (list "/static/js/plugins/tables/datatables/media/css/jquery.dataTables.css"
         "/static/css/app.css"
+        "/css/app.css"
         "/static/css/custom.css"))
   (defparameter admin-dashboard-scripts 
   (list "/static/js/plugins/forms/uniform/jquery.uniform.min.js"

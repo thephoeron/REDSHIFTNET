@@ -41,7 +41,7 @@
              ;; REDSHIFTNET Auth
              #:rsn-auth-realm #:get-realm-id-by-name
              #:rsn-auth-group #:get-group-id-by-name
-             #:rsn-auth-user #:get-user-id-by-name
+             #:rsn-auth-user #:get-user-id-by-username
              #:rsn-auth-session #:get-session-id-by-token
              #:create-new-realm #:update-realm #:create-or-update-realm
              #:create-new-group #:update-group #:create-or-update-group

@@ -36,8 +36,9 @@
 
 ;; Create a new Session for the current user
 (defun create-new-session (user)
-  (let* ((the-token (generate-new-session-token))
-         (the-user (get-user-id-by-username user))
+  "Creates a new database-stored session for the current user."
+  (let* ((the-token (rsn:generate-new-session-token))
+         (the-user (rsn:get-user-id-by-username user))
          (the-expiry (local-time:format-timestring nil (local-time:adjust-timestamp (local-time:today) (offset :day 14))))
          (the-remote-address (hunchentoot:real-remote-addr))
          (the-user-agent (hunchentoot:user-agent))
@@ -47,9 +48,10 @@
                                   :expiry-date the-expiry
                                   :remote-address the-remote-address
                                   :user-agent the-user-agent)))
-    (hunchentoot:start-session)
-    (setf (hunchentoot:session-value 'token) the-token)
-    (postmodern:insert-dao the-sesh)))
+    (progn
+      (hunchentoot:start-session)
+      (setf (hunchentoot:session-value 'token) the-token)
+      (postmodern:insert-dao the-sesh))))
 
 (defun update-session ()
   )
