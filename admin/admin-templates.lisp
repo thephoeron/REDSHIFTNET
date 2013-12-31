@@ -49,6 +49,7 @@
     (:nav :class "navbar navbar-default navbar-fixed-top" :role "navigation"
       (:a :class "navbar-brand" :href "/admin/"
         (:img :class "img-responsive" :src (str (format nil "~A" *admin-header-logo*)) :alt "REDSHIFTNET Admin" :style "height: 40px; width: auto;"))
+      ;(str session-token)
       (:button :type "button" :class "navbar-toggle btn-danger" :data-toggle "collapse" :data-target ".navbar-to-collapse"
         (:span :class "sr-only" "Toggle Menu")
         (:i :class "icon16 i-arrow-8"))
