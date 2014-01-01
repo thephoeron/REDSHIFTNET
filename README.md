@@ -7,7 +7,7 @@ REDSHIFTNET was designed to replace large-scale web frameworks such as Django, J
 
 REDSHIFTNET is built on top of the Hunchentoot web server, so your REDSHIFTNET app will compile and run as a standalone executable without needing to configure Apache, nginx, or other HTTP/S web server.
 
-Documentation available at: http://thephoeron.viewdocs.io/REDSHIFTNET
+Documentation is available at: http://thephoeron.viewdocs.io/REDSHIFTNET
 
 Features
 --------
