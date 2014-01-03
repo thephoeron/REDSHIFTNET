@@ -118,3 +118,8 @@ These include:
 * jGrowl
 
 You can find them under `new-app-templates/static/js/plugins/`.
+
+License
+-------
+
+REDSHIFTNET is released under the MIT License (attribution required).  Please see the file `LICENSE` in the toplevel directory for more information.
