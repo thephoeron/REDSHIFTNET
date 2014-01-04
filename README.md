@@ -119,7 +119,7 @@ These include:
 
 You can find them under `new-app-templates/static/js/plugins/`.
 
-Contribution
+Contributing
 ------------
 
 If you would like to contribute to REDSHIFTNET, you can either create a pull request or join the collaborative development on [Cloud9 IDE](https://c9.io/thephoeron/redshiftnet).
