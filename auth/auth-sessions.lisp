@@ -35,6 +35,8 @@
           (return-from validate-session nil))))))
 
 ;; Create a new Session for the current user
+;; Per issue #7, this functionality should be moved to new-app-template's app-auth-page macro
+;; OR, extended to accept HUNCHENTOOT:*SESSION*
 (defun create-new-session (user)
   "Creates a new database-stored session for the current user."
   (let* ((the-token (rsn:generate-new-session-token))
