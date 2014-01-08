@@ -37,7 +37,7 @@
 ;; Create a new Session for the current user
 ;; Per issue #7, this functionality should be moved to new-app-template's app-auth-page macro
 ;; OR, extended to accept HUNCHENTOOT:*SESSION*
-(defun create-new-session (user)
+(defun create-new-session (user &key (session nil))
   "Creates a new database-stored session for the current user."
   (let* ((the-token (rsn:generate-new-session-token))
          (the-user (rsn:get-user-id-by-username user))
@@ -51,8 +51,8 @@
                                   :remote-address the-remote-address
                                   :user-agent the-user-agent)))
     (progn
-      (hunchentoot:start-session)
-      (setf (hunchentoot:session-value 'token) the-token)
+      ;(hunchentoot:start-session)
+      (setf (hunchentoot:session-value 'token (quote session)) the-token)
       (postmodern:insert-dao the-sesh))))
 
 (defun update-session ()
