@@ -1,4 +1,5 @@
-;;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: {APPNAME}; Base: 10 -*- file: config.lisp
+;;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: {APPNAME}; Base: 10 -*-
+;;;; file: config.lisp
 
 (in-package :{APPNAME})
 
@@ -14,6 +15,8 @@
       rsn:*primary-db-pass* "database-password"
       rsn:*primary-db-host* "database-hostname"
       rsn:*primary-db-port* "5432")
+      
+(defparameter *db* (list rsn:*primary-db* rsn:*primary-db-user* rsn:*primary-db-pass* rsn:*primary-db-host*))
 
 ;;;; DEFAULT ENVIRONMENT VARIABLES
 ;;;; For Hunchentoot, Parenscript, and CSS-Lite

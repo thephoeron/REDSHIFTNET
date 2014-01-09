@@ -1,4 +1,5 @@
-;;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: {APPNAME}; Base: 10 -*- file: {APPNAME}.lisp
+;;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: {APPNAME}; Base: 10 -*-
+;;;; file: {APPNAME}.lisp
 
 (in-package :{APPNAME})
 
