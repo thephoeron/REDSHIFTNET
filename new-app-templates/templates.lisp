@@ -10,7 +10,8 @@
       (:head
         (:meta :http-equiv "Content-Type" :content "text/html;charset=utf-8")
         (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-        (:link :rel "stylesheet" :href "/static/css/bootstrap/bootstrap.min.css" :type "text/css" :media "screen")
+        (:link :rel "stylesheet" :href "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css")
+        (:link :rel "stylesheet" :href "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css")
         (:link :rel "stylesheet" :href "/redshiftnet.css" :type "text/css" :media "screen")
         (:link :rel "stylesheet" :href "/{APPNAME}.css" :type "text/css" :media "screen")
         ,@(mapcar (lambda (file)
@@ -21,8 +22,8 @@
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
         ,@body
-        (:script :type "text/javascript" :src "/static/js/jquery-1.10.2.min.js")
-        (:script :type "text/javascript" :src "/static/js/bootstrap/bootstrap.min.js")
+        (:script :type "text/javascript" :src "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+        (:script :type "text/javascript" :src "//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
         (:script :type "text/javascript" :src "/redshiftnet.js")
         (:script :type "text/javascript" :src "/{APPNAME}.js")
         ,@(mapcar (lambda (file)

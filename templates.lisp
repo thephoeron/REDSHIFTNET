@@ -170,8 +170,8 @@
         (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
         (:meta :name "application-name" :content "REDSHIFTNET")
         (:meta :name "author" :content "the Phoeron <//thephoeron.com/>")
-        (:link :rel "stylesheet" :href "/static/css/bootstrap/bootstrap.min.css" :type "text/css" :media "screen")
-        (:link :rel "stylesheet" :type "text/css" :href "/static/css/bootstrap/bootstrap-theme.css")
+        (:link :rel "stylesheet" :href "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css")
+        (:link :rel "stylesheet" :href "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/icons.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/ui/jgrowl/jquery.jgrowl.css")
         "<!--[if IE 8]><link href=\"/static/css/ie8.css\" rel=\"stylesheet\" type=\"text/css\" /><![endif]-->"
@@ -189,9 +189,9 @@
         "<!--[if IE]><script src=\"http://html5shiv.googlecode.com/svn/trunk/html5.js\"></script><![endif]-->")
       (:body
         ,@body
-        (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
-        (:script :type "text/javascript" :src "https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js")
-        (:script :type "text/javascript" :src "/static/js/bootstrap/bootstrap.min.js")
+        (:script :type "text/javascript" :src "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+        (:script :type "text/javascript" :src "//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js")
+        (:script :type "text/javascript" :src "//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js")
         (:script :type "text/javascript" :src "/static/js/conditionizr.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/nicescroll/jquery.nicescroll.min.js")
         (:script :type "text/javascript" :src "/static/js/plugins/core/jrespond/js/jRespond.min.js")
