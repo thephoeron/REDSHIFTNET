@@ -32,6 +32,7 @@ Features
 Upcoming Features
 -----------------
 
+* Blog module with WYSIWYG editor and Markdown support
 * Template-based document generation in multiple export formats
 * Calendars and scheduling tools
 * AJAX jGrowl notifications for system messages
