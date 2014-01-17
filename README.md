@@ -89,7 +89,7 @@ Lisp libraries available through Quicklisp:
 * Parenscript
 * Postmodern
 * Submarine
-* Local-time
+* Local-Time
 * CL-PPCRE
 * Split-Sequence
 * YASON
