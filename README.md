@@ -20,8 +20,8 @@ Features
 * Secured pages with user authentication, session validation, and forced re-login on session expiry
 * Separate Admin and End-user front ends
 * Full PostgreSQL integration, with database introspection and automatic table views
-* Ironclad powered PBKDF2-SHA256 password hashing
-* CL-ISAAC powered random session token generation
+* Ironclad and ISAAC-64 powered PBKDF2-SHA512 password hashing
+* ISAAC-64 powered cryptographic random session token generation
 * Form-generation with integrated validation (based on [Formlets](http://github.com/Inaimathi/formlets))
 * Three-tiered notification system for alerting users through inline messages, ajax popups, and email
 * Easy integration of shell commands to leverage the full power of linux in your web-apps
