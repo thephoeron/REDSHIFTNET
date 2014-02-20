@@ -6,7 +6,7 @@
 
 (in-package :redshiftnet)
 
-;; PBKDF2--Sha256 Password salter and hasher functions
+;; PBKDF2--SHA512 Password salter and hasher functions
 (defun make-isaac-salt ()
   "Generate a cryptographic random 512-bit salt for HARDENED-PASSWORD using ISAAC-64 Algorithm."
   (let* ((ctx (isaac:init-kernel-seed :is64 t))
