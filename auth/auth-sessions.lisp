@@ -6,10 +6,10 @@
 
 (in-package :redshiftnet)
 
-;; generate a new guaranteed-unique session token with Isaac (from Doug Hoyte (y))
+;; generate a cryptographic random 512-bit session token with CL-ISAAC
 (defun generate-new-session-token ()
-  (let ((the-isaac-ctx (isaac:init-kernel-seed)))
-    (format nil "~32,'0x" (isaac:rand-bits the-isaac-ctx 128))))
+  (let ((ctx (isaac:init-kernel-seed :is64 t)))
+    (format nil "~64,'0x" (isaac:rand-bits the-isaac-ctx 512))))
 
 ;; Validate the passed session token and user attached to it
 (defun validate-session (token)
