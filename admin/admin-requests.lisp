@@ -104,7 +104,7 @@
 
 (defun output-named-database-table-as-html (table-name)
   "Outputs the named database table as html."
-  (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+  (postmodern:with-connection *db*
     (let* ((all-records
               (postmodern:query
                 (format nil "SELECT * FROM ~A" (normalize-for-sql table-name))
@@ -131,7 +131,7 @@
 ;; Output all database tables as html
 (defun output-all-database-tables-as-html ()
   "Introspects on the current toplevel database and generates an admin page that lists all tables grouped by app, following the PostgreSQL naming convention 'appname_tablename'."
- (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+ (postmodern:with-connection *db*
   (let* ((all-tables (loop for table in (list-database-tables)
                            collect (split-sequence #\_ table)))
          (parsed-tables (loop for (x y) in all-tables
