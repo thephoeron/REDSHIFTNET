@@ -19,6 +19,11 @@
 (defparameter *primary-db-host* "database-hostname")
 (defparameter *primary-db-port* "5432")
 
+(defparameter *db* (list *primary-db* 
+                         *primary-db-user* 
+                         *primary-db-pass* 
+                         *primary-db-host*))
+
 ;;;; DEFAULT ENVIRONMENT VARIABLES
 ;;;; For Hunchentoot, Parenscript, and CSS-Lite
 
