@@ -22,7 +22,7 @@
 ;; for current permalink
 (defun generate-blog-page-for-post ()
   "Automatically generates a blog post page from a database record based on the current uri."
-  (postmodern:with-connection (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+  (postmodern:with-connection *db*
     (let* ((permalink (hunchentoot:script-name*))
            (post-id (get-post-id-by-permalink permalink))
            (the-post (postmodern:get-dao 'rsn-blog-post post-id)))
