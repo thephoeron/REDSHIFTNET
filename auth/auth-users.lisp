@@ -24,8 +24,7 @@
 (defun validate-credentials (username password &key (user-table 'rsn-auth-user))
   (declare (string username password))
   (handler-case
-    (postmodern:with-connection
-        (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    (postmodern:with-connection *db*
       `(let* ((user-id (get-user-id-by-username username))
              (the-user (postmodern:get-dao ,user-table user-id))
              (the-pass (password the-user))
@@ -45,8 +44,7 @@
 (defun update-password (username password new-pass)
   (declare (string username password new-pass))
   (handler-case
-    (postmodern:with-connection
-        (list *primary-db* *primary-db-user* *primary-db-pass* *primary-db-host*)
+    (postmodern:with-connection *db*
       (let* ((user-id (get-user-id-by-username username))
              (the-user (postmodern:get-dao 'rsn-auth-user user-id))
              (the-new-pass (hardened-password new-pass)))
@@ -66,23 +64,26 @@
 
 ;; Create a new user
 (defun create-new-user (username password firstname lastname email group &key (is-admin nil))
-  (let* ((the-pass (hardened-password password))
-  		 (the-group-id (get-group-id-by-name group)))
-    (postmodern:insert-dao
-      (make-instance 'rsn-auth-user :username username
-                                    :password the-pass
-                                    :first-name firstname
-                                    :last-name lastname
-                                    :email email
-                                    :group-id the-group-id
-                                    :is-active t
-                                    :is-admin is-admin
-                                    :last-modified (local-time:format-timestring nil (local-time:now))))))
+  (postmodern:with-connection *db*
+    (let* ((the-pass (hardened-password password))
+           (the-group-id (get-group-id-by-name group)))
+      (postmodern:insert-dao
+        (make-instance 'rsn-auth-user :username username
+                                      :password the-pass
+                                      :first-name firstname
+                                      :last-name lastname
+                                      :email email
+                                      :group-id the-group-id
+                                      :is-active t
+                                      :is-admin is-admin
+                                      :last-modified (local-time:format-timestring nil (local-time:now)))))))
 
 (defun update-user ()
-  )
+  (postmodern:with-connection *db*
+    nil))
 
 (defun create-or-update-user ()
-  )
+  (postmodern:with-connection *db*
+    nil))
 
 ;; EOF

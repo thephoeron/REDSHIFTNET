@@ -12,13 +12,16 @@
 
 ;; Create a new realm
 (defun create-new-realm (name)
-  (let ((the-realm (make-instance 'rsn-auth-realm :name name)))
-    (postmodern:insert-dao the-realm)))
+  (postmodern:with-connection *db*
+    (let ((the-realm (make-instance 'rsn-auth-realm :name name)))
+      (postmodern:insert-dao the-realm))))
 
 (defun update-realm ()
-  )
+  (postmodern:with-connection *db*
+    nil))
 
 (defun create-or-update-realm ()
-  )
+  (postmodern:with-connection *db*
+    nil))
 
 ;; EOF
