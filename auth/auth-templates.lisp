@@ -33,7 +33,7 @@
 ;; auth page macro -- returns nil unless inside an ssl vhost defrequest
 (defmacro %auth-page ((title lpf) &body body)
   "Core auth-page template."
-  `(postmodern:with-connection ,*db*
+  `(postmodern:with-connection *db*
     (when (hunchentoot:ssl-p)
      (if (null (hunchentoot:session-value 'token))
          (cond ((eql :post (hunchentoot:request-method*))
