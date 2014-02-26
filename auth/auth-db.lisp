@@ -82,6 +82,10 @@
   (:select 'id :from 'rsn-auth-session :where (:= 'token '$1))
   :single!)
 
+(defprepared get-user-id-by-session-token
+  (:select 'user-id :from 'rsn-auth-session :where (:= 'token '$1))
+  :single!)
+
 ;; Rewrite for DAO as generic function and method
 ; (defprepared update-public-session-exp-date
 ;   (:update 'public-session :set 'exp-date '$1 :where (:= 'id '$2)))

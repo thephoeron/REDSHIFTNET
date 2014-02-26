@@ -43,7 +43,7 @@
              #:rsn-auth-realm #:get-realm-id-by-name
              #:rsn-auth-group #:get-group-id-by-name
              #:rsn-auth-user #:get-user-id-by-username
-             #:rsn-auth-session #:get-session-id-by-token
+             #:rsn-auth-session #:get-session-id-by-token #:get-user-id-by-session-token
              #:create-new-realm #:update-realm #:create-or-update-realm
              #:create-new-group #:update-group #:create-or-update-group
              #:hardened-password #:validate-credentials #:update-password
