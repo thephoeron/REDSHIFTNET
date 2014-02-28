@@ -49,6 +49,9 @@
                (:file "vhost")
                (:file "utils")
                (:file "db-utils")
+               (:module "ui"
+                :serial t
+                :components ((:file "ui")))
                (:file "scripts")
                (:file "styles")
                (:file "web")
