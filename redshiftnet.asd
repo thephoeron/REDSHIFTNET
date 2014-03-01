@@ -15,7 +15,7 @@
 
 (in-package :redshiftnet-asd)
 
-(defparameter *rsn-version* "0.1.0")
+(defparameter *rsn-version* "0.1.0r1")
 
 (export '*rsn-version*)
 
@@ -51,7 +51,9 @@
                (:file "db-utils")
                (:module "ui"
                 :serial t
-                :components ((:file "ui")))
+                :components ((:file "packages")
+                             (:file "ui-grid")
+                             (:file "ui")))
                (:file "scripts")
                (:file "styles")
                (:file "web")
