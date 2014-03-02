@@ -32,6 +32,7 @@ Features
 Upcoming Features
 -----------------
 
+* UI widget library powered by Bootstrap, jQuery UI, and D3
 * Blog module with WYSIWYG editor and Markdown support
 * Template-based document generation in multiple export formats
 * Calendars and scheduling tools
