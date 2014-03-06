@@ -53,6 +53,7 @@
                 :serial t
                 :components ((:file "packages")
                              (:file "ui-grid")
+                             (:file "ui-typography")
                              (:file "ui")))
                (:file "scripts")
                (:file "styles")
