@@ -121,6 +121,15 @@ These include:
 
 You can find them under `new-app-templates/static/js/plugins/`.
 
+Support This Project
+--------------------
+
+You can support this project by donating Bitcoin or Litecoin:
+
+BTC: 1DH5o7tV7chyG1Dd97kRq5Mie2Z3fXUBnv
+
+LTC: LVRouDabYFp7N4gT7KMeA9MTWzC2coexhQ
+
 Contributing
 ------------
 
