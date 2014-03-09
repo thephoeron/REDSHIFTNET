@@ -34,7 +34,7 @@
      ,@(loop for row in rest
              collect (row (loop for column in row
                                 with l = (length row)
-                                and with w = (floor 12 l)
+                                with w = (floor 12 l)
                                 collect (col (:vp vp :w w)
                                           column))))))
 
