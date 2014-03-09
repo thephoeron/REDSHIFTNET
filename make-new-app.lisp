@@ -55,7 +55,7 @@ Borrowed from cl-darcs with permission of copyright owner."
          (excluding-wild (mapcar
                           (lambda (excluded) (merge-pathnames wild excluded))
                           excluding))
-         (files (fad:list-directory (truename source))))
+         (files (fad:list-directory (truename source) :follow-symlinks nil)))
     (dolist (source-file files)
       (let ((target-file (translate-pathname source-file source-wild target-wild)))
         (cond
