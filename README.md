@@ -51,7 +51,7 @@ From the SBCL REPL:
 
     * (ql:quickload "redshiftnet")
 
-    * (rsn:make-app 'my-new-app "~/quicklisp/local-projects/")
+    * (rsn-op:make-app 'my-new-app "~/quicklisp/local-projects/")
 
 Your new REDSHIFTNET project will then be available under ``~/quicklisp/local-projects/my-new-app/`` ready to be loaded with ASDF or Quicklisp.
 

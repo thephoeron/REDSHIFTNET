@@ -10,7 +10,6 @@
   (:nicknames #:rsn-op)
   (:use :cl :asdf)
   (:export #:server-type #:server-version
-           #:defrequest #:basic-app-page #:app-page
            #:*rsn-version* #:make-app #:make-app-op))
 
 (in-package :redshiftnet-asd)
