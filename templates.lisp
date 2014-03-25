@@ -173,6 +173,7 @@
         (:link :rel "stylesheet" :href "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css")
         (:link :rel "stylesheet" :href "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/css/icons.css")
+        (:link :rel "stylesheet" :type "text/css" :href "/css/icons.css")
         (:link :rel "stylesheet" :type "text/css" :href "/static/js/plugins/ui/jgrowl/jquery.jgrowl.css")
         "<!--[if IE 8]><link href=\"/static/css/ie8.css\" rel=\"stylesheet\" type=\"text/css\" /><![endif]-->"
         (:link :rel "apple-touch-icon-precomposed" :sizes "144x144" :href "/static/images/ico/apple-touch-icon-144-precomposed.png")
