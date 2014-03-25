@@ -51,6 +51,7 @@
                (:module "ui"
                 :serial t
                 :components ((:file "packages")
+                             (:file "ui-styles")
                              (:file "ui-grid")
                              (:file "ui-typography")
                              (:file "ui")))
