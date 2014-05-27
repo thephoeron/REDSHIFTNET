@@ -11,7 +11,7 @@
     (:use :cl
           :cl-who
           :cl-css
-          :parenscript
+          ;:parenscript
           :cl-fad
           :split-sequence
           :cl-ppcre

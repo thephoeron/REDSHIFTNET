@@ -8,7 +8,7 @@
 
 (defpackage #:redshiftnet-ui
   (:nicknames #:rsn-ui)
-  (:use :cl :cl-who :css-lite :parenscript)
+  (:use :cl :hunchentoot :cl-who :cl-css :parenscript :redshiftnet)
   ; Grid
   (:export #:container
            #:row
