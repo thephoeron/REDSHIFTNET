@@ -31,9 +31,6 @@
 [submodule "new-app-templates/static/js/plugins/forms/autosize"]
 	path = new-app-templates/static/js/plugins/forms/autosize
 	url = https://github.com/jackmoore/autosize.git
-[submodule "new-app-templates/static/js/plugins/forms/bootstrap-wysihtml5"]
-	path = new-app-templates/static/js/plugins/forms/bootstrap-wysihtml5
-	url = https://github.com/jhollingworth/bootstrap-wysihtml5.git
 [submodule "new-app-templates/static/js/plugins/forms/datepicker"]
 	path = new-app-templates/static/js/plugins/forms/datepicker
 	url = https://github.com/eternicode/bootstrap-datepicker.git
@@ -100,3 +97,6 @@
 [submodule "new-app-templates/static/js/parallax"]
 	path = new-app-templates/static/js/parallax
 	url = https://github.com/wagerfield/parallax.git
+[submodule "new-app-templates/static/js/plugins/forms/bootstrap3-wysihtml5"]
+	path = new-app-templates/static/js/plugins/forms/bootstrap3-wysihtml5
+	url = https://github.com/schnawel007/bootstrap3-wysihtml5.git
