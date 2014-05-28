@@ -11,16 +11,17 @@
     (:use :cl
           :cl-who
           :cl-css
-          ;:parenscript
+          :parenscript
           :cl-fad
           :split-sequence
           :cl-ppcre
           :local-time
           :postmodern
           :hunchentoot)
-    ;(:shadowing-import-from :parenscript #:%)
+    (:shadowing-import-from :parenscript #:%)
     (:export #:rsn-start #:rsn-stop #:rsn-restart
              #:server-type #:server-version
+             #:make-application
              ;; REDSHIFTNET Templates
              #:login-styles #:login-scripts
              #:*header-logo* #:*login-logo*

@@ -8,7 +8,7 @@
 
 ;; Stolen mercilessly from Weblocks
 
-(export '(make-application))
+;; (export '(make-application))
 
 (defparameter *app-name-placeholder* (ppcre:quote-meta-chars "{APPNAME}")
   "A placeholder located in template files.")
